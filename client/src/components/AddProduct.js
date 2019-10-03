@@ -26,7 +26,7 @@ export default class AddProduct extends Component {
     currency: "",
     pickupLocation: [],
     availability: new Date(),
-    warrantyPeriod: 0,
+    warrantyPeriod: new Date(),
     quantity: 0,
     status: ""
   };
@@ -74,6 +74,12 @@ export default class AddProduct extends Component {
   handleDateChange = date => {
     this.setState({
       availability: date
+    });
+  };
+
+  handleDateChangeWarrentyPeriod = date => {
+    this.setState({
+      warrantyPeriod: date
     });
   };
 
@@ -194,14 +200,14 @@ export default class AddProduct extends Component {
             value={this.state.currency}
             label="currency"
             onChange={this.handleChange}
-            labelWidth={20}
+            labelWidth={10}
             inputProps={{
               name: "currencey",
               id: "outlined-currencey-simple"
             }}
           >
             <MenuItem value="">
-              <em>currency</em>
+              <em>currency</em>{" "}
             </MenuItem>
             <MenuItem value="USD">USD</MenuItem>
             <MenuItem value="EUR">EUR</MenuItem>
@@ -238,7 +244,7 @@ export default class AddProduct extends Component {
                 id="date-picker-inline"
                 label="warrantyPeriod"
                 value={this.state.warrantyPeriod}
-                onChange={this.handleDateChange}
+                onChange={this.handleDateChangeWarrentyPeriod}
                 KeyboardButtonProps={{
                   "aria-label": "change date"
                 }}
