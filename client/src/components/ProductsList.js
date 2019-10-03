@@ -45,6 +45,7 @@ export default class ProductsList extends Component {
       [name]: value
     });
     console.log(this.state.searchCategory);
+    console.log(this.state.searchText);
   };
 
   render() {
@@ -71,15 +72,14 @@ export default class ProductsList extends Component {
           .toLowerCase()
           .includes(this.state.searchText.toLowerCase()) ||
         product.tags.find(tag => {
-          console.log("tag: ", tag, "search: ", this.state.searchText);
           return Boolean(
             tag.toLowerCase().includes(this.state.searchText.toLowerCase())
           );
         });
 
-      let categoryMatched = product.category.includes(
-        this.state.searchCategory.toLowerCase()
-      );
+      let categoryMatched = product.category
+        .toLowerCase()
+        .includes(this.state.searchCategory.toLowerCase());
 
       return searchMatched && categoryMatched;
     });
