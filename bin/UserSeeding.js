@@ -22,15 +22,15 @@ mongoose
       username: "noriko",
       email: "noriko@noriko.io",
       password: bcrypt.hashSync("noriko", bcrypt.genSaltSync(bcryptSalt)),
-      firstName: Faker.name.firstName(),
+      firstName: "Noriko",
       lastName: Faker.name.lastName(),
       address: {
         street: Faker.address.streetName(),
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
-        city: Faker.address.city(),
+        city: "Berlin",
       },
-      country: Faker.address.country(),
+      country: "Germany",
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -38,15 +38,15 @@ mongoose
       username: "ninette",
       email: "ninette@ninette.io",
       password: bcrypt.hashSync("ninette", bcrypt.genSaltSync(bcryptSalt)),
-      firstName: Faker.name.firstName(),
+      firstName: "Ninette",
       lastName: Faker.name.lastName(),
       address: {
         street: Faker.address.streetName(),
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
-        city: Faker.address.city(),
+        city: "Berlin",
       },
-      country: Faker.address.country(),
+      country: "Germany",
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -54,15 +54,15 @@ mongoose
       username: "thuy",
       email: "thuy@thuy.io",
       password: bcrypt.hashSync("thuy", bcrypt.genSaltSync(bcryptSalt)),
-      firstName: Faker.name.firstName(),
+      firstName: "Thuy",
       lastName: Faker.name.lastName(),
       address: {
         street: Faker.address.streetName(),
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
-        city: Faker.address.city(),
+        city: "Berlin",
       },
-      country: Faker.address.country(),
+      country: "Berlin",
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -70,7 +70,7 @@ mongoose
       username: "bob",
       email: Faker.internet.email(),
       password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
-      firstName: Faker.name.firstName(),
+      firstName: "Bob",
       lastName: Faker.name.lastName(),
       address: {
         street: Faker.address.streetName(),
@@ -86,7 +86,7 @@ mongoose
       username: "alice",
       email: Faker.internet.email(),
       password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
-      firstName: Faker.name.firstName(),
+      firstName: "Alice",
       lastName: Faker.name.lastName(),
       address: {
         street: Faker.address.streetName(),
@@ -98,7 +98,7 @@ mongoose
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
-    { // Full faker user
+    {
       username: Faker.internet.userName(),
       email: Faker.internet.email(),
       password: bcrypt.hashSync("faker", bcrypt.genSaltSync(bcryptSalt)),
