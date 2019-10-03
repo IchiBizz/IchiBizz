@@ -9,7 +9,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
   Button,
-  InputLabel,
   FormControl,
   Select,
   MenuItem,
@@ -197,16 +196,16 @@ export default class AddProduct extends Component {
             onChange={this.handleChange}
           />
           {/* currency */}
-          <InputLabel htmlFor="outlined-currency-simple">currency</InputLabel>
           <Select
             value={this.state.currency}
             label="currency"
             onChange={this.handleChange}
-            labelWidth={10}
+            labelWidth={20}
             inputProps={{
               name: "currency",
               id: "outlined-currencey-simple"
             }}
+            name="currency"
           >
             <MenuItem value="">
               <em>currency</em>
@@ -283,7 +282,7 @@ export default class AddProduct extends Component {
           <TextField
             id="outlined-imageUrl"
             label="imageUrl"
-            imageUrl
+            encType="multipart/form-data"
             className={classes.textField}
             type="file"
             name="imageUrl"
