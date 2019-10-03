@@ -91,19 +91,8 @@ export default class AddProduct extends Component {
     console.log("name:", this.state.name);
   };
 
-  handleImageChange = event => {
-    event.preventDefault();
-
-    const reader = new FileReader();
-    const file = event.target.files[0];
-
-    reader.onloadend = () => {
-      this.setState({
-        imageUrl: file
-      });
-    };
-
-    reader.readAsDataURL(file);
+  imageHandler = event => {
+    console.log(event.target);
   };
 
   render() {
@@ -282,14 +271,14 @@ export default class AddProduct extends Component {
           <TextField
             id="outlined-imageUrl"
             label="imageUrl"
-            encType="multipart/form-data"
+            // encType="multipart/form-data"
             className={classes.textField}
             type="file"
             name="imageUrl"
             accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
             margin="normal"
             value={this.state.imageUrl}
-            onChange={this.handleImageChange}
+            onChange={this.imageHandler}
           />
           <p></p>
           category: [google vision?]
