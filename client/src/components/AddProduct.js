@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
   Button,
+  InputLabel,
   FormControl,
   Select,
   MenuItem,
@@ -196,18 +197,19 @@ export default class AddProduct extends Component {
             onChange={this.handleChange}
           />
           {/* currency */}
+          <InputLabel htmlFor="outlined-currency-simple">currency</InputLabel>
           <Select
             value={this.state.currency}
             label="currency"
             onChange={this.handleChange}
             labelWidth={10}
             inputProps={{
-              name: "currencey",
+              name: "currency",
               id: "outlined-currencey-simple"
             }}
           >
             <MenuItem value="">
-              <em>currency</em>{" "}
+              <em>currency</em>
             </MenuItem>
             <MenuItem value="USD">USD</MenuItem>
             <MenuItem value="EUR">EUR</MenuItem>
