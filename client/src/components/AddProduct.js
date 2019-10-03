@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
@@ -20,15 +25,10 @@ export default class AddProduct extends Component {
     price: 0,
     currency: "",
     pickupLocation: [],
-    availability: 0,
+    availability: new Date(),
     warrantyPeriod: 0,
     quantity: 0,
     status: ""
-  };
-
-  handleDateChange = event => {
-    var date = new Date().toDateString();
-    this.setState({ availability: date });
   };
 
   handleSubmit = event => {
@@ -69,6 +69,12 @@ export default class AddProduct extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+
+  handleDateChange = date => {
+    this.setState({
+      availability: date
+    });
   };
 
   handleChange = event => {
@@ -129,7 +135,7 @@ export default class AddProduct extends Component {
     return (
       <div className="addProduct">
         <FormControl onSubmit={this.handleSubmit}>
-          {/* <TextField
+          <TextField
             id="outlined-name-input"
             label="name"
             className={classes.textField}
@@ -140,7 +146,7 @@ export default class AddProduct extends Component {
             variant="outlined"
             value={this.state.name}
             onChange={this.handleChange}
-          /> */}
+          />
           <TextField
             id="outlined-description-input"
             label="description"
@@ -193,7 +199,7 @@ export default class AddProduct extends Component {
             <MenuItem value={20}>€</MenuItem>
             <MenuItem value={30}>£</MenuItem>
           </Select>
-          <TextField
+          {/* <TextField
             id="outlined-availability-input"
             label="availability"
             className={classes.textField}
@@ -204,7 +210,25 @@ export default class AddProduct extends Component {
             variant="outlined"
             value={this.state.availability}
             onChange={this.handleChange}
-          />
+          /> */}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                name="availability"
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Date picker inline"
+                value={this.state.availability}
+                onChange={this.handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date"
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
           <TextField
             id="outlined-warrantyPeriod-input"
             label="warrantyPeriod(year)"
