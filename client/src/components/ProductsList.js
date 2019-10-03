@@ -10,7 +10,6 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import { Carousel } from "react-responsive-carousel";
 import { TextField, Grid, Box } from "@material-ui/core";
 
@@ -18,7 +17,8 @@ export default class ProductsList extends Component {
   state = {
     products: [],
     searchText: "",
-    searchCategory: ""
+    searchCategory: "",
+    priceRange: ""
   };
 
   getData = () => {
@@ -80,7 +80,6 @@ export default class ProductsList extends Component {
       let categoryMatched = product.category
         .toLowerCase()
         .includes(this.state.searchCategory.toLowerCase());
-
       return searchMatched && categoryMatched;
     });
 

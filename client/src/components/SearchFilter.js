@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, InputLabel, Select, MenuItem } from "@material-ui/core";
+import {
+  Slider,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem
+} from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 export default class SearchFilter extends Component {
   render() {
     const useStyles = makeStyles(theme => ({
       card: {
         maxWidth: 100
+      },
+      root: {
+        width: 300
       }
     }));
     const classes = useStyles;
@@ -41,6 +51,19 @@ export default class SearchFilter extends Component {
             return <MenuItem value={category}>{category}</MenuItem>;
           })}
         </Select>
+
+        <div className={classes.root}>
+          <Typography id="range-slider" gutterBottom>
+            Price range
+          </Typography>
+          <Slider
+            value={value}
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            // getAriaValueText={valuetext}
+          />
+        </div>
       </>
     );
   }
