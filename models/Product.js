@@ -16,9 +16,10 @@ const productSchema = new Schema({
   },
   currency: String,
   tags: [String],
-  pickupLocation: [Number],
+  latitude: Number,
+  longitude: Number,
   availability: Date,
-  warrantyPeriod: String,
+  warrantyUntil: Date,
   quantity: {
     type: Number,
     required: true
