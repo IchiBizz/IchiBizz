@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
@@ -25,7 +25,7 @@ const productSchema = new Schema({
     required: true
   },
   // new or used
-  status: String,
+  condition: String,
   isSold: Boolean,
   //only one seller per product
   seller: {
