@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SearchFilter from "./SearchFilter";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,14 +11,14 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Input } from "@material-ui/core";
 import { Carousel } from "react-responsive-carousel";
-import { TextField } from "@material-ui/core";
+import { TextField, Grid, Box } from "@material-ui/core";
 
 export default class ProductsList extends Component {
   state = {
     products: [],
-    search: ""
+    searchText: "",
+    searchCategory: ""
   };
 
   getData = () => {
@@ -38,99 +39,103 @@ export default class ProductsList extends Component {
     this.getData();
   };
 
-  handleSearch = event => {
-    const value = event.target.value;
-    console.log(value);
+  handleChange = event => {
+    const { name, value } = event.target;
     this.setState({
-      search: value
+      [name]: value
     });
+    console.log(this.state.searchCategory);
   };
 
   render() {
     const useStyles = makeStyles(theme => ({
       card: {
-        maxWidth: 345
+        maxWidth: 100
       }
     }));
 
     const classes = useStyles;
 
-    const filteredProduct = this.state.products.filter(product => {
-      return (
-        product.name.toLowerCase().includes(this.state.search.toLowerCase()) ||
-        product.tags.find(tag => {
-          console.log("tag: ", tag, "search: ", this.state.search);
-          return Boolean(
-            tag.toLowerCase().includes(this.state.search.toLowerCase())
-          );
+    const distinctCategory = [
+      ...new Set(
+        this.state.products.map(product => {
+          return product.category;
         })
+      )
+    ];
+    console.log(distinctCategory);
+
+    const filteredProduct = this.state.products.filter(product => {
+      let searchMatched =
+        product.name
+          .toLowerCase()
+          .includes(this.state.searchText.toLowerCase()) ||
+        product.tags.find(tag => {
+          console.log("tag: ", tag, "search: ", this.state.searchText);
+          return Boolean(
+            tag.toLowerCase().includes(this.state.searchText.toLowerCase())
+          );
+        });
+
+      let categoryMatched = product.category.includes(
+        this.state.searchCategory.toLowerCase()
       );
+
+      return searchMatched && categoryMatched;
     });
 
     return (
       <>
         <h1>Product List</h1>
-        <TextField
-          label="search"
-          id="outlined-name-input"
-          type="search"
-          margin="normal"
-          className={classes.textField}
-          name="search"
-          variant="outlined"
-          autoComplete="search"
-          value={this.state.search}
-          onChange={this.handleSearch}
+        <SearchFilter
+          searchText={this.state.searchText}
+          searchCategory={this.state.searchCategory}
+          handleChange={this.handleChange}
+          filteredProduct={filteredProduct}
+          distinctCategory={distinctCategory}
         />
-        {filteredProduct.map(data => {
-          return (
-            <>
-              {/* <Carousel autoPlay>
-                {data.imageUrl.map(image => {
-                  console.log(image);
-                  return (
-                    <div>
-                      <img src={image} alt={image} />
-                    </div>
-                  );
-                })}
-              </Carousel> */}
-              <Card className={classes.card}>
-                <CardActionArea>
-                  <CardMedia
-                    component="img"
-                    alt={data.name}
-                    height="140"
-                    image={`${data.imageUrl[0]}`}
-                    title={data.name}
-                  />
-                  <CardContent>
-                    <Link to={`/products/${data._id}`}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {data.name}
+
+        <Grid container direction="row" justify="center" alignItems="center">
+          {filteredProduct.map(data => {
+            return (
+              <>
+                <Card className={classes.card}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      alt={data.name}
+                      height="140"
+                      image={`${data.imageUrl[0]}`}
+                      title={data.name}
+                    />
+                    <CardContent>
+                      <Link to={`/products/${data._id}`}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {data.name}
+                        </Typography>
+                      </Link>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {data.description}
                       </Typography>
-                    </Link>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {data.description}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Button size="small" color="primary">
-                    Share
-                  </Button>
-                  <Button size="small" color="primary">
-                    Learn More
-                  </Button>
-                </CardActions>
-              </Card>
-            </>
-          );
-        })}
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Share
+                    </Button>
+                    <Button size="small" color="primary">
+                      Learn More
+                    </Button>
+                  </CardActions>
+                </Card>
+              </>
+            );
+          })}
+        </Grid>
       </>
     );
   }
