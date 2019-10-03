@@ -56,10 +56,10 @@ export default class AddProduct extends Component {
           brand: "",
           category: [],
           price: 0,
-          currency: "",
+          currency: " ",
           pickupLocation: [],
           availability: "",
-          warrantyPeriod: 0,
+          warrantyPeriod: "",
           quantity: 0,
           status: ""
         });
@@ -135,9 +135,11 @@ export default class AddProduct extends Component {
     return (
       <div className="addProduct">
         <FormControl onSubmit={this.handleSubmit}>
+          {/* name */}
           <TextField
+            required
             id="outlined-name-input"
-            label="name"
+            label="name / required"
             className={classes.textField}
             type="text"
             name="name"
@@ -147,6 +149,7 @@ export default class AddProduct extends Component {
             value={this.state.name}
             onChange={this.handleChange}
           />
+          {/* description */}
           <TextField
             id="outlined-description-input"
             label="description"
@@ -159,6 +162,7 @@ export default class AddProduct extends Component {
             value={this.state.description}
             onChange={this.handleChange}
           />
+          {/* brannd */}
           <TextField
             id="outlined-brand-input"
             label="brand"
@@ -171,9 +175,11 @@ export default class AddProduct extends Component {
             value={this.state.brand}
             onChange={this.handleChange}
           />
+          {/* price */}
           <TextField
+            required
             id="outlined-price-input"
-            label="price"
+            label="price required"
             className={classes.textField}
             type="number"
             name="price"
@@ -183,34 +189,25 @@ export default class AddProduct extends Component {
             value={this.state.price}
             onChange={this.handleChange}
           />
+          {/* currency */}
           <Select
-            value={this.state.currencey}
-            // onChange={}
-            // labelWidth={labelWidth}
+            value={this.state.currency}
+            label="currency"
+            onChange={this.handleChange}
+            labelWidth={20}
             inputProps={{
               name: "currencey",
               id: "outlined-currencey-simple"
             }}
           >
             <MenuItem value="">
-              <em>None</em>
+              <em>currency</em>
             </MenuItem>
-            <MenuItem value={10}>$</MenuItem>
-            <MenuItem value={20}>€</MenuItem>
-            <MenuItem value={30}>£</MenuItem>
+            <MenuItem value="USD">USD</MenuItem>
+            <MenuItem value="EUR">EUR</MenuItem>
+            <MenuItem value="GBP">GBP</MenuItem>
           </Select>
-          {/* <TextField
-            id="outlined-availability-input"
-            label="availability"
-            className={classes.textField}
-            type="number"
-            name="availability"
-            autoComplete="availability"
-            margin="normal"
-            variant="outlined"
-            value={this.state.availability}
-            onChange={this.handleChange}
-          /> */}
+          {/* availability */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
               <KeyboardDatePicker
@@ -220,7 +217,7 @@ export default class AddProduct extends Component {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label="Date picker inline"
+                label="availability"
                 value={this.state.availability}
                 onChange={this.handleDateChange}
                 KeyboardButtonProps={{
@@ -229,21 +226,30 @@ export default class AddProduct extends Component {
               />
             </Grid>
           </MuiPickersUtilsProvider>
+          {/* warrantyPeriod */}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                name="warrantyPeriod"
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="warrantyPeriod"
+                value={this.state.warrantyPeriod}
+                onChange={this.handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date"
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+          {/* quantity */}
           <TextField
-            id="outlined-warrantyPeriod-input"
-            label="warrantyPeriod(year)"
-            className={classes.textField}
-            type="number"
-            name="warrantyPeriod"
-            autoComplete="warrantyPeriod"
-            margin="normal"
-            variant="outlined"
-            value={this.state.warrantyPeriod}
-            onChange={this.handleChange}
-          />
-          <TextField
+            required
             id="outlined-quantity-input"
-            label="quantity"
+            label="quantity required"
             className={classes.textField}
             type="number"
             name="quantity"
@@ -265,6 +271,7 @@ export default class AddProduct extends Component {
             value={this.state.status}
             onChange={this.handleChange}
           />
+          {/* image Url */}
           <TextField
             id="outlined-imageUrl"
             label="imageUrl"
