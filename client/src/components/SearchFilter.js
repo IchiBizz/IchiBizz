@@ -5,9 +5,16 @@ import {
   TextField,
   InputLabel,
   Select,
-  MenuItem
+  MenuItem,
+  Grid
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardTimePicker,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
 
 export default class SearchFilter extends Component {
   render() {
@@ -62,9 +69,28 @@ export default class SearchFilter extends Component {
             onChange={this.props.handleChange}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
+            max={this.props.maxPrice}
             // getAriaValueText={valuetext}
           />
         </div>
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Date picker inline"
+              value={this.props.selectedDate}
+              onChange={this.props.handleChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date"
+              }}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
       </>
     );
   }

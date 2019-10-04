@@ -71,9 +71,14 @@ export default class ProductsList extends Component {
         })
       )
     ];
-    console.log(distinctCategory);
 
-    const filteredProduct = this.state.products.filter(product => {
+    const maxPrice = Math.max(
+      ...this.state.products.map(product => {
+        return product.price;
+      })
+    );
+
+    let filteredProduct = this.state.products.filter(product => {
       let searchMatched =
         product.name
           .toLowerCase()
@@ -87,7 +92,11 @@ export default class ProductsList extends Component {
       let categoryMatched = product.category
         .toLowerCase()
         .includes(this.state.searchCategory.toLowerCase());
-      return searchMatched && categoryMatched;
+
+      let priceMatched =
+        product.price >= this.state.priceValue[0] &&
+        product.price <= this.state.priceValue[1];
+      return searchMatched && categoryMatched && priceMatched;
     });
 
     return (
@@ -100,6 +109,7 @@ export default class ProductsList extends Component {
           handleChange={this.handleChange}
           filteredProduct={filteredProduct}
           distinctCategory={distinctCategory}
+          maxPrice={maxPrice}
         />
 
         <Grid container direction="row" justify="center" alignItems="center">
@@ -126,7 +136,8 @@ export default class ProductsList extends Component {
                         color="textSecondary"
                         component="p"
                       >
-                        {data.description}
+                        {data.description} <br />
+                        {data.currency} {data.price}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
