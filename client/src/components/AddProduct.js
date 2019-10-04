@@ -18,17 +18,24 @@ import {
 
 export default class AddProduct extends Component {
   state = {
-    name: "",
+    title: "",
     description: "",
     imageUrl: [],
+    brand: "",
     category: "",
+    quantity: 0,
     price: 0,
     currency: "",
-    pickupLocation: [],
+    tags: [],
+    company: "",
+    location: {
+      latitude: null,
+      longitude: null
+    },
+    // Must be future date
     availability: new Date(),
-    warrantyPeriod: new Date(),
-    quantity: 0,
-    status: ""
+    warrantyUntil: new Date(),
+    condition: ""
   };
 
   handleSubmit = event => {
@@ -36,39 +43,50 @@ export default class AddProduct extends Component {
     console.log("handlesubmit working");
     axios
       .post("/api/products", {
-        name: this.state.name,
+        title: this.state.title,
         description: this.state.description,
         imageUrl: this.state.imageUrl,
         brand: this.state.brand,
         category: this.state.category,
+        quantity: this.state.quantity,
         price: this.state.price,
         currency: this.state.currency,
-        pickupLocation: this.state.pickupLocation,
+        company: this.state.company,
+        location: {
+          latitude: this.state.latitude,
+          longitude: this.state.longitude
+        },
         availability: this.state.availability,
-        warrantyPeriod: this.state.warrantyPeriod,
-        quantity: this.state.quantity,
-        status: this.state.status
+        warrantyUntil: this.state.warrantyUntil,
+        condition: this.state.condition,
+        wishlist: this.state.wishlist,
+        requested: this.state.requested
       })
       .then(response => {
-        console.log("hereee", response);
+        console.log("[AddProduct.js] handleSubmit Response ", response);
         this.setState({
-          name: "",
+          title: "",
           description: "",
           imageUrl: [],
           brand: "",
           category: [],
-          price: 0,
-          currency: " ",
-          pickupLocation: [],
-          availability: "",
-          warrantyPeriod: " ",
           quantity: 0,
-          status: ""
+          price: 0,
+          currency: "",
+          tags: [],
+          company: "",
+          location: {
+            latitude: 0,
+            longitude: 0
+          },
+          availability: "",
+          warrantyUntil: " ",
+          condition: ""
         });
         console.log(response.data);
       })
       .catch(err => {
-        console.log(err);
+        console.log(`[AddProduct.js]: response data`, err);
       });
   };
 
@@ -81,7 +99,7 @@ export default class AddProduct extends Component {
   };
 
   //catching da date for warrantyPeriod
-  handleDateChangeWarrentyPeriod = date => {
+  handleDateChangeWarrantyUntil = date => {
     this.setState({
       warrantyPeriod: date
     });
@@ -102,6 +120,7 @@ export default class AddProduct extends Component {
   imageHandler = event => {
     console.log(event.target.files[0]);
     this.setState({
+      // TODO: Render all images later, not only first one
       imageUrl: [...this.state.imageUrl, event.target.files[0].name]
     });
   };
@@ -140,24 +159,24 @@ export default class AddProduct extends Component {
     const classes = styling;
     return (
       <FormControl onSubmit={this.handleSubmit}>
-        {/* name */}
+        {/* Title */}
         <TextField
           required
           id="outlined-name-input"
-          label="name / required"
+          label="Title"
           className={classes.textField}
           type="text"
-          name="name"
-          autoComplete="name"
+          name="title"
+          autoComplete="title"
           margin="normal"
           variant="outlined"
-          value={this.state.name}
+          value={this.state.title}
           onChange={this.handleChange}
         />
         {/* description */}
         <TextField
           id="outlined-description-input"
-          label="description"
+          label="Description"
           className={classes.textField}
           type="text"
           name="description"
@@ -167,10 +186,10 @@ export default class AddProduct extends Component {
           value={this.state.description}
           onChange={this.handleChange}
         />
-        {/* brannd */}
+        {/* Brand */}
         <TextField
           id="outlined-brand-input"
-          label="brand"
+          label="Brand"
           className={classes.textField}
           type="text"
           name="brand"
@@ -180,11 +199,25 @@ export default class AddProduct extends Component {
           value={this.state.brand}
           onChange={this.handleChange}
         />
-        {/* price */}
+          {/* Quantity */}
+          <TextField
+          required
+          id="outlined-quantity-input"
+          label="Quantity"
+          className={classes.textField}
+          type="number"
+          name="quantity"
+          autoComplete="quantity"
+          margin="normal"
+          variant="outlined"
+          value={this.state.quantity}
+          onChange={this.handleChange}
+        />
+        {/* Price */}
         <TextField
           required
           id="outlined-price-input"
-          label="price required"
+          label="Price"
           className={classes.textField}
           type="number"
           name="price"
@@ -194,7 +227,7 @@ export default class AddProduct extends Component {
           value={this.state.price}
           onChange={this.handleChange}
         />
-        {/* currency */}
+        {/* Currency */}
         <Select
           value={this.state.currency}
           onChange={this.handleChange}
@@ -206,13 +239,13 @@ export default class AddProduct extends Component {
           name="currency"
         >
           <MenuItem value="">
-            <em>currency</em>
+            <em>Currency</em>
           </MenuItem>
           <MenuItem value="USD">USD</MenuItem>
           <MenuItem value="EUR">EUR</MenuItem>
           <MenuItem value="GBP">GBP</MenuItem>
         </Select>
-        {/* availability */}
+        {/* Availability */}
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
             <KeyboardDatePicker
@@ -222,62 +255,49 @@ export default class AddProduct extends Component {
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="availability"
+              label="Availability Date"
               value={this.state.availability}
               onChange={this.handleDateChange}
               KeyboardButtonProps={{
-                "aria-label": "change date"
+                "aria-label": "Change Date"
               }}
             />
           </Grid>
         </MuiPickersUtilsProvider>
-        {/* warrantyPeriod */}
+        {/* Warranty Until */}
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
             <KeyboardDatePicker
               disableToolbar
-              name="warrantyPeriod"
+              name="warrantyUntil"
               variant="inline"
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="warrantyPeriod"
-              value={this.state.warrantyPeriod}
-              onChange={this.handleDateChangeWarrentyPeriod}
+              label="Warranty Date until (if any)"
+              value={this.state.warrantyUntil}
+              onChange={this.handleDateChangeWarrantyPeriod}
               KeyboardButtonProps={{
                 "aria-label": "change date"
               }}
             />
           </Grid>
         </MuiPickersUtilsProvider>
-        {/* quantity */}
-        <TextField
-          required
-          id="outlined-quantity-input"
-          label="quantity required"
-          className={classes.textField}
-          type="number"
-          name="quantity"
-          autoComplete="quantity"
-          margin="normal"
-          variant="outlined"
-          value={this.state.quantity}
-          onChange={this.handleChange}
-        />
+        {/* Condition */}
         <TextField
           id="outlined-status-input"
-          label="status"
+          label="Condition (e.g. used)"
           className={classes.textField}
           type="text"
-          name="status"
-          autoComplete="status"
+          name="condition"
+          autoComplete="condition"
           margin="normal"
           variant="outlined"
-          value={this.state.status}
+          value={this.state.condition}
           onChange={this.handleChange}
         />
         {/* image Url */}
-        <label htmlFor="imageUrl">upload images</label>
+        <label htmlFor="imageUrl">Upload Image(s): </label>
         <input
           type="file"
           multiple
@@ -286,9 +306,10 @@ export default class AddProduct extends Component {
           // value={this.state.imageUrl}
           onChange={this.imageHandler}
         />
-        <p></p>
-        category: [google vision?]
-        <p></p>location
+        <br />
+        {/* // FIXME: Decide tagging via Google Vision
+        Category: [google vision?] */}
+        <br />
         <Button
           type="submit"
           variant="outlined"
@@ -296,7 +317,7 @@ export default class AddProduct extends Component {
           onClick={this.handleSubmit}
           noValidate
         >
-          create
+          Create
         </Button>
       </FormControl>
     );

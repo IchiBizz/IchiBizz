@@ -1,46 +1,58 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
+const User = require("../models/User");
 
-//post create productsdetail
-
+// POST '/api/products' => Create product
 router.post("/", (req, res) => {
-  console.log("calleed");
+  console.log("[productDetail.js]: POST route");
   const {
-    name,
+    title,
     description,
     imageUrl,
     brand,
     category,
+    quantity,
     price,
     currency,
-    pickupLocation,
+    tags,
+    company,
+    latitude,
+    longitude,
     availability,
-    warrantyPeriod,
-    quantity,
-    status
+    warrantyUntil,
+    condition
   } = req.body;
 
+  // FIXME: To be added after authentication setup
+  // const owner = req.user._id;
+
   Product.create({
-    name: name,
+    title: title,
     description: description,
+    // TODO: Allow to upload multiple images at once as soon as cloudinary is configured
     imageUrl: imageUrl,
     brand: brand,
     category: category,
+    quantity: quantity,
     price: price,
     currency: currency,
-    pickupLocation: pickupLocation,
+    tags: tags,
+    company: company,
+    latitude: latitude,
+    longitude: longitude,
     availability: availability,
-    warrantyPeriod: warrantyPeriod,
-    quantity: quantity,
-    status: status,
+    warrantyUntil: warrantyUntil,
+    condition: condition,
     isSold: false
+    // FIXME: To be added after authentication setup
+    // seller: owner
   })
     .then(data => {
       res.json(data);
     })
     .catch(err => {
-      res.json(err);
+      res.json(`ERROR creating product:`, err);
     });
 });
 
