@@ -33,15 +33,13 @@ mongoose
           houseNumber: Faker.random.number({min: 1, max: 250}),
           postCode: Faker.random.number({min: 10000, max: 90000}),
           city: Faker.address.city(),
+          country: Faker.address.country()
         },
-        country: Faker.address.country(),
         stars: Faker.random.number({min: 0, max: 5}),
         review: Faker.lorem.paragraphs()
       })
     }
-
-    return users;
-  }
+  };
 
   seedInitialUsers();
 
@@ -144,4 +142,4 @@ mongoose
   .catch(err => {
     mongoose.disconnect()
     throw err
-  })
+  });

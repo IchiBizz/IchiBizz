@@ -27,6 +27,7 @@ mongoose
     "Wilkinson", "Bosch", "Siemens", "Brother", "LG", "Bang & Olufsen", "IB Laursen", "Ikea", "Bloomingville", "Madame Stoltz", "Sofa Company", "Mørteens", "Renault", "Manufaktum", "Bezerra", "Alessi", "JUKI", "Pfaff", "Dürkopp", "Bose", "Bodrum", "Apple", "IBM", "SAP", "Lenovo", "Ubanara"
   ];
 
+  // Tags can be used by buyers search for products and sellers to categorize their products
   let tagsList = [
     "car", "phone", "computer", "table", "office", "ice production", "chair", "sofa", "shelf", "cupboard", "lamp", "music box", "bed", "cuttlery", "cutting machine", "drill", "kitchen", "reception", "matrice", "tablets", "bicycle", "laptop", "monitor", "telephone system", "cabinet", "printer"
   ]
@@ -49,6 +50,7 @@ mongoose
             title: Faker.lorem.sentence(),
             description: Faker.lorem.sentences(),
             imageUrl: [
+              // returns e.g. "http://lorempixel.com/640/480/business"
               Faker.image.business(),
               Faker.image.business(),
               Faker.image.business(),
@@ -57,6 +59,7 @@ mongoose
             ],
             brand: Faker.random.arrayElement(brandsList),
             category: Faker.random.arrayElement(businessTypes),
+            // returns integer between 10 (min) and 1999 (max) as 2 decimals
             price: Faker.finance.amount(10, 1999, 2),
             currency: Faker.finance.currencyCode(),
             tags: [
@@ -73,7 +76,7 @@ mongoose
             },
             availability: Faker.date.future(),
             warrantyUntil: Faker.date.future(),
-            quantity: Faker.random.number({min: 1, max: 5}),
+            quantity: Faker.random.number({min: 1, max: 10}),
             condition: "used",
             isSold: false,
             seller: randomSeller._id,
@@ -101,8 +104,8 @@ mongoose
     return Product.create(products)
   })
   .then(productsCreated => {
-    // console.log(`${productsCreated.length} products created with the following id:`);
-    // console.log(productsCreated.map(p => p._id));
+    console.log(`${productsCreated.length} products created with the following id:`);
+    console.log(productsCreated.map(p => p._id));
   })
   .then(() => {
     // Close properly the connection to Mongoose
