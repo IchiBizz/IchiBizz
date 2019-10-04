@@ -35,10 +35,11 @@ mongoose
           city: Faker.address.city(),
           country: Faker.address.country()
         },
+        // This ensures 17 chars for phone number
+        phoneNumber: Faker.phone.phoneNumber(),
         stars: Faker.random.number({min: 0, max: 5}),
-        review: Faker.lorem.paragraphs()
-      })
-    }
+        reviews: Faker.lorem.paragraphs()
+      })}
   };
 
   seedInitialUsers();
@@ -56,8 +57,9 @@ mongoose
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
         city: "Berlin",
+        country: "Germany"
       },
-      country: "Germany",
+      phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -72,8 +74,9 @@ mongoose
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
         city: "Berlin",
+        country: "Germany"
       },
-      country: "Germany",
+      phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -88,8 +91,9 @@ mongoose
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
         city: "Berlin",
+        country: "Germany"
       },
-      country: "Berlin",
+      phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -104,8 +108,9 @@ mongoose
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
         city: Faker.address.city(),
+        country: Faker.address.country()
       },
-      country: Faker.address.country(),
+      phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
     },
@@ -120,10 +125,11 @@ mongoose
         houseNumber: Faker.random.number({min: 1, max: 250}),
         postCode: Faker.random.number({min: 10000, max: 90000}),
         city: Faker.address.city(),
+        country: Faker.address.country()
       },
-      country: Faker.address.country(),
+      phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({min: 0, max: 5}),
-      review: Faker.lorem.paragraphs()
+      reviews: Faker.lorem.paragraphs()
     }
   );
 

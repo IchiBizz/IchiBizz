@@ -21,7 +21,7 @@ const userSchema = new Schema(
       city: String,
       country: String
     },
-    phoneNumber: Number,
+    phoneNumber: String,
     // Rating
     stars: Number,
     reviews: [String]

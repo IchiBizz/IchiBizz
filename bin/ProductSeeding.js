@@ -20,7 +20,7 @@ mongoose
 
   let products = [];
   let businessTypes = [
-    "Furniture", "Tailoring", "Sales", "Hair Shop", "Music", "Office", "Butchery", "Bakery", "Kiosk", "Editing", "Medicine", "Telecommunication", "Carpentry", "Decorating", "Wedding", "Ice Cream Store", "Cafeteria", "Restaurant", "Copy Shop", "Brewery", "Film", "Marketing", "Pharmacy", "Kitchen", "hotel", "accommodation"
+    "Furniture", "Tailoring", "Sales", "Hair Shop", "Music", "Office", "Butchery", "Bakery", "Kiosk", "Editing", "Medicine", "Telecommunication", "Carpentry", "Decorating", "Wedding", "Ice Cream Store", "Cafeteria", "Restaurant", "Copy Shop", "Brewery", "Film", "Marketing", "Pharmacy", "Kitchen", "Hotel", "Accommodation"
   ];
 
   let brandsList = [
@@ -59,6 +59,7 @@ mongoose
             ],
             brand: Faker.random.arrayElement(brandsList),
             category: Faker.random.arrayElement(businessTypes),
+            quantity: Faker.random.number({min: 1, max: 10}),
             // returns integer between 10 (min) and 1999 (max) as 2 decimals
             price: Faker.finance.amount(10, 1999, 2),
             currency: Faker.finance.currencyCode(),
@@ -69,6 +70,7 @@ mongoose
               Faker.random.arrayElement(tagsList),
               Faker.random.arrayElement(tagsList)
             ],
+            company: Faker.company.companyName(),
             // Pickup Location (can be different from user address)
             location: {
               latitude: Faker.address.latitude(),
@@ -76,7 +78,6 @@ mongoose
             },
             availability: Faker.date.future(),
             warrantyUntil: Faker.date.future(),
-            quantity: Faker.random.number({min: 1, max: 10}),
             condition: "used",
             isSold: false,
             seller: randomSeller._id,
@@ -114,4 +115,4 @@ mongoose
   .catch(err => {
     mongoose.disconnect()
     throw err
-  })
+  });
