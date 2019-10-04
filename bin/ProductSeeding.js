@@ -31,7 +31,7 @@ mongoose
     "car", "phone", "computer", "table", "office", "ice production", "chair", "sofa", "shelf", "cupboard", "lamp", "music box", "bed", "cuttlery", "cutting machine", "drill", "kitchen", "reception", "matrice", "tablets", "bicycle", "laptop", "monitor", "telephone system", "cabinet", "printer"
   ]
 
-  const seedNewProducts = () => {
+  const seedInitialProducts = () => {
     for(let i = 0; i < 30; i++) {
       products.push(
         {
@@ -80,7 +80,7 @@ mongoose
     }
   }
 
-  seedNewProducts();
+  seedInitialProducts();
 
   Product.deleteMany()
   .then(() => {

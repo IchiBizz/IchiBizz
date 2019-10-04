@@ -17,8 +17,37 @@ mongoose
     console.error('Error connecting to mongo', err)
   });
 
-  let users = [
-    {
+  let users = [];
+
+  // Full Faker Data
+  const seedInitialUsers = () => {
+    for(let i = 0; i < 5; i++) {
+      users.push({
+        username: Faker.internet.userName(),
+        email: Faker.internet.email(),
+        password: bcrypt.hashSync("faker", bcrypt.genSaltSync(bcryptSalt)),
+        firstName: Faker.name.firstName(),
+        lastName: Faker.name.lastName(),
+        address: {
+          street: Faker.address.streetName(),
+          houseNumber: Faker.random.number({min: 1, max: 250}),
+          postCode: Faker.random.number({min: 10000, max: 90000}),
+          city: Faker.address.city(),
+        },
+        country: Faker.address.country(),
+        stars: Faker.random.number({min: 0, max: 5}),
+        review: Faker.lorem.paragraphs()
+      })
+    }
+
+    return users;
+  }
+
+  seedInitialUsers();
+
+  // Add Noriko, Ninette, Thuy, Bob and Alice
+  users.push(
+  {
       username: "noriko",
       email: "noriko@noriko.io",
       password: bcrypt.hashSync("noriko", bcrypt.genSaltSync(bcryptSalt)),
@@ -97,24 +126,91 @@ mongoose
       country: Faker.address.country(),
       stars: Faker.random.number({min: 0, max: 5}),
       review: Faker.lorem.paragraphs()
-    },
-    {
-      username: Faker.internet.userName(),
-      email: Faker.internet.email(),
-      password: bcrypt.hashSync("faker", bcrypt.genSaltSync(bcryptSalt)),
-      firstName: Faker.name.firstName(),
-      lastName: Faker.name.lastName(),
-      address: {
-        street: Faker.address.streetName(),
-        houseNumber: Faker.random.number({min: 1, max: 250}),
-        postCode: Faker.random.number({min: 10000, max: 90000}),
-        city: Faker.address.city(),
-      },
-      country: Faker.address.country(),
-      stars: Faker.random.number({min: 0, max: 5}),
-      review: Faker.lorem.paragraphs()
     }
-  ]
+  );
+
+  // let users = [
+  //   {
+  //     username: "noriko",
+  //     email: "noriko@noriko.io",
+  //     password: bcrypt.hashSync("noriko", bcrypt.genSaltSync(bcryptSalt)),
+  //     firstName: "Noriko",
+  //     lastName: Faker.name.lastName(),
+  //     address: {
+  //       street: Faker.address.streetName(),
+  //       houseNumber: Faker.random.number({min: 1, max: 250}),
+  //       postCode: Faker.random.number({min: 10000, max: 90000}),
+  //       city: "Berlin",
+  //     },
+  //     country: "Germany",
+  //     stars: Faker.random.number({min: 0, max: 5}),
+  //     review: Faker.lorem.paragraphs()
+  //   },
+  //   {
+  //     username: "ninette",
+  //     email: "ninette@ninette.io",
+  //     password: bcrypt.hashSync("ninette", bcrypt.genSaltSync(bcryptSalt)),
+  //     firstName: "Ninette",
+  //     lastName: Faker.name.lastName(),
+  //     address: {
+  //       street: Faker.address.streetName(),
+  //       houseNumber: Faker.random.number({min: 1, max: 250}),
+  //       postCode: Faker.random.number({min: 10000, max: 90000}),
+  //       city: "Berlin",
+  //     },
+  //     country: "Germany",
+  //     stars: Faker.random.number({min: 0, max: 5}),
+  //     review: Faker.lorem.paragraphs()
+  //   },
+  //   {
+  //     username: "thuy",
+  //     email: "thuy@thuy.io",
+  //     password: bcrypt.hashSync("thuy", bcrypt.genSaltSync(bcryptSalt)),
+  //     firstName: "Thuy",
+  //     lastName: Faker.name.lastName(),
+  //     address: {
+  //       street: Faker.address.streetName(),
+  //       houseNumber: Faker.random.number({min: 1, max: 250}),
+  //       postCode: Faker.random.number({min: 10000, max: 90000}),
+  //       city: "Berlin",
+  //     },
+  //     country: "Berlin",
+  //     stars: Faker.random.number({min: 0, max: 5}),
+  //     review: Faker.lorem.paragraphs()
+  //   },
+  //   {
+  //     username: "bob",
+  //     email: Faker.internet.email(),
+  //     password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+  //     firstName: "Bob",
+  //     lastName: Faker.name.lastName(),
+  //     address: {
+  //       street: Faker.address.streetName(),
+  //       houseNumber: Faker.random.number({min: 1, max: 250}),
+  //       postCode: Faker.random.number({min: 10000, max: 90000}),
+  //       city: Faker.address.city(),
+  //     },
+  //     country: Faker.address.country(),
+  //     stars: Faker.random.number({min: 0, max: 5}),
+  //     review: Faker.lorem.paragraphs()
+  //   },
+  //   {
+  //     username: "alice",
+  //     email: Faker.internet.email(),
+  //     password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
+  //     firstName: "Alice",
+  //     lastName: Faker.name.lastName(),
+  //     address: {
+  //       street: Faker.address.streetName(),
+  //       houseNumber: Faker.random.number({min: 1, max: 250}),
+  //       postCode: Faker.random.number({min: 10000, max: 90000}),
+  //       city: Faker.address.city(),
+  //     },
+  //     country: Faker.address.country(),
+  //     stars: Faker.random.number({min: 0, max: 5}),
+  //     review: Faker.lorem.paragraphs()
+  //   }
+  // ]
 
   User.deleteMany()
   .then(() => {
