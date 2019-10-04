@@ -66,8 +66,11 @@ mongoose
               Faker.random.arrayElement(tagsList),
               Faker.random.arrayElement(tagsList)
             ],
-            latitude: Faker.address.latitude(),
-            longitude: Faker.address.longitude(),
+            // Pickup Location (can be different from user address)
+            location: {
+              latitude: Faker.address.latitude(),
+              longitude: Faker.address.longitude()
+            },
             availability: Faker.date.future(),
             warrantyUntil: Faker.date.future(),
             quantity: Faker.random.number({min: 1, max: 5}),
