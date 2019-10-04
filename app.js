@@ -86,4 +86,7 @@ app.use("/auth", authRoutes);
 const productRoutes = require("./routes/productDetail");
 app.use("/api/products", productRoutes);
 
+const productsListRoutes = require("./routes/productsList");
+app.use("/api/products", productsListRoutes);
+
 module.exports = app;
