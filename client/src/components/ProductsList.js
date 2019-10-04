@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
+import useStyles from "./ProductStyles";
 
-import { makeStyles } from "@material-ui/core/styles";
 import { Carousel } from "react-responsive-carousel";
 import {
   Typography,
@@ -15,10 +15,18 @@ import {
   CardMedia,
   Button,
   CardActionArea,
-  Card
+  Card,
+  withStyles
 } from "@material-ui/core";
 
-export default class ProductsList extends Component {
+// const useStyles = theme => ({
+//   card: {
+//     maxWidth: 300,
+//     margin: "0 auto"
+//   }
+// });
+
+class ProductsList extends Component {
   state = {
     products: [],
     searchText: "",
@@ -45,26 +53,32 @@ export default class ProductsList extends Component {
     this.getData();
   };
 
-  handleChange = (event, newValue) => {
+  handleChange = event => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value,
-      priceValue: newValue
+      [name]: value
     });
     console.log(this.state.searchCategory);
     console.log(this.state.searchText);
     console.log(this.state.priceValue);
   };
 
+  handlePriceChange = (event, newValue) => {
+    this.setState({
+      priceValue: newValue
+    });
+  };
+
+  handleDateChange = date => {
+    this.setState({
+      selectedDate: date
+    });
+  };
+
   render() {
-    const useStyles = makeStyles(theme => ({
-      card: {
-        maxWidth: 100
-      }
-    }));
-
-    const classes = useStyles;
-
+    console.log("price", this.state.priceValue);
+    const { classes } = this.props;
+    console.log(classes);
     const distinctCategory = [
       ...new Set(
         this.state.products.map(product => {
@@ -85,18 +99,26 @@ export default class ProductsList extends Component {
           .toLowerCase()
           .includes(this.state.searchText.toLowerCase()) ||
         product.tags.find(tag => {
-          return Boolean(
-            tag.toLowerCase().includes(this.state.searchText.toLowerCase())
-          );
+          return tag
+            .toLowerCase()
+            .includes(this.state.searchText.toLowerCase());
         });
 
       let categoryMatched = product.category
         .toLowerCase()
         .includes(this.state.searchCategory.toLowerCase());
+      console.log("######", this.state.priceValue[0]);
+      let priceMatched;
+      if (product.price) {
+        priceMatched =
+          product.price >= this.state.priceValue[0] &&
+          product.price <= this.state.priceValue[1];
+      } else {
+        priceMatched = true;
+      }
 
-      let priceMatched =
-        product.price >= this.state.priceValue[0] &&
-        product.price <= this.state.priceValue[1];
+      // let dateMatched = product.availability <= this.state.selectedDate;
+
       return searchMatched && categoryMatched && priceMatched;
     });
 
@@ -111,9 +133,10 @@ export default class ProductsList extends Component {
           filteredProduct={filteredProduct}
           distinctCategory={distinctCategory}
           maxPrice={maxPrice}
+          handleDateChange={this.handleDateChange}
+          handlePriceChange={this.handlePriceChange}
         />
-
-        <Grid container direction="row" justify="center" alignItems="center">
+        <div>
           {filteredProduct.map(data => {
             return (
               <>
@@ -154,8 +177,10 @@ export default class ProductsList extends Component {
               </>
             );
           })}
-        </Grid>
+        </div>
       </>
     );
   }
 }
+
+export default withStyles(useStyles)(ProductsList);

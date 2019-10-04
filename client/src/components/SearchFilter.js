@@ -6,13 +6,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid
+  Grid,
+  Typography
 } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker
 } from "@material-ui/pickers";
 
@@ -66,7 +65,7 @@ export default class SearchFilter extends Component {
           <Slider
             name="priceValue"
             value={this.props.priceValue}
-            onChange={this.props.handleChange}
+            onChange={this.props.handlePriceChange}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             max={this.props.maxPrice}
@@ -82,9 +81,10 @@ export default class SearchFilter extends Component {
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="Date picker inline"
+              label="Filter by availability"
+              name="selectedDate"
               value={this.props.selectedDate}
-              onChange={this.props.handleChange}
+              onChange={this.props.handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change date"
               }}
