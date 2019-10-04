@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-  name: {
+  title: {
     type: String,
     required: true
   },
@@ -10,21 +10,25 @@ const productSchema = new Schema({
   imageUrl: [String],
   brand: String,
   category: String,
+  quantity: {
+    type: Number,
+    required: true
+  },
   price: {
     type: Number,
     required: true
   },
   currency: String,
   tags: [String],
-  pickupLocation: [Number],
-  availability: Date,
-  warrantyPeriod: String,
-  quantity: {
-    type: Number,
-    required: true
+  company: String,
+  location: {
+    latitude: Number,
+    longitude: Number
   },
+  availability: Date,
+  warrantyUntil: Date,
   // new or used
-  status: String,
+  condition: String,
   isSold: Boolean,
   //only one seller per product
   seller: {
