@@ -20,9 +20,8 @@ export default class AddProduct extends Component {
   state = {
     name: "",
     description: "",
-    imageUrl: "",
-    brand: "",
-    category: [],
+    imageUrl: [],
+    category: "",
     price: 0,
     currency: "",
     pickupLocation: [],
@@ -34,7 +33,6 @@ export default class AddProduct extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(event.target);
     console.log("handlesubmit working");
     axios
       .post("/api/products", {
@@ -52,7 +50,7 @@ export default class AddProduct extends Component {
         status: this.state.status
       })
       .then(response => {
-        console.log("hereee");
+        console.log("hereee", response);
         this.setState({
           name: "",
           description: "",
@@ -96,15 +94,15 @@ export default class AddProduct extends Component {
     this.setState({
       [name]: value
     });
-    console.log("currency", this.state.currency);
-    console.log("name", this.state.name);
+    // console.log("currency", this.state.currency);
+    // console.log("name", this.state.name);
   };
 
   //image upload
   imageHandler = event => {
     console.log(event.target.files[0]);
     this.setState({
-      imageUrl: [...this.state.imageUrl, ...event.target.files]
+      imageUrl: [...this.state.imageUrl, event.target.files[0].name]
     });
   };
 
@@ -279,45 +277,15 @@ export default class AddProduct extends Component {
           onChange={this.handleChange}
         />
         {/* image Url */}
-        {/* <TextField
-            id="outlined-imageUrl"
-            label="imageUrl"
-            // encType="multipart/form-data"
-            className={classes.textField}
-            type="file"
-            name="imageUrl"
-            // accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
-            margin="normal"
-            value={this.state.imageUrl}
-            onChange={this.imageHandler}
-            multiple
-          /> */}
-        {/* {/* <input
-            type="file"
-            name="imageUrl"
-            value={this.state.imageUrl}
-            onChange={this.imageHandler}
-          /> */}
-        {/* <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            // value={this.state.imageUrl}
-            onChange={this.imageHandler}
-          />
-          <label htmlFor="imageUrl">Select file</label>
-           */}
-        {/* <ImagesUploader
-            url=" http://localhost:5555/api/products"
-            optimisticPreviews
-            onLoadEnd={err => {
-              if (err) {
-                console.error(err);
-              }
-            }}
-            label="Upload multiple images"
-          /> */}
+        <label htmlFor="imageUrl">upload images</label>
+        <input
+          type="file"
+          multiple
+          id="imageUrl"
+          name="imageUrl"
+          // value={this.state.imageUrl}
+          onChange={this.imageHandler}
+        />
         <p></p>
         category: [google vision?]
         <p></p>location
@@ -326,6 +294,7 @@ export default class AddProduct extends Component {
           variant="outlined"
           className={classes.button}
           onClick={this.handleSubmit}
+          noValidate
         >
           create
         </Button>
