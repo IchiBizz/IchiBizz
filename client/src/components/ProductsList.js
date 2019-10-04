@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
-import useStyles from "./ProductStyles";
-
-import { Carousel } from "react-responsive-carousel";
+import useStyles from "./ProductListStyles";
 import {
   Typography,
   TextField,
