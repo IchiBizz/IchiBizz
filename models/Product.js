@@ -10,6 +10,10 @@ const productSchema = new Schema({
   imageUrl: [String],
   brand: String,
   category: String,
+  quantity: {
+    type: Number,
+    required: true
+  },
   price: {
     type: Number,
     required: true
@@ -20,10 +24,6 @@ const productSchema = new Schema({
   longitude: Number,
   availability: Date,
   warrantyUntil: Date,
-  quantity: {
-    type: Number,
-    required: true
-  },
   // new or used
   condition: String,
   isSold: Boolean,
