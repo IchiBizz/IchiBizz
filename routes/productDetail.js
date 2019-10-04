@@ -5,6 +5,7 @@ const Product = require("../models/Product");
 //post create productsdetail
 
 router.post("/", (req, res) => {
+  console.log("calleed");
   const {
     name,
     description,

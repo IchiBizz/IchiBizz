@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DateFnsUtils from "@date-io/date-fns";
+
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
@@ -33,6 +34,8 @@ export default class AddProduct extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+    console.log(event.target);
+    console.log("handlesubmit working");
     axios
       .post("/api/products", {
         name: this.state.name,
@@ -49,21 +52,21 @@ export default class AddProduct extends Component {
         status: this.state.status
       })
       .then(response => {
+        console.log("hereee");
         this.setState({
           name: "",
           description: "",
-          imageUrl: "",
+          imageUrl: [],
           brand: "",
           category: [],
           price: 0,
           currency: " ",
           pickupLocation: [],
           availability: "",
-          warrantyPeriod: "",
+          warrantyPeriod: " ",
           quantity: 0,
           status: ""
         });
-        this.props.getData();
         console.log(response.data);
       })
       .catch(err => {
@@ -71,28 +74,38 @@ export default class AddProduct extends Component {
       });
   };
 
+  //catching da date for availability
   handleDateChange = date => {
     this.setState({
       availability: date
     });
+    console.log("availability:", date);
   };
 
+  //catching da date for warrantyPeriod
   handleDateChangeWarrentyPeriod = date => {
     this.setState({
       warrantyPeriod: date
     });
+    console.log("warrantyperiod:", date);
   };
 
+  // eventhandler
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
-    console.log("name:", this.state.name);
+    console.log("currency", this.state.currency);
+    console.log("name", this.state.name);
   };
 
+  //image upload
   imageHandler = event => {
-    console.log(event.target);
+    console.log(event.target.files[0]);
+    this.setState({
+      imageUrl: [...this.state.imageUrl, ...event.target.files]
+    });
   };
 
   render() {
@@ -128,166 +141,195 @@ export default class AddProduct extends Component {
 
     const classes = styling;
     return (
-      <div className="addProduct">
-        <FormControl onSubmit={this.handleSubmit}>
-          {/* name */}
-          <TextField
-            required
-            id="outlined-name-input"
-            label="name / required"
-            className={classes.textField}
-            type="text"
-            name="name"
-            autoComplete="name"
-            margin="normal"
-            variant="outlined"
-            value={this.state.name}
-            onChange={this.handleChange}
-          />
-          {/* description */}
-          <TextField
-            id="outlined-description-input"
-            label="description"
-            className={classes.textField}
-            type="text"
-            name="description"
-            autoComplete="description"
-            margin="normal"
-            variant="outlined"
-            value={this.state.description}
-            onChange={this.handleChange}
-          />
-          {/* brannd */}
-          <TextField
-            id="outlined-brand-input"
-            label="brand"
-            className={classes.textField}
-            type="text"
-            name="brand"
-            autoComplete="brand"
-            margin="normal"
-            variant="outlined"
-            value={this.state.brand}
-            onChange={this.handleChange}
-          />
-          {/* price */}
-          <TextField
-            required
-            id="outlined-price-input"
-            label="price required"
-            className={classes.textField}
-            type="number"
-            name="price"
-            autoComplete="price"
-            margin="normal"
-            variant="outlined"
-            value={this.state.price}
-            onChange={this.handleChange}
-          />
-          {/* currency */}
-          <Select
-            value={this.state.currency}
-            label="currency"
-            onChange={this.handleChange}
-            labelWidth={20}
-            inputProps={{
-              name: "currency",
-              id: "outlined-currencey-simple"
-            }}
-            name="currency"
-          >
-            <MenuItem value="">
-              <em>currency</em>
-            </MenuItem>
-            <MenuItem value="USD">USD</MenuItem>
-            <MenuItem value="EUR">EUR</MenuItem>
-            <MenuItem value="GBP">GBP</MenuItem>
-          </Select>
-          {/* availability */}
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify="space-around">
-              <KeyboardDatePicker
-                disableToolbar
-                name="availability"
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="availability"
-                value={this.state.availability}
-                onChange={this.handleDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date"
-                }}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-          {/* warrantyPeriod */}
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify="space-around">
-              <KeyboardDatePicker
-                disableToolbar
-                name="warrantyPeriod"
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="warrantyPeriod"
-                value={this.state.warrantyPeriod}
-                onChange={this.handleDateChangeWarrentyPeriod}
-                KeyboardButtonProps={{
-                  "aria-label": "change date"
-                }}
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
-          {/* quantity */}
-          <TextField
-            required
-            id="outlined-quantity-input"
-            label="quantity required"
-            className={classes.textField}
-            type="number"
-            name="quantity"
-            autoComplete="quantity"
-            margin="normal"
-            variant="outlined"
-            value={this.state.quantity}
-            onChange={this.handleChange}
-          />
-          <TextField
-            id="outlined-status-input"
-            label="status"
-            className={classes.textField}
-            type="text"
-            name="status"
-            autoComplete="status"
-            margin="normal"
-            variant="outlined"
-            value={this.state.status}
-            onChange={this.handleChange}
-          />
-          {/* image Url */}
-          <TextField
+      <FormControl onSubmit={this.handleSubmit}>
+        {/* name */}
+        <TextField
+          required
+          id="outlined-name-input"
+          label="name / required"
+          className={classes.textField}
+          type="text"
+          name="name"
+          autoComplete="name"
+          margin="normal"
+          variant="outlined"
+          value={this.state.name}
+          onChange={this.handleChange}
+        />
+        {/* description */}
+        <TextField
+          id="outlined-description-input"
+          label="description"
+          className={classes.textField}
+          type="text"
+          name="description"
+          autoComplete="description"
+          margin="normal"
+          variant="outlined"
+          value={this.state.description}
+          onChange={this.handleChange}
+        />
+        {/* brannd */}
+        <TextField
+          id="outlined-brand-input"
+          label="brand"
+          className={classes.textField}
+          type="text"
+          name="brand"
+          autoComplete="brand"
+          margin="normal"
+          variant="outlined"
+          value={this.state.brand}
+          onChange={this.handleChange}
+        />
+        {/* price */}
+        <TextField
+          required
+          id="outlined-price-input"
+          label="price required"
+          className={classes.textField}
+          type="number"
+          name="price"
+          autoComplete="price"
+          margin="normal"
+          variant="outlined"
+          value={this.state.price}
+          onChange={this.handleChange}
+        />
+        {/* currency */}
+        <Select
+          value={this.state.currency}
+          onChange={this.handleChange}
+          labelWidth={20}
+          inputProps={{
+            name: "currency",
+            id: "outlined-currencey-simple"
+          }}
+          name="currency"
+        >
+          <MenuItem value="">
+            <em>currency</em>
+          </MenuItem>
+          <MenuItem value="USD">USD</MenuItem>
+          <MenuItem value="EUR">EUR</MenuItem>
+          <MenuItem value="GBP">GBP</MenuItem>
+        </Select>
+        {/* availability */}
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              name="availability"
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="availability"
+              value={this.state.availability}
+              onChange={this.handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date"
+              }}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
+        {/* warrantyPeriod */}
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              name="warrantyPeriod"
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="warrantyPeriod"
+              value={this.state.warrantyPeriod}
+              onChange={this.handleDateChangeWarrentyPeriod}
+              KeyboardButtonProps={{
+                "aria-label": "change date"
+              }}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
+        {/* quantity */}
+        <TextField
+          required
+          id="outlined-quantity-input"
+          label="quantity required"
+          className={classes.textField}
+          type="number"
+          name="quantity"
+          autoComplete="quantity"
+          margin="normal"
+          variant="outlined"
+          value={this.state.quantity}
+          onChange={this.handleChange}
+        />
+        <TextField
+          id="outlined-status-input"
+          label="status"
+          className={classes.textField}
+          type="text"
+          name="status"
+          autoComplete="status"
+          margin="normal"
+          variant="outlined"
+          value={this.state.status}
+          onChange={this.handleChange}
+        />
+        {/* image Url */}
+        {/* <TextField
             id="outlined-imageUrl"
             label="imageUrl"
             // encType="multipart/form-data"
             className={classes.textField}
             type="file"
             name="imageUrl"
-            accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
+            // accept=".jpg,.gif,.png,image/gif,image/jpeg,image/png"
             margin="normal"
             value={this.state.imageUrl}
             onChange={this.imageHandler}
+            multiple
+          /> */}
+        {/* {/* <input
+            type="file"
+            name="imageUrl"
+            value={this.state.imageUrl}
+            onChange={this.imageHandler}
+          /> */}
+        {/* <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            // value={this.state.imageUrl}
+            onChange={this.imageHandler}
           />
-          <p></p>
-          category: [google vision?]
-          <p></p>location
-          <Button type="submit" variant="outlined" className={classes.button}>
-            create
-          </Button>
-        </FormControl>
-      </div>
+          <label htmlFor="imageUrl">Select file</label>
+           */}
+        {/* <ImagesUploader
+            url=" http://localhost:5555/api/products"
+            optimisticPreviews
+            onLoadEnd={err => {
+              if (err) {
+                console.error(err);
+              }
+            }}
+            label="Upload multiple images"
+          /> */}
+        <p></p>
+        category: [google vision?]
+        <p></p>location
+        <Button
+          type="submit"
+          variant="outlined"
+          className={classes.button}
+          onClick={this.handleSubmit}
+        >
+          create
+        </Button>
+      </FormControl>
     );
   }
 }
