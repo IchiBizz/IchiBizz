@@ -58,6 +58,23 @@ export default class SearchFilter extends Component {
           })}
         </Select>
 
+        <InputLabel htmlFor="outlined-age-simple">Brand name</InputLabel>
+        <Select
+          value={this.props.searchBrand}
+          onChange={this.props.handleChange}
+          inputProps={{
+            name: "searchBrand",
+            id: "searchBrand"
+          }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.props.distinctBrand.map(brand => {
+            return <MenuItem value={brand}>{brand}</MenuItem>;
+          })}
+        </Select>
+
         <div className={classes.root}>
           <Typography id="range-slider" gutterBottom>
             Price range

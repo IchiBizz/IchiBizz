@@ -17,20 +17,14 @@ import {
   withStyles
 } from "@material-ui/core";
 
-// const useStyles = theme => ({
-//   card: {
-//     maxWidth: 300,
-//     margin: "0 auto"
-//   }
-// });
-
 class ProductsList extends Component {
   state = {
     products: [],
     searchText: "",
     searchCategory: "",
-    priceValue: [20, 50],
-    selectedDate: ""
+    searchBrand: "",
+    priceValue: [20, 100],
+    selectedDate: new Date()
   };
 
   getData = () => {
@@ -87,6 +81,14 @@ class ProductsList extends Component {
       )
     ];
 
+    const distinctBrand = [
+      ...new Set(
+        this.state.products.map(product => {
+          return product.brand;
+        })
+      )
+    ];
+
     const maxPrice = Math.max(
       ...this.state.products.map(product => {
         return product.price;
@@ -107,19 +109,16 @@ class ProductsList extends Component {
       let categoryMatched = product.category
         .toLowerCase()
         .includes(this.state.searchCategory.toLowerCase());
-      console.log("######", this.state.priceValue[0]);
-      let priceMatched;
-      if (product.price) {
-        priceMatched =
-          product.price >= this.state.priceValue[0] &&
-          product.price <= this.state.priceValue[1];
-      } else {
-        priceMatched = true;
-      }
 
-      // let dateMatched = product.availability <= this.state.selectedDate;
+      let priceMatched =
+        product.price >= this.state.priceValue[0] &&
+        product.price <= this.state.priceValue[1];
 
-      return searchMatched && categoryMatched && priceMatched;
+      // Date.parse converts the date string into milliseconds
+      let dateMatched =
+        Date.parse(product.availability) <= Date.parse(this.state.selectedDate);
+
+      return searchMatched && categoryMatched && priceMatched && dateMatched;
     });
 
     return (
@@ -128,9 +127,12 @@ class ProductsList extends Component {
         <SearchFilter
           searchText={this.state.searchText}
           searchCategory={this.state.searchCategory}
+          searchBrand={this.state.searchBrand}
           priceValue={this.state.priceValue}
+          selectedDate={this.state.selectedDate}
           handleChange={this.handleChange}
           distinctCategory={distinctCategory}
+          distinctBrand={distinctBrand}
           maxPrice={maxPrice}
           handleDateChange={this.handleDateChange}
           handlePriceChange={this.handlePriceChange}
