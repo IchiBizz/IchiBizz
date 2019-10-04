@@ -57,8 +57,9 @@ export default class SearchFilter extends Component {
             Price range
           </Typography>
           <Slider
-            value={value}
-            onChange={handleChange}
+            name="priceValue"
+            value={this.props.priceValue}
+            onChange={this.props.handleChange}
             valueLabelDisplay="auto"
             aria-labelledby="range-slider"
             // getAriaValueText={valuetext}

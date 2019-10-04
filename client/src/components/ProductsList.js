@@ -4,21 +4,26 @@ import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import { Carousel } from "react-responsive-carousel";
-import { TextField, Grid, Box } from "@material-ui/core";
+import {
+  Typography,
+  TextField,
+  Grid,
+  Box,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  CardActionArea,
+  Card
+} from "@material-ui/core";
 
 export default class ProductsList extends Component {
   state = {
     products: [],
     searchText: "",
     searchCategory: "",
-    priceRange: ""
+    priceValue: [20, 50]
   };
 
   getData = () => {
@@ -39,13 +44,15 @@ export default class ProductsList extends Component {
     this.getData();
   };
 
-  handleChange = event => {
+  handleChange = (event, newValue) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
+      priceValue: newValue
     });
     console.log(this.state.searchCategory);
     console.log(this.state.searchText);
+    console.log(this.state.priceValue);
   };
 
   render() {
@@ -89,6 +96,7 @@ export default class ProductsList extends Component {
         <SearchFilter
           searchText={this.state.searchText}
           searchCategory={this.state.searchCategory}
+          priceValue={this.state.priceValue}
           handleChange={this.handleChange}
           filteredProduct={filteredProduct}
           distinctCategory={distinctCategory}
