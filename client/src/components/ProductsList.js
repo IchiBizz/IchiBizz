@@ -57,6 +57,7 @@ export default class ProductsList extends Component {
 
     const classes = useStyles;
 
+    // the distinctCategory variable is created to populate the category dropdown
     const distinctCategory = [
       ...new Set(
         this.state.products.map(product => {
@@ -91,7 +92,6 @@ export default class ProductsList extends Component {
           searchText={this.state.searchText}
           searchCategory={this.state.searchCategory}
           handleChange={this.handleChange}
-          filteredProduct={filteredProduct}
           distinctCategory={distinctCategory}
         />
 
@@ -123,6 +123,7 @@ export default class ProductsList extends Component {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
+                  //the 'share' and 'learn more' links are placeholders for now
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
