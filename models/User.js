@@ -22,8 +22,9 @@ const userSchema = new Schema(
       country: String
     },
     phoneNumber: Number,
-    star: Number,
-    review: [String]
+    // Rating
+    stars: Number,
+    reviews: [String]
   },
   {
     timestamps: {
