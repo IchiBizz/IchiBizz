@@ -23,7 +23,8 @@ export default class ProductsList extends Component {
     products: [],
     searchText: "",
     searchCategory: "",
-    priceValue: [20, 50]
+    priceValue: [20, 50],
+    selectedDate: ""
   };
 
   getData = () => {
