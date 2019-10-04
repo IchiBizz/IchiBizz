@@ -97,7 +97,7 @@ class ProductsList extends Component {
 
     let filteredProduct = this.state.products.filter(product => {
       let searchMatched =
-        product.name
+        product.title
           .toLowerCase()
           .includes(this.state.searchText.toLowerCase()) ||
         product.tags.find(tag => {
@@ -145,15 +145,15 @@ class ProductsList extends Component {
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      alt={data.name}
+                      alt={data.title}
                       height="140"
                       image={`${data.imageUrl[0]}`}
-                      title={data.name}
+                      title={data.title}
                     />
                     <CardContent>
                       <Link to={`/products/${data._id}`}>
                         <Typography gutterBottom variant="h5" component="h2">
-                          {data.name}
+                          {data.title}
                         </Typography>
                       </Link>
                       <Typography
@@ -166,7 +166,7 @@ class ProductsList extends Component {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  //the 'share' and 'learn more' links are placeholders for now
+                  {/* the 'share' and 'learn more' links are placeholders for now */}
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
