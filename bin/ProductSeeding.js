@@ -32,52 +32,63 @@ mongoose
   ]
 
   const seedInitialProducts = () => {
-    for(let i = 0; i < 30; i++) {
-      products.push(
-        {
-          title: Faker.lorem.sentence(),
-          description: Faker.lorem.sentences(),
-          imageUrl: [
-            Faker.image.business(),
-            Faker.image.business(),
-            Faker.image.business(),
-            Faker.image.business(),
-            Faker.image.business(),
-          ],
-          brand: Faker.random.arrayElement(brandsList),
-          category: Faker.random.arrayElement(businessTypes),
-          price: Faker.finance.amount(10, 1999, 2),
-          currency: Faker.finance.currencyCode(),
-          tags: [
-            Faker.random.arrayElement(tagsList),
-            Faker.random.arrayElement(tagsList),
-            Faker.random.arrayElement(tagsList),
-            Faker.random.arrayElement(tagsList),
-            Faker.random.arrayElement(tagsList)
-          ],
-          latitude: Faker.address.latitude(),
-          longitude: Faker.address.longitude(),
-          availability: Faker.date.future(),
-          warrantyUntil: Faker.date.future(),
-          quantity: Faker.random.number({min: 1, max: 5}),
-          condition: "used",
-          isSold: false,
-          seller: new mongoose.Types.ObjectId(),
-          buyer: new mongoose.Types.ObjectId(),
-          wishlist: [
-            new mongoose.Types.ObjectId(),
-            new mongoose.Types.ObjectId()
-          ],
-          requested: [
-            new mongoose.Types.ObjectId(),
-            new mongoose.Types.ObjectId(),
-            new mongoose.Types.ObjectId(),
-            new mongoose.Types.ObjectId(),
-            new mongoose.Types.ObjectId()
-          ],
-        }
-      )
-    }
+    User.find().then(users => {
+      users.forEach(user=>console.log(user._id))
+      for(let i = 0; i < 30; i++) {
+
+        // randomSeller includes the current user
+        let randomSeller = users[Math.floor(Math.random() * users.length)]
+        // randomBuyer is incremented (by 1, 2, 3) to ensure the buyer is not the current user buying their own selling product
+        let randomBuyer1 = users[( Math.floor(Math.random() * users.length) +1) % 10]
+        let randomBuyer2 = users[( Math.floor(Math.random() * users.length) +2) % 10]
+        let randomBuyer3 = users[( Math.floor(Math.random() * users.length) +3 ) % 10]
+        let randomBuyer4 = users[( Math.floor(Math.random() * users.length) +4 ) % 10]
+
+        products.push(
+          {
+            title: Faker.lorem.sentence(),
+            description: Faker.lorem.sentences(),
+            imageUrl: [
+              Faker.image.business(),
+              Faker.image.business(),
+              Faker.image.business(),
+              Faker.image.business(),
+              Faker.image.business(),
+            ],
+            brand: Faker.random.arrayElement(brandsList),
+            category: Faker.random.arrayElement(businessTypes),
+            price: Faker.finance.amount(10, 1999, 2),
+            currency: Faker.finance.currencyCode(),
+            tags: [
+              Faker.random.arrayElement(tagsList),
+              Faker.random.arrayElement(tagsList),
+              Faker.random.arrayElement(tagsList),
+              Faker.random.arrayElement(tagsList),
+              Faker.random.arrayElement(tagsList)
+            ],
+            latitude: Faker.address.latitude(),
+            longitude: Faker.address.longitude(),
+            availability: Faker.date.future(),
+            warrantyUntil: Faker.date.future(),
+            quantity: Faker.random.number({min: 1, max: 5}),
+            condition: "used",
+            isSold: false,
+            seller: randomSeller._id,
+            buyer: randomBuyer1._id,
+            wishlist: [
+              // randomBuyer without current user
+              randomBuyer1._id,
+              randomBuyer2._id,
+              randomBuyer3._id
+            ],
+            requested: [
+              randomBuyer2._id,
+              randomBuyer4._id
+            ],
+          }
+        )
+      }
+    })
   }
 
   seedInitialProducts();
@@ -87,8 +98,8 @@ mongoose
     return Product.create(products)
   })
   .then(productsCreated => {
-    console.log(`${productsCreated.length} products created with the following id:`);
-    console.log(productsCreated.map(p => p._id));
+    // console.log(`${productsCreated.length} products created with the following id:`);
+    // console.log(productsCreated.map(p => p._id));
   })
   .then(() => {
     // Close properly the connection to Mongoose
