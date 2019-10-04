@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DateFnsUtils from "@date-io/date-fns";
-
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
@@ -79,8 +78,8 @@ export default class AddProduct extends Component {
             latitude: 0,
             longitude: 0
           },
-          availability: "",
-          warrantyUntil: " ",
+          availability: null,
+          warrantyUntil: null,
           condition: ""
         });
         console.log(response.data);
@@ -98,12 +97,12 @@ export default class AddProduct extends Component {
     console.log("availability:", date);
   };
 
-  //catching da date for warrantyPeriod
+  //catching da date for warranty until
   handleDateChangeWarrantyUntil = date => {
     this.setState({
-      warrantyPeriod: date
+      warrantyUntil: date
     });
-    console.log("warrantyperiod:", date);
+    console.log("warrantyUntil:", date);
   };
 
   // eventhandler
@@ -113,7 +112,8 @@ export default class AddProduct extends Component {
       [name]: value
     });
     // console.log("currency", this.state.currency);
-    // console.log("name", this.state.name);
+    // console.log("AVAILABILITY", this.state.availability);
+    // console.log("WARRANTY", this.state.warrantyUntil);
   };
 
   //image upload
@@ -276,7 +276,7 @@ export default class AddProduct extends Component {
               id="date-picker-inline"
               label="Warranty Date until (if any)"
               value={this.state.warrantyUntil}
-              onChange={this.handleDateChangeWarrantyPeriod}
+              onChange={this.handleDateChangeWarrantyUntil}
               KeyboardButtonProps={{
                 "aria-label": "change date"
               }}

@@ -48,12 +48,12 @@ router.post("/", (req, res) => {
     // FIXME: To be added after authentication setup
     // seller: owner
   })
-    .then(data => {
-      res.json(data);
-    })
-    .catch(err => {
-      res.json(`ERROR creating product:`, err);
-    });
+  .then(data => {
+    res.json(data);
+  })
+  .catch(err => {
+    res.json(`ERROR creating product:`, err);
+  });
 });
 
 module.exports = router;
