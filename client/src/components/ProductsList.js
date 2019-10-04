@@ -79,6 +79,8 @@ class ProductsList extends Component {
     console.log("price", this.state.priceValue);
     const { classes } = this.props;
     console.log(classes);
+
+    // the distinctCategory variable is created to populate the category dropdown
     const distinctCategory = [
       ...new Set(
         this.state.products.map(product => {
@@ -130,7 +132,6 @@ class ProductsList extends Component {
           searchCategory={this.state.searchCategory}
           priceValue={this.state.priceValue}
           handleChange={this.handleChange}
-          filteredProduct={filteredProduct}
           distinctCategory={distinctCategory}
           maxPrice={maxPrice}
           handleDateChange={this.handleDateChange}
@@ -165,6 +166,7 @@ class ProductsList extends Component {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
+                  //the 'share' and 'learn more' links are placeholders for now
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
