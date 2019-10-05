@@ -9,10 +9,10 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
 
-const passport = require("passport");
 const session = require("express-session");
+const passport = require("passport");
 
-const MongoStore = require("connect-mongo")(session);
+require("./configs/passport");
 // const flash = require("connect-flash");
 
 mongoose
@@ -68,6 +68,7 @@ app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 // app.locals.title = "Express - Generated with IronGenerator";
 
 // Enable authentication using session + passport
+const MongoStore = require("connect-mongo")(session);
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

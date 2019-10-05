@@ -11,7 +11,7 @@ const signup = (username, email, password) => {
     });
 };
 
-const login = (username, email, password) => {
+const login = (email, password) => {
   return axios
     .post("/api/auth/login", { email, password })
     .then(response => {
