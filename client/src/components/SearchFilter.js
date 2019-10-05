@@ -1,12 +1,28 @@
 import React, { Component } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { TextField, InputLabel, Select, MenuItem } from "@material-ui/core";
+import {
+  Slider,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
+  Grid,
+  Typography
+} from "@material-ui/core";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
 
 export default class SearchFilter extends Component {
   render() {
     const useStyles = makeStyles(theme => ({
       card: {
         maxWidth: 100
+      },
+      root: {
+        width: 300
       }
     }));
     const classes = useStyles;
@@ -41,6 +57,57 @@ export default class SearchFilter extends Component {
             return <MenuItem value={category}>{category}</MenuItem>;
           })}
         </Select>
+
+        <InputLabel htmlFor="outlined-age-simple">Brand name</InputLabel>
+        <Select
+          value={this.props.searchBrand}
+          onChange={this.props.handleChange}
+          inputProps={{
+            name: "searchBrand",
+            id: "searchBrand"
+          }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.props.distinctBrand.map(brand => {
+            return <MenuItem value={brand}>{brand}</MenuItem>;
+          })}
+        </Select>
+
+        <div className={classes.root}>
+          <Typography id="range-slider" gutterBottom>
+            Price range
+          </Typography>
+          <Slider
+            name="priceValue"
+            value={this.props.priceValue}
+            onChange={this.props.handlePriceChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            max={this.props.maxPrice}
+            // getAriaValueText={valuetext}
+          />
+        </div>
+
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Grid container justify="space-around">
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Filter by availability"
+              name="selectedDate"
+              value={this.props.selectedDate}
+              onChange={this.props.handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date"
+              }}
+            />
+          </Grid>
+        </MuiPickersUtilsProvider>
       </>
     );
   }

@@ -2,23 +2,26 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
+import useStyles from "./ProductListStyles";
+import {
+  Typography,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  CardActionArea,
+  Card,
+  withStyles
+} from "@material-ui/core";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import { Carousel } from "react-responsive-carousel";
-import { TextField, Grid, Box } from "@material-ui/core";
-
-export default class ProductsList extends Component {
+class ProductsList extends Component {
   state = {
     products: [],
     searchText: "",
-    searchCategory: ""
+    searchCategory: "",
+    searchBrand: "",
+    priceValue: [20, 100],
+    selectedDate: new Date()
   };
 
   getData = () => {
@@ -46,16 +49,25 @@ export default class ProductsList extends Component {
     });
     console.log(this.state.searchCategory);
     console.log(this.state.searchText);
+    console.log(this.state.priceValue);
+  };
+
+  handlePriceChange = (event, newValue) => {
+    this.setState({
+      priceValue: newValue
+    });
+  };
+
+  handleDateChange = date => {
+    this.setState({
+      selectedDate: date
+    });
   };
 
   render() {
-    const useStyles = makeStyles(theme => ({
-      card: {
-        maxWidth: 100
-      }
-    }));
-
-    const classes = useStyles;
+    console.log("price", this.state.priceValue);
+    const { classes } = this.props;
+    console.log(classes);
 
     // the distinctCategory variable is created to populate the category dropdown
     const distinctCategory = [
@@ -65,24 +77,45 @@ export default class ProductsList extends Component {
         })
       )
     ];
-    console.log(distinctCategory);
 
-    const filteredProduct = this.state.products.filter(product => {
+    const distinctBrand = [
+      ...new Set(
+        this.state.products.map(product => {
+          return product.brand;
+        })
+      )
+    ];
+
+    const maxPrice = Math.max(
+      ...this.state.products.map(product => {
+        return product.price;
+      })
+    );
+
+    let filteredProduct = this.state.products.filter(product => {
       let searchMatched =
-        product.name
+        product.title
           .toLowerCase()
           .includes(this.state.searchText.toLowerCase()) ||
         product.tags.find(tag => {
-          return Boolean(
-            tag.toLowerCase().includes(this.state.searchText.toLowerCase())
-          );
+          return tag
+            .toLowerCase()
+            .includes(this.state.searchText.toLowerCase());
         });
 
       let categoryMatched = product.category
         .toLowerCase()
         .includes(this.state.searchCategory.toLowerCase());
 
-      return searchMatched && categoryMatched;
+      let priceMatched =
+        product.price >= this.state.priceValue[0] &&
+        product.price <= this.state.priceValue[1];
+
+      // Date.parse converts the date string into milliseconds
+      let dateMatched =
+        Date.parse(product.availability) <= Date.parse(this.state.selectedDate);
+
+      return searchMatched && categoryMatched && priceMatched && dateMatched;
     });
 
     return (
@@ -91,11 +124,17 @@ export default class ProductsList extends Component {
         <SearchFilter
           searchText={this.state.searchText}
           searchCategory={this.state.searchCategory}
+          searchBrand={this.state.searchBrand}
+          priceValue={this.state.priceValue}
+          selectedDate={this.state.selectedDate}
           handleChange={this.handleChange}
           distinctCategory={distinctCategory}
+          distinctBrand={distinctBrand}
+          maxPrice={maxPrice}
+          handleDateChange={this.handleDateChange}
+          handlePriceChange={this.handlePriceChange}
         />
-
-        <Grid container direction="row" justify="center" alignItems="center">
+        <div>
           {filteredProduct.map(data => {
             return (
               <>
@@ -103,15 +142,15 @@ export default class ProductsList extends Component {
                   <CardActionArea>
                     <CardMedia
                       component="img"
-                      alt={data.name}
+                      alt={data.title}
                       height="140"
                       image={`${data.imageUrl[0]}`}
-                      title={data.name}
+                      title={data.title}
                     />
                     <CardContent>
                       <Link to={`/products/${data._id}`}>
                         <Typography gutterBottom variant="h5" component="h2">
-                          {data.name}
+                          {data.title}
                         </Typography>
                       </Link>
                       <Typography
@@ -119,11 +158,12 @@ export default class ProductsList extends Component {
                         color="textSecondary"
                         component="p"
                       >
-                        {data.description}
+                        {data.description} <br />
+                        {data.currency} {data.price}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
-                  //the 'share' and 'learn more' links are placeholders for now
+                  {/* the 'share' and 'learn more' links are placeholders for now */}
                   <CardActions>
                     <Button size="small" color="primary">
                       Share
@@ -136,8 +176,10 @@ export default class ProductsList extends Component {
               </>
             );
           })}
-        </Grid>
+        </div>
       </>
     );
   }
 }
+
+export default withStyles(useStyles)(ProductsList);
