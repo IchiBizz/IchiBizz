@@ -24,6 +24,8 @@ router.post("/", (req, res) => {
     condition
   } = req.body;
 
+  console.log(`[prodductDetail.js] req.body.condition`, req.body.condition)
+
   // FIXME: To be added after authentication setup
   // const owner = req.user._id;
 
@@ -45,11 +47,11 @@ router.post("/", (req, res) => {
     warrantyUntil: warrantyUntil,
     condition: condition,
     isSold: false
-    // FIXME: To be added after authentication setup
+    // TODO: To be added after authentication setup
     // seller: owner
   })
-  .then(data => {
-    res.json(data);
+  .then(product => {
+    res.json(product);
   })
   .catch(err => {
     res.json(`ERROR creating product:`, err);

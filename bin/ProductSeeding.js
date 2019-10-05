@@ -30,7 +30,9 @@ mongoose
   // Tags can be used by buyers search for products and sellers to categorize their products
   let tagsList = [
     "car", "phone", "computer", "table", "office", "ice production", "chair", "sofa", "shelf", "cupboard", "lamp", "music box", "bed", "cuttlery", "cutting machine", "drill", "kitchen", "reception", "matrice", "tablets", "bicycle", "laptop", "monitor", "telephone system", "cabinet", "printer"
-  ]
+  ];
+
+  let conditions = ["used", "new"];
 
   const seedInitialProducts = () => {
     User.find().then(users => {
@@ -79,7 +81,7 @@ mongoose
             },
             availability: Faker.date.future(),
             warrantyUntil: Faker.date.future(),
-            condition: "used",
+            condition: Faker.random.arrayElement(conditions),
             isSold: false,
             seller: randomSeller._id,
             buyer: randomBuyer1._id,

@@ -27,8 +27,11 @@ const productSchema = new Schema({
   },
   availability: Date,
   warrantyUntil: Date,
-  // new or used
-  condition: String,
+  condition: {
+    type: String,
+    enum: ["used", "new"],
+    default: "used"
+  },
   isSold: Boolean,
   //only one seller per product
   seller: {

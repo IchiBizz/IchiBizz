@@ -11,7 +11,11 @@ import {
   Button,
   FormControl,
   Grid,
-  InputAdornment
+  InputAdornment,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel
 } from "@material-ui/core";
 
 export default class AddProduct extends Component {
@@ -293,7 +297,7 @@ export default class AddProduct extends Component {
           </Grid>
         </MuiPickersUtilsProvider>
         {/* Condition */}
-        <TextField
+        {/* <TextField
           id="outlined-condition-input"
           label="Condition"
           className={classes.textField}
@@ -305,7 +309,29 @@ export default class AddProduct extends Component {
           variant="outlined"
           value={this.state.condition}
           onChange={this.handleChange}
-        />
+        /> */}
+
+        <FormControl component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">Condition</FormLabel>
+          <RadioGroup
+            aria-label="used"
+            name="used"
+            value={this.state.condition}
+            onChange={this.handleChange}>
+            <FormControlLabel
+              value="used"
+              control={<Radio />}
+              label="used"
+              name="condition"
+            />
+            <FormControlLabel
+              value="new"
+              control={<Radio />}
+              label="new"
+              name="condition"
+              />
+          </RadioGroup>
+        </FormControl>
         {/* image Url */}
         <label htmlFor="imageUrl">Upload Image(s): </label>
         <input
