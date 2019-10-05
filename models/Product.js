@@ -18,7 +18,7 @@ const productSchema = new Schema({
   tags: [String],
   pickupLocation: [Number],
   availability: Date,
-  warrantyPeriod: String,
+  warrantyPeriod: Date,
   quantity: {
     type: Number,
     required: true
