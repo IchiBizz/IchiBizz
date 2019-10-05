@@ -23,4 +23,15 @@ const login = (email, password) => {
     });
 };
 
-export { signup, login };
+const logout = () => {
+  return axios
+    .delete("/api/auth/logout")
+    .then(response => {
+      return response.data;
+    })
+    .catch(err => {
+      return err.response.data;
+    });
+};
+
+export { signup, login, logout };

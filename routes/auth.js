@@ -15,14 +15,6 @@ router.post("/signup", (req, res) => {
       .status(400)
       .json({ message: "the password must be min. 8 char." });
   }
-  if (
-    !(password.match(/[a-z]/) && password.match(/[A-Z]/) && /\d/.test(password))
-  ) {
-    return res.status(400).json({
-      message:
-        "the password must contain at leat one number and one capital letter."
-    });
-  }
   if (!email) {
     return res.status(400).json({ message: "the email can not be empty" });
   }
@@ -89,6 +81,18 @@ router.post("/login", (req, res) => {
       return res.json(user);
     });
   })(req, res);
+});
+
+//logout
+router.delete("/logout", (req, res) => {
+  req.logout();
+  res.json({ message: "Successful logout" });
+});
+
+
+// get api/ loggedin
+router.get("/loggedin", (req, res) => {
+  res.json(req.user);
 });
 
 module.exports = router;
