@@ -61,8 +61,9 @@ mongoose
             category: Faker.random.arrayElement(businessTypes),
             quantity: Faker.random.number({min: 1, max: 10}),
             // returns integer between 10 (min) and 1999 (max) as 2 decimals
-            price: Faker.finance.amount(10, 1999, 2),
-            currency: Faker.finance.currencyCode(),
+            price: Faker.finance.amount(10, 4999, 2),
+            // We only use EUR => hard-coded
+            currency: "EUR",
             tags: [
               Faker.random.arrayElement(tagsList),
               Faker.random.arrayElement(tagsList),

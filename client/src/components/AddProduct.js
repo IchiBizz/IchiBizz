@@ -10,9 +10,8 @@ import {
   TextField,
   Button,
   FormControl,
-  Select,
-  MenuItem,
-  Grid
+  Grid,
+  InputAdornment
 } from "@material-ui/core";
 
 export default class AddProduct extends Component {
@@ -24,7 +23,7 @@ export default class AddProduct extends Component {
     category: "",
     quantity: 0,
     price: 0,
-    currency: "",
+    currency: "EUR",
     tags: [],
     company: "",
     location: {
@@ -69,7 +68,7 @@ export default class AddProduct extends Component {
           category: [],
           quantity: 0,
           price: 0,
-          currency: "",
+          currency: "EUR",
           tags: [],
           company: "",
           location: {
@@ -109,9 +108,7 @@ export default class AddProduct extends Component {
     this.setState({
       [name]: value
     });
-    // console.log("currency", this.state.currency);
-    // console.log("AVAILABILITY", this.state.availability);
-    // console.log("WARRANTY", this.state.warrantyUntil);
+    console.log("handleChange event.target.name", event.target.value);
   };
 
   //image upload
@@ -214,40 +211,23 @@ export default class AddProduct extends Component {
           onChange={this.handleChange}
         />
         {/* Price */}
-        {/* FIXME: Display only EUR associated with price */}
         <TextField
-          required
-          id="outlined-price-input"
+          id="outlined-adornment-price"
           label="Price"
           className={classes.textField}
           type="number"
           name="price"
-          placeholder="EUR 299.00"
-          autoComplete="price"
           margin="normal"
           variant="outlined"
           value={this.state.price}
           onChange={this.handleChange}
-        />
-        {/* FIXME: Display only EUR associated with price */}
-        {/* Currency */}
-        {/* <Select
-          value={this.state.currency}
-          onChange={this.handleChange}
-          labelWidth={20}
-          inputProps={{
-            name: "currency",
-            id: "outlined-currencey-simple"
+          InputProps={{
+            startAdornment:
+              <InputAdornment
+                position="start">EUR
+              </InputAdornment>
           }}
-          name="currency"
-        >
-          <MenuItem value="">
-            <em>Currency</em>
-          </MenuItem>
-          <MenuItem value="USD">USD</MenuItem>
-          <MenuItem value="EUR">EUR</MenuItem>
-          <MenuItem value="GBP">GBP</MenuItem>
-        </Select> */}
+        />
         {/* Company */}
           <TextField
           id="outlined-company-input"
