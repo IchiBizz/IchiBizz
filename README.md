@@ -1,1 +1,1 @@
-# itchibizz
+# ichibizz
