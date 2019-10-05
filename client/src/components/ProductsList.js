@@ -6,9 +6,6 @@ import GoogleMapsProductList from "./GoogleMapsProductList";
 import useStyles from "./ProductListStyles";
 import {
   Typography,
-  TextField,
-  Grid,
-  Box,
   CardActions,
   CardContent,
   CardMedia,
@@ -183,8 +180,7 @@ class ProductsList extends Component {
             })}
           </div>
         </div>
-        </div>
-      
+      </div>
     );
   }
 }
