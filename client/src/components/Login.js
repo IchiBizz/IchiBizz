@@ -1,19 +1,18 @@
 import React, { Component } from "react";
-import Styles from "./Styles";
-import { signup } from "../services/api";
+// import Styles from "./Styles";
+import { login } from "../services/api";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
-  InputLabel,
+  // InputLabel,
   FormControl,
-  Select,
-  MenuItem,
+  // Select,
+  // MenuItem,
   Button
 } from "@material-ui/core";
 
-export default class SignUp extends Component {
+export default class Login extends Component {
   state = {
-    message: "",
     password: "",
     username: "",
     email: ""
@@ -24,25 +23,23 @@ export default class SignUp extends Component {
     this.setState({
       [name]: value
     });
-    // console.log("username:", this.state.username);
-    // console.log("email:", this.state.email);
-    // console.log("password:", this.state.password);
+
+    console.log("email:", this.state.email);
+    console.log("password:", this.state.password);
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    const { username, email, password } = this.state;
-    console.log(this.state.username);
-    signup(username, email, password).then(data => {
-      console.log("signup?", data);
+    const { email, password } = this.state;
+    console.log(this.state.password);
+    login(email, password).then(data => {
+      console.log("login?react?", data);
       if (data.message) {
         this.setState({
           message: data.message,
           password: "",
-          username: "",
-          email: "",
-          message: ""
+          email: ""
         });
       } else {
         // this.props.setUser(data);
@@ -57,24 +54,11 @@ export default class SignUp extends Component {
 
     return (
       <>
-        <h2>Sign Up</h2>
+        <h2>Log in</h2>
         <FormControl variant="outlined">
           <TextField
-            label="username"
-            id="outlined-username-input-signup"
-            type="text"
-            margin="normal"
-            // className={classes.textField}
-            name="username"
-            variant="outlined"
-            autoComplete="username"
-            value={this.state.username}
-            onChange={this.handleChange}
-          />
-
-          <TextField
             label="email"
-            id="outlined-email-input-signup"
+            id="outlined-email-input-login"
             type="email"
             margin="normal"
             // className={classes.textField}
@@ -87,7 +71,7 @@ export default class SignUp extends Component {
 
           <TextField
             label="password / min. 8char"
-            id="outlined-password-input-signup"
+            id="outlined-password-input-login"
             type="password"
             margin="normal"
             // className={classes.textField}
@@ -97,9 +81,7 @@ export default class SignUp extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           />
-          <label htmlFor="password">
-            *password must contain Capital letter and number
-          </label>
+
           <Button variant="outlined" onClick={this.handleSubmit}>
             submit
           </Button>
