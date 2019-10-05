@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 // import Styles from "./Styles";
 import { login } from "../services/api";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  // InputLabel,
-  FormControl,
-  // Select,
-  // MenuItem,
-  Button
-} from "@material-ui/core";
+import { TextField, FormControl, Button } from "@material-ui/core";
 
 export default class Login extends Component {
   state = {
@@ -50,8 +42,6 @@ export default class Login extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
       <>
         <h2>Log in</h2>

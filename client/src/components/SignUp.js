@@ -1,15 +1,6 @@
 import React, { Component } from "react";
-import Styles from "./Styles";
 import { signup } from "../services/api";
-import { makeStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
-  Button
-} from "@material-ui/core";
+import { TextField, FormControl, Button } from "@material-ui/core";
 
 export default class SignUp extends Component {
   state = {
@@ -41,8 +32,7 @@ export default class SignUp extends Component {
           message: data.message,
           password: "",
           username: "",
-          email: "",
-          message: ""
+          email: ""
         });
       } else {
         // this.props.setUser(data);
@@ -53,8 +43,6 @@ export default class SignUp extends Component {
   };
 
   render() {
-    const { classes } = this.props;
-
     return (
       <>
         <h2>Sign Up</h2>

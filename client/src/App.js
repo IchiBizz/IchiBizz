@@ -3,15 +3,17 @@ import "./App.css";
 import ProductsList from "./components/ProductsList";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
+import Logout from "./components/Logout";
 
 import { Route } from "react-router-dom";
-import LogIn from "./components/Login";
 
 function App() {
   return (
     <div className="App">
-      <Route exact path="/" component={SignUp} />
-      <Route exact path="/" component={Login} />
+      <Route exact path="/productslist" component={ProductsList} />
+      <Route exact path="/signup" component={SignUp} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/logout" component={Logout} />
     </div>
   );
 }
