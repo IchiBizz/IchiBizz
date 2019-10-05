@@ -33,7 +33,9 @@ export default class AddProduct extends Component {
     // Must be future date
     availability: new Date(),
     warrantyUntil: new Date(),
-    condition: ""
+    condition: "",
+    created_at: null,
+    updated_at: null
   };
 
   handleSubmit = event => {
@@ -56,7 +58,9 @@ export default class AddProduct extends Component {
         },
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
-        condition: this.state.condition
+        condition: this.state.condition,
+        created_at: this.state.created_at,
+        updated_at: this.state.updated_at
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
@@ -77,7 +81,9 @@ export default class AddProduct extends Component {
           },
           availability: null,
           warrantyUntil: null,
-          condition: ""
+          condition: "",
+          createdAt: new Date(),
+          updatedAt: new Date()
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
       })

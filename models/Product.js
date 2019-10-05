@@ -54,6 +54,12 @@ const productSchema = new Schema({
       ref: "User"
     }
   ]
+},
+{
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 const Product = mongoose.model("Product", productSchema);
