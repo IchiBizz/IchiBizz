@@ -57,12 +57,10 @@ export default class AddProduct extends Component {
         },
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
-        condition: this.state.condition,
-        wishlist: this.state.wishlist,
-        requested: this.state.requested
+        condition: this.state.condition
       })
       .then(response => {
-        console.log("[AddProduct.js] handleSubmit Response ", response);
+        console.log("[AddProduct.js] handleSubmit event starting...");
         this.setState({
           title: "",
           description: "",
@@ -82,7 +80,7 @@ export default class AddProduct extends Component {
           warrantyUntil: null,
           condition: ""
         });
-        console.log(response.data);
+        console.log(`[AddProduct.js] response.data:`, response.data);
       })
       .catch(err => {
         console.log(`[AddProduct.js]: response data`, err);
@@ -162,11 +160,12 @@ export default class AddProduct extends Component {
         {/* Title */}
         <TextField
           required
-          id="outlined-name-input"
+          id="outlined-title-input"
           label="Title"
           className={classes.textField}
           type="text"
           name="title"
+          placeholder="e.g. Nestlé D1234 Coffee Maker"
           autoComplete="title"
           margin="normal"
           variant="outlined"
@@ -193,6 +192,7 @@ export default class AddProduct extends Component {
           className={classes.textField}
           type="text"
           name="brand"
+          placeholder="e.g. Apple"
           autoComplete="brand"
           margin="normal"
           variant="outlined"
@@ -214,6 +214,7 @@ export default class AddProduct extends Component {
           onChange={this.handleChange}
         />
         {/* Price */}
+        {/* FIXME: Display only EUR associated with price */}
         <TextField
           required
           id="outlined-price-input"
@@ -221,14 +222,16 @@ export default class AddProduct extends Component {
           className={classes.textField}
           type="number"
           name="price"
+          placeholder="EUR 299.00"
           autoComplete="price"
           margin="normal"
           variant="outlined"
           value={this.state.price}
           onChange={this.handleChange}
         />
+        {/* FIXME: Display only EUR associated with price */}
         {/* Currency */}
-        <Select
+        {/* <Select
           value={this.state.currency}
           onChange={this.handleChange}
           labelWidth={20}
@@ -244,7 +247,27 @@ export default class AddProduct extends Component {
           <MenuItem value="USD">USD</MenuItem>
           <MenuItem value="EUR">EUR</MenuItem>
           <MenuItem value="GBP">GBP</MenuItem>
-        </Select>
+        </Select> */}
+        {/* Company */}
+          <TextField
+          id="outlined-company-input"
+          label="Company"
+          className={classes.textField}
+          type="text"
+          name="company"
+          placeholder="IchiBizz Inc"
+          autoComplete="company"
+          margin="normal"
+          variant="outlined"
+          value={this.state.company}
+          onChange={this.handleChange}
+        />
+        {/* Location / TO BE ADDED BY NINETTE */}
+        {/* <Map
+          item
+          value={this.state.location}
+          onChange={this.handleChange}
+        /> */}
         {/* Availability */}
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
@@ -285,12 +308,13 @@ export default class AddProduct extends Component {
         </MuiPickersUtilsProvider>
         {/* Condition */}
         <TextField
-          id="outlined-status-input"
-          label="Condition (e.g. used)"
+          id="outlined-condition-input"
+          label="Condition"
           className={classes.textField}
           type="text"
           name="condition"
           autoComplete="condition"
+          placeholder="e.g. used, partially defect"
           margin="normal"
           variant="outlined"
           value={this.state.condition}
