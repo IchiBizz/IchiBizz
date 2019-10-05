@@ -1,14 +1,16 @@
-import React from "react";
-import "./App.css";
+import React, { Component } from "react";
+import AddProduct from "./components/AddProduct";
 import ProductsList from "./components/ProductsList";
 import { Route } from "react-router-dom";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <Route exact path="/products" component={ProductsList} />
-    </div>
-  );
+export default class App extends Component {
+  render() {
+    return (
+      <div>
+        <Route exact path="/products" component={ProductsList} />
+        <AddProduct />
+      </div>
+    );
+  }
 }
-
-export default App;
