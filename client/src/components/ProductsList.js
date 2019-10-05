@@ -5,9 +5,6 @@ import SearchFilter from "./SearchFilter";
 import useStyles from "./ProductListStyles";
 import {
   Typography,
-  TextField,
-  Grid,
-  Box,
   CardActions,
   CardContent,
   CardMedia,
