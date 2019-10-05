@@ -18,12 +18,13 @@ const userSchema = new Schema(
       street: String,
       houseNumber: String,
       postCode: Number,
-      city: String
+      city: String,
+      country: String
     },
-    country: String,
-    phoneNumber: Number,
+    phoneNumber: String,
+    // Rating
     stars: Number,
-    review: [String]
+    reviews: [String]
   },
   {
     timestamps: {
