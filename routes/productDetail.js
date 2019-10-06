@@ -61,24 +61,4 @@ router.post("/", (req, res) => {
   });
 });
 
-// ============ CRUD: GET METHOD ============ //
-
-// GET /api/products/:id
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-
-  Product.findById(req.params.id)
-    console.log(`[AddProduct.js] Product.findById`, req.params.id)
-    .then(product => {
-      if (!product) {
-        res.status(404).json(product);
-      } else {
-        res.json(product);
-      }
-    })
-    .catch(err => {
-      res.json(`NOT FOUND`, err);
-    });
-});
-
 module.exports = router;
