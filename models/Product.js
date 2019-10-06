@@ -29,7 +29,8 @@ const productSchema = new Schema({
   warrantyUntil: Date,
   condition: {
     type: String,
-    enum: ["used", "new"]
+    enum: ["used", "new"],
+    required: true
   },
   isSold: Boolean,
   //only one seller per product

@@ -294,11 +294,14 @@ export default class AddProduct extends Component {
           </Grid>
         </MuiPickersUtilsProvider>
         {/* Condition */}
-        <FormControl component="fieldset" className={classes.formControl}>
+        <FormControl
+          required
+          component="fieldset"
+          className={classes.formControl}>
           <FormLabel component="legend">Condition</FormLabel>
           <RadioGroup
-            aria-label="used"
-            name="used"
+            aria-label="condition"
+            name="condition"
             value={this.state.condition}
             onChange={this.handleChange}>
             <FormControlLabel
