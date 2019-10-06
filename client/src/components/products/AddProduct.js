@@ -43,12 +43,15 @@ export default class AddProduct extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log("handlesubmit working");
+
     axios
-      .post("/api/products", {
+      // GET api/products/new to map with defined route in GET method of '/products/ProductDetails.js`
+      .post("/api/products/new", {
         title: this.state.title,
         description: this.state.description,
         imageUrl: this.state.imageUrl,
         brand: this.state.brand,
+        tags: this.state.tags,
         category: this.state.category,
         quantity: this.state.quantity,
         price: this.state.price,
@@ -87,6 +90,8 @@ export default class AddProduct extends Component {
           createdAt: new Date()
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
+        // FIXME: this.props.getData() is not a function
+        this.getData();
       })
       .catch(err => {
         console.log(`[AddProduct.js]: response data`, err);
@@ -160,188 +165,188 @@ export default class AddProduct extends Component {
 
     const classes = styling;
     return (
-      <FormControl onSubmit={this.handleSubmit}>
-        {/* Title */}
-        <TextField
-          required
-          id="outlined-title-input"
-          label="Title"
-          className={classes.textField}
-          type="text"
-          name="title"
-          placeholder="e.g. Nestlé D1234 Coffee Maker"
-          autoComplete="title"
-          margin="normal"
-          variant="outlined"
-          value={this.state.title}
-          onChange={this.handleChange}
-        />
-        {/* Description */}
-        <TextField
-          id="outlined-description-input"
-          label="Description"
-          className={classes.textField}
-          type="text"
-          name="description"
-          autoComplete="description"
-          margin="normal"
-          variant="outlined"
-          value={this.state.description}
-          onChange={this.handleChange}
-        />
-        {/* Brand */}
-        <TextField
-          id="outlined-brand-input"
-          label="Brand"
-          className={classes.textField}
-          type="text"
-          name="brand"
-          placeholder="e.g. Apple"
-          autoComplete="brand"
-          margin="normal"
-          variant="outlined"
-          value={this.state.brand}
-          onChange={this.handleChange}
-        />
-          {/* Quantity */}
+        <FormControl onSubmit={this.handleSubmit}>
+          {/* Title */}
           <TextField
-          required
-          id="outlined-quantity-input"
-          label="Quantity"
-          className={classes.textField}
-          type="number"
-          name="quantity"
-          autoComplete="quantity"
-          margin="normal"
-          variant="outlined"
-          value={this.state.quantity}
-          onChange={this.handleChange}
-        />
-        {/* Price */}
-        <TextField
-          id="outlined-adornment-price"
-          label="Price"
-          className={classes.textField}
-          type="number"
-          name="price"
-          margin="normal"
-          variant="outlined"
-          value={this.state.price}
-          onChange={this.handleChange}
-          InputProps={{
-            startAdornment:
-              <InputAdornment
-                position="start">EUR
-              </InputAdornment>
-          }}
-        />
-        {/* Company */}
+            required
+            id="outlined-title-input"
+            label="Title"
+            className={classes.textField}
+            type="text"
+            name="title"
+            placeholder="e.g. Nestlé D1234 Coffee Maker"
+            autoComplete="title"
+            margin="normal"
+            variant="outlined"
+            value={this.state.title}
+            onChange={this.handleChange}
+          />
+          {/* Description */}
           <TextField
-          id="outlined-company-input"
-          label="Company Name"
-          className={classes.textField}
-          type="text"
-          name="company"
-          placeholder="IchiBizz Inc"
-          autoComplete="company"
-          margin="normal"
-          variant="outlined"
-          value={this.state.company}
-          onChange={this.handleChange}
-        />
-        {/* Location / TO BE ADDED BY NINETTE */}
-        {/* <Map
-          item
-          value={this.state.location}
-          onChange={this.handleChange}
-        /> */}
-        {/* Availability */}
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container justify="space-around">
-            <KeyboardDatePicker
-              disableToolbar
-              name="availability"
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Availability Date"
-              value={this.state.availability}
-              onChange={this.handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "Change Date"
-              }}
-            />
-          </Grid>
-        </MuiPickersUtilsProvider>
-        {/* Warranty Until */}
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container justify="space-around">
-            <KeyboardDatePicker
-              disableToolbar
-              name="warrantyUntil"
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Warranty until"
-              value={this.state.warrantyUntil}
-              onChange={this.handleDateChangeWarrantyUntil}
-              KeyboardButtonProps={{
-                "aria-label": "change date"
-              }}
-            />
-          </Grid>
-        </MuiPickersUtilsProvider>
-        {/* Condition */}
-        <FormControl
-          required
-          component="fieldset"
-          className={classes.formControl}>
-          <FormLabel component="legend">Condition</FormLabel>
-          <RadioGroup
-            aria-label="condition"
-            name="condition"
-            value={this.state.condition}
-            onChange={this.handleChange}>
-            <FormControlLabel
-              value="used"
-              control={<Radio />}
-              label="used"
-              name="condition"
-            />
-            <FormControlLabel
-              value="new"
-              control={<Radio />}
-              label="new"
-              name="condition"
+            id="outlined-description-input"
+            label="Description"
+            className={classes.textField}
+            type="text"
+            name="description"
+            autoComplete="description"
+            margin="normal"
+            variant="outlined"
+            value={this.state.description}
+            onChange={this.handleChange}
+          />
+          {/* Brand */}
+          <TextField
+            id="outlined-brand-input"
+            label="Brand"
+            className={classes.textField}
+            type="text"
+            name="brand"
+            placeholder="e.g. Apple"
+            autoComplete="brand"
+            margin="normal"
+            variant="outlined"
+            value={this.state.brand}
+            onChange={this.handleChange}
+          />
+            {/* Quantity */}
+            <TextField
+            required
+            id="outlined-quantity-input"
+            label="Quantity"
+            className={classes.textField}
+            type="number"
+            name="quantity"
+            autoComplete="quantity"
+            margin="normal"
+            variant="outlined"
+            value={this.state.quantity}
+            onChange={this.handleChange}
+          />
+          {/* Price */}
+          <TextField
+            id="outlined-adornment-price"
+            label="Price"
+            className={classes.textField}
+            type="number"
+            name="price"
+            margin="normal"
+            variant="outlined"
+            value={this.state.price}
+            onChange={this.handleChange}
+            InputProps={{
+              startAdornment:
+                <InputAdornment
+                  position="start">EUR
+                </InputAdornment>
+            }}
+          />
+          {/* Company */}
+            <TextField
+            id="outlined-company-input"
+            label="Company Name"
+            className={classes.textField}
+            type="text"
+            name="company"
+            placeholder="IchiBizz Inc"
+            autoComplete="company"
+            margin="normal"
+            variant="outlined"
+            value={this.state.company}
+            onChange={this.handleChange}
+          />
+          {/* Location / TO BE ADDED BY NINETTE */}
+          {/* <Map
+            item
+            value={this.state.location}
+            onChange={this.handleChange}
+          /> */}
+          {/* Availability */}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                name="availability"
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Availability Date"
+                value={this.state.availability}
+                onChange={this.handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "Change Date"
+                }}
               />
-          </RadioGroup>
+            </Grid>
+          </MuiPickersUtilsProvider>
+          {/* Warranty Until */}
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                name="warrantyUntil"
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Warranty until"
+                value={this.state.warrantyUntil}
+                onChange={this.handleDateChangeWarrantyUntil}
+                KeyboardButtonProps={{
+                  "aria-label": "change date"
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+          {/* Condition */}
+          <FormControl
+            required
+            component="fieldset"
+            className={classes.formControl}>
+            <FormLabel component="legend">Condition</FormLabel>
+            <RadioGroup
+              aria-label="condition"
+              name="condition"
+              value={this.state.condition}
+              onChange={this.handleChange}>
+              <FormControlLabel
+                value="used"
+                control={<Radio />}
+                label="used"
+                name="condition"
+              />
+              <FormControlLabel
+                value="new"
+                control={<Radio />}
+                label="new"
+                name="condition"
+                />
+            </RadioGroup>
+          </FormControl>
+          {/* image Url */}
+          <label htmlFor="imageUrl">Upload Image(s): </label>
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            // FIXME: value={this.state.imageUrl}
+            onChange={this.imageHandler}
+          />
+          <br />
+          {/* // FIXME: Decide tagging via Google Vision
+          Category: [google vision?] */}
+          <br />
+          <Button
+            type="submit"
+            variant="outlined"
+            className={classes.button}
+            onClick={this.handleSubmit}
+            noValidate
+          >
+            Create
+          </Button>
         </FormControl>
-        {/* image Url */}
-        <label htmlFor="imageUrl">Upload Image(s): </label>
-        <input
-          type="file"
-          multiple
-          id="imageUrl"
-          name="imageUrl"
-          // FIXME: value={this.state.imageUrl}
-          onChange={this.imageHandler}
-        />
-        <br />
-        {/* // FIXME: Decide tagging via Google Vision
-        Category: [google vision?] */}
-        <br />
-        <Button
-          type="submit"
-          variant="outlined"
-          className={classes.button}
-          onClick={this.handleSubmit}
-          noValidate
-        >
-          Create
-        </Button>
-      </FormControl>
     );
   }
 }
