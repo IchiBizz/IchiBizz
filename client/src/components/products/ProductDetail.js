@@ -321,7 +321,7 @@ export default class AddProduct extends Component {
           multiple
           id="imageUrl"
           name="imageUrl"
-          // value={this.state.imageUrl}
+          // FIXME: value={this.state.imageUrl}
           onChange={this.imageHandler}
         />
         <br />
