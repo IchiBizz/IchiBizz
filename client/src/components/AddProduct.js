@@ -34,12 +34,10 @@ export default class AddProduct extends Component {
       latitude: null,
       longitude: null
     },
-    // Must be future date
-    availability: new Date(),
-    warrantyUntil: new Date(),
-    condition: "",
-    created_at: null,
-    updated_at: null
+    availability: null,
+    warrantyUntil: null,
+    condition: "used",
+    created_at: null
   };
 
   handleSubmit = event => {
@@ -63,8 +61,7 @@ export default class AddProduct extends Component {
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
         condition: this.state.condition,
-        created_at: this.state.created_at,
-        updated_at: this.state.updated_at
+        created_at: this.state.created_at
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
@@ -85,9 +82,8 @@ export default class AddProduct extends Component {
           },
           availability: null,
           warrantyUntil: null,
-          condition: "",
-          createdAt: new Date(),
-          updatedAt: new Date()
+          condition: "used",
+          created_at: new Date()
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
       })
@@ -118,7 +114,7 @@ export default class AddProduct extends Component {
     this.setState({
       [name]: value
     });
-    console.log("handleChange event.target.name", event.target.value);
+    console.log("handleChange event.target.value", event.target.value);
   };
 
   //image upload
@@ -179,7 +175,7 @@ export default class AddProduct extends Component {
           value={this.state.title}
           onChange={this.handleChange}
         />
-        {/* description */}
+        {/* Description */}
         <TextField
           id="outlined-description-input"
           label="Description"
@@ -241,7 +237,7 @@ export default class AddProduct extends Component {
         {/* Company */}
           <TextField
           id="outlined-company-input"
-          label="Company"
+          label="Company Name"
           className={classes.textField}
           type="text"
           name="company"
@@ -287,7 +283,7 @@ export default class AddProduct extends Component {
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="Warranty Date until (if any)"
+              label="Warranty until"
               value={this.state.warrantyUntil}
               onChange={this.handleDateChangeWarrantyUntil}
               KeyboardButtonProps={{
@@ -297,20 +293,6 @@ export default class AddProduct extends Component {
           </Grid>
         </MuiPickersUtilsProvider>
         {/* Condition */}
-        {/* <TextField
-          id="outlined-condition-input"
-          label="Condition"
-          className={classes.textField}
-          type="text"
-          name="condition"
-          autoComplete="condition"
-          placeholder="e.g. used, partially defect"
-          margin="normal"
-          variant="outlined"
-          value={this.state.condition}
-          onChange={this.handleChange}
-        /> */}
-
         <FormControl component="fieldset" className={classes.formControl}>
           <FormLabel component="legend">Condition</FormLabel>
           <RadioGroup

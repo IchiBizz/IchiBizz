@@ -51,7 +51,8 @@ router.post("/", (req, res) => {
     // seller: owner
   })
   .then(product => {
-    res.json(product);
+    console.log(`PRODUCT:`, product);
+    res.status(200).json(product);
   })
   .catch(err => {
     res.json(`ERROR creating product:`, err);
