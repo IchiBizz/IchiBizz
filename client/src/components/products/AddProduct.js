@@ -36,8 +36,8 @@ export default class AddProduct extends Component {
     },
     availability: null,
     warrantyUntil: null,
-    condition: "used",
-    created_at: null
+    condition: "",
+    createdAt: null
   };
 
   handleSubmit = event => {
@@ -54,14 +54,15 @@ export default class AddProduct extends Component {
         price: this.state.price,
         currency: this.state.currency,
         company: this.state.company,
+        // TODO: Location to be tested later
         location: {
-          latitude: this.state.latitude,
-          longitude: this.state.longitude
+          latitude: this.state.location.latitude,
+          longitude: this.state.location.longitude
         },
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
         condition: this.state.condition,
-        created_at: this.state.created_at
+        createdAt: this.state.created_at
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
@@ -82,8 +83,8 @@ export default class AddProduct extends Component {
           },
           availability: null,
           warrantyUntil: null,
-          condition: "used",
-          created_at: new Date()
+          condition: "",
+          createdAt: new Date()
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
       })
