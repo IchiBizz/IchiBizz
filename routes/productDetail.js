@@ -3,9 +3,11 @@ const router = express.Router();
 const Product = require("../models/Product");
 const User = require("../models/User");
 
+// ============ CRUD: POST METHOD ============ //
+
 // POST '/api/products' => Create product
 router.post("/", (req, res) => {
-  console.log("[productDetail.js]: POST route");
+  console.log("[AddProduct.js]: POST route");
   const {
     title,
     description,
@@ -24,7 +26,7 @@ router.post("/", (req, res) => {
     condition
   } = req.body;
 
-  console.log(`[prodductDetail.js] req.body.condition`, req.body.condition)
+  // console.log(`[AddProduct.js] req.body.condition`, req.body.condition)
 
   // FIXME: To be added after authentication setup
   // const owner = req.user._id;
@@ -57,6 +59,26 @@ router.post("/", (req, res) => {
   .catch(err => {
     res.json(`ERROR creating product:`, err);
   });
+});
+
+// ============ CRUD: GET METHOD ============ //
+
+// GET /api/products/:id
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+
+  Product.findById(req.params.id)
+    console.log(`[AddProduct.js] Product.findById`, req.params.id)
+    .then(product => {
+      if (!product) {
+        res.status(404).json(product);
+      } else {
+        res.json(product);
+      }
+    })
+    .catch(err => {
+      res.json(`NOT FOUND`, err);
+    });
 });
 
 module.exports = router;

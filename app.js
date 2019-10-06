@@ -83,7 +83,7 @@ app.use("/", index);
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
-const productRoutes = require("./routes/productDetail");
+const productRoutes = require("./routes/AddProduct");
 app.use("/api/products", productRoutes);
 
 const productsListRoutes = require("./routes/productsList");
