@@ -3,9 +3,11 @@ const router = express.Router();
 const Product = require("../models/Product");
 const User = require("../models/User");
 
+// ============ CRUD: POST METHOD ============ //
+
 // POST '/api/products' => Create product
 router.post("/", (req, res) => {
-  console.log("[productDetail.js]: POST route");
+  console.log("[AddProduct.js]: POST route");
   const {
     title,
     description,
@@ -23,6 +25,8 @@ router.post("/", (req, res) => {
     warrantyUntil,
     condition
   } = req.body;
+
+  // console.log(`[AddProduct.js] req.body.condition`, req.body.condition)
 
   // FIXME: To be added after authentication setup
   // const owner = req.user._id;
@@ -45,11 +49,12 @@ router.post("/", (req, res) => {
     warrantyUntil: warrantyUntil,
     condition: condition,
     isSold: false
-    // FIXME: To be added after authentication setup
+    // TODO: To be added after authentication setup
     // seller: owner
   })
-  .then(data => {
-    res.json(data);
+  .then(product => {
+    console.log(`PRODUCT:`, product);
+    res.status(200).json(product);
   })
   .catch(err => {
     res.json(`ERROR creating product:`, err);

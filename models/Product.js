@@ -30,8 +30,11 @@ const productSchema = new Schema({
   },
   availability: Date,
   warrantyUntil: Date,
-  // new or used
-  condition: String,
+  condition: {
+    type: String,
+    enum: ["used", "new"],
+    required: true
+  },
   isSold: Boolean,
   //only one seller per product
   seller: {
@@ -57,6 +60,13 @@ const productSchema = new Schema({
       ref: "User"
     }
   ]
+},
+{
+  timestamps: {
+    // When true mongoose generates timestamps as 'createdAt/updatedAt', this tells mongoose to use 'created_at/updated_at' instead
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  }
 });
 
 const Product = mongoose.model("Product", productSchema);
