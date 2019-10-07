@@ -74,7 +74,7 @@ export default class AddProduct extends Component {
           description: "",
           imageUrl: [],
           brand: "",
-          category: [],
+          category: "",
           quantity: 0,
           price: 0,
           currency: "EUR",
@@ -87,7 +87,7 @@ export default class AddProduct extends Component {
           availability: null,
           warrantyUntil: null,
           condition: "",
-          createdAt: new Date()
+          createdAt: null
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
         // FIXME: this.props.getData() is not a function
