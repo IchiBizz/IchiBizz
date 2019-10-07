@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
+import GoogleMapsInput from "./GoogleMapsInput";
 import useStyles from "./ProductListStyles";
 import {
   Typography,
@@ -120,6 +121,7 @@ class ProductsList extends Component {
 
     return (
       <>
+        <GoogleMapsInput />
         <h1>Product List</h1>
         <SearchFilter
           searchText={this.state.searchText}
