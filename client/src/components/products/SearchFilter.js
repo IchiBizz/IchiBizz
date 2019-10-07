@@ -14,8 +14,8 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from "@material-ui/pickers";
-import useStyles from "./SearchFilterStyles";
-import "../App.css";
+import useStyles from "./../SearchFilterStyles";
+import "./../../App.css";
 
 class SearchFilter extends Component {
   render() {
