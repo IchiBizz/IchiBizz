@@ -25,6 +25,7 @@ export default class ProductDetails extends Component {
     availability: null,
     warrantyUntil: null,
     condition: "",
+    isSold: false,
     createdAt: null
   };
 
@@ -35,6 +36,7 @@ export default class ProductDetails extends Component {
     axios
       .get(`/api/products/${id}`)
       .then(response => {
+        // TODO @Ninette: latitude, longitude
         this.setState({
           title: response.data.title,
           description: response.data.description,
@@ -48,13 +50,13 @@ export default class ProductDetails extends Component {
           company: response.data.company,
           availability: response.data.availability,
           warrantyUntil: response.data.warrantyUntil,
-          condition: response.data.condition
+          condition: response.data.condition,
+          createdAt: response.data.createdAt
         });
-
-        console.log(`GET this.state.response`, response.data)
+        // console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(`ERR`, err.response);
         if (err.response.status === 404) {
           this.setState({ error: "Not found" });
         }
@@ -67,21 +69,22 @@ export default class ProductDetails extends Component {
 
   render() {
     // TODO 1: Implement Material UI Styles once we agreed on one style
-    // TODO 2 - @Ninette: Add latitude, longitude
+
     const {
       title,
       description,
       imageUrl,
       brand,
-      tags,
       category,
       quantity,
       price,
       currency,
+      tags,
       company,
       availability,
       warrantyUntil,
       condition,
+      isSold,
       createdAt
     } = this.state;
 
@@ -89,18 +92,17 @@ export default class ProductDetails extends Component {
       <div>
         <h1>Product Details Page</h1>
         <React.Fragment>
-        <div>
-          {
-            imageUrl.map(img => {
-              // Return all images
-              return (
-                <img src={img} alt="images"/>
-              )
-            })
-          }
-        </div>
-
-          <h3>{title}</h3>
+          <div>
+            {
+              imageUrl.map(img => {
+                // Return all images
+                return (
+                  <img src={img} alt="images"/>
+                )
+              })
+            }
+          </div>
+          <h2>{title}</h2>
           <div>
             {description}
             {brand}
@@ -110,10 +112,12 @@ export default class ProductDetails extends Component {
             {price}
             {currency}
             {company}
-            {/* TODO: latitude, longitude @Ninette */}
+            {/* // TODO @Ninette: Add latitude, longitude */}
             {availability}
             {warrantyUntil}
             {condition}
+            {/* // TODO: Only seller should see `isSold` */}
+            {isSold}
             {createdAt}
           </div>
         </React.Fragment>
