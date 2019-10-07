@@ -61,14 +61,11 @@ export default class AddProduct extends Component {
         price: this.state.price,
         currency: this.state.currency,
         company: this.state.company,
-        // TODO: Location to be tested later
-        location: {
-          latitude: this.state.location.latitude,
-          longitude: this.state.location.longitude,
-          city: this.state.city,
-          address: this.state.address,
-          country: this.state.country
-        },
+        latitude: this.state.location.latitude,
+        longitude: this.state.location.longitude,
+        city: this.state.location.city,
+        address: this.state.location.address,
+        country: this.state.location.country,
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
         condition: this.state.condition,
@@ -76,6 +73,7 @@ export default class AddProduct extends Component {
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
+        console.log("latitude", this.state.location.latitude);
         this.setState({
           title: "",
           description: "",
