@@ -6,7 +6,7 @@ const User = require("../models/User");
 // ============ CRUD: POST METHOD ============ //
 
 // POST '/api/products' => Create product
-router.post("/", (req, res) => {
+router.post("/new", (req, res) => {
   console.log("[AddProduct.js]: POST route");
   console.log("req body", req.body);
   const {
@@ -29,8 +29,6 @@ router.post("/", (req, res) => {
     warrantyUntil,
     condition
   } = req.body;
-
-  // console.log(`[AddProduct.js] req.body.condition`, req.body.condition)
 
   // FIXME: To be added after authentication setup
   // const owner = req.user._id;
@@ -61,12 +59,34 @@ router.post("/", (req, res) => {
     // TODO: To be added after authentication setup
     // seller: owner
   })
+
     .then(product => {
       console.log(`PRODUCT:`, product);
       res.status(200).json(product);
     })
     .catch(err => {
       res.json(`ERROR creating product:`, err);
+    });
+
+
+});
+
+// ============ CRUD: GET METHOD ============ //
+
+// GET /api/products/:id
+router.get("/:id", (req, res) => {
+  console.log(`START GET route...`)
+  Product.findById(req.params.id)
+    .then(product => {
+      console.log(`[productDetail.js] GET route: product`, product);
+      if (!product) {
+        res.status(404).json(product);
+      } else {
+        res.json(product);
+      }
+    })
+    .catch(err => {
+      res.json(err);
     });
 });
 
