@@ -65,19 +65,21 @@ class GoogleMapsInput extends Component {
         latValue = place.geometry.location.lat(),
         lngValue = place.geometry.location.lng();
 
-      this.setState({
-        address: address ? address : "",
-        city: city ? city : "",
-        country: country ? country : "",
-        markerPosition: {
-          lat: latValue,
-          lng: lngValue
-        },
-        mapPosition: {
-          lat: latValue,
-          lng: lngValue
-        }
-      });
+      this.props.getMapData(address, city, country, latValue, lngValue);
+
+      // this.setState({
+      //   address: address ? address : "",
+      //   city: city ? city : "",
+      //   country: country ? country : "",
+      //   markerPosition: {
+      //     lat: latValue,
+      //     lng: lngValue
+      //   },
+      //   mapPosition: {
+      //     lat: latValue,
+      //     lng: lngValue
+      //   }
+      // });
     } else {
       Geocode.fromAddress(place.name)
         .then(response => {
