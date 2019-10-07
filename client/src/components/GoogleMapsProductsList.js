@@ -8,9 +8,8 @@ import {
 } from "react-google-maps";
 
 function MapList(props) {
-  console.log("props here:", props);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
+  console.log("testttt", props);
   useEffect(() => {
     const listener = e => {
       if (e.key === "Escape") {
@@ -27,8 +26,8 @@ function MapList(props) {
   return (
     <>
       <GoogleMap
-        defaultZoom={10}
-        // defaultCenter={{}}
+        defaultZoom={4}
+        defaultCenter={{ lat: -34, lng: 150 }}
         // defaultOptions={{ styles: mapStyles }}
       >
         {props.filteredProduct.map(product => (
@@ -47,7 +46,6 @@ function MapList(props) {
             }}
           />
         ))}
-
         {selectedProduct && (
           <InfoWindow
             onCloseClick={() => {
@@ -59,7 +57,7 @@ function MapList(props) {
             }}
           >
             <div>
-              <h2>{selectedProduct.name}</h2>
+              <h2>{selectedProduct.title}</h2>
               <p>{selectedProduct.price}</p>
               <p>{selectedProduct.quantity}</p>
             </div>
@@ -72,7 +70,8 @@ function MapList(props) {
 
 const MapWrapped = withScriptjs(withGoogleMap(MapList));
 
-export default function GoogleMapsProductsList() {
+export default function GoogleMapsProductsList(props) {
+  console.log(props);
   return (
     <div style={{ width: "40vw", height: "80vh" }}>
       <MapWrapped
@@ -80,6 +79,7 @@ export default function GoogleMapsProductsList() {
         loadingElement={<div style={{ height: `100%` }} />}
         containerElement={<div style={{ height: `100%` }} />}
         mapElement={<div style={{ height: `100%` }} />}
+        filteredProduct={props.filteredProduct}
       />
     </div>
   );
