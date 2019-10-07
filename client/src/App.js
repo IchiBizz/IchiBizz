@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import AddProduct from "./components/products/AddProduct";
 import ProductsList from "./components/products/ProductsList";
+import ProductDetails from "./components/products/ProductDetails";
+import AddProduct from "./components/products/AddProduct";
 import { Route } from "react-router-dom";
 import "./App.css";
 
@@ -9,8 +10,17 @@ export default class App extends Component {
     return (
       <div>
         <Route exact path="/products" component={ProductsList} />
-        {/* FIXME: this route was added for testing please update/remove as required*/}
-        <Route exact path="/products/add" component={AddProduct} />
+        <Route
+          exact
+          path="/products/:id"
+          component={ProductDetails}
+        />
+        <Route
+          exact
+          path="/products/new"
+          component={AddProduct}
+        />
+
       </div>
     );
   }
