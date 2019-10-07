@@ -167,7 +167,6 @@ class ProductsList extends Component {
                         </Typography>
                       </CardContent>
                     </CardActionArea>
-                    {/* the 'share' and 'learn more' links are placeholders for now */}
                     <CardActions>
                       <Button size="small" color="primary">
                         Add to wishlist
