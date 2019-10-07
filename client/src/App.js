@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import AddProduct from "./components/AddProduct";
 import ProductsList from "./components/ProductsList";
 import SignUp from "./components/SignUp";
@@ -12,7 +13,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/productslist" component={ProductsList} />
+        <Route exact path="/products" component={ProductsList} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/logout" component={Logout} />

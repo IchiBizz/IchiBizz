@@ -30,7 +30,9 @@ mongoose
   // Tags can be used by buyers search for products and sellers to categorize their products
   let tagsList = [
     "car", "phone", "computer", "table", "office", "ice production", "chair", "sofa", "shelf", "cupboard", "lamp", "music box", "bed", "cuttlery", "cutting machine", "drill", "kitchen", "reception", "matrice", "tablets", "bicycle", "laptop", "monitor", "telephone system", "cabinet", "printer"
-  ]
+  ];
+
+  let conditions = ["used", "new"];
 
   const seedInitialProducts = () => {
     User.find().then(users => {
@@ -61,8 +63,9 @@ mongoose
             category: Faker.random.arrayElement(businessTypes),
             quantity: Faker.random.number({min: 1, max: 10}),
             // returns integer between 10 (min) and 1999 (max) as 2 decimals
-            price: Faker.finance.amount(10, 1999, 2),
-            currency: Faker.finance.currencyCode(),
+            price: Faker.finance.amount(10, 4999, 2),
+            // We only use EUR => hard-coded
+            currency: "EUR",
             tags: [
               Faker.random.arrayElement(tagsList),
               Faker.random.arrayElement(tagsList),
@@ -78,7 +81,7 @@ mongoose
             },
             availability: Faker.date.future(),
             warrantyUntil: Faker.date.future(),
-            condition: "used",
+            condition: Faker.random.arrayElement(conditions),
             isSold: false,
             seller: randomSeller._id,
             buyer: randomBuyer1._id,
