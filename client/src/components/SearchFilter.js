@@ -35,7 +35,7 @@ class SearchFilter extends Component {
           onChange={this.props.handleChange}
         />
         <div className="filterContainer">
-        {/* <div className={classes.filterContainer}> */}
+          {/* <div className={classes.filterContainer}> */}
           <div>
             <InputLabel htmlFor="outlined-age-simple">Category</InputLabel>
             <Select
@@ -83,7 +83,7 @@ class SearchFilter extends Component {
               onChange={this.props.handlePriceChange}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
-              max={this.props.maxPrice}
+              max={20000}
               // getAriaValueText={valuetext}
             />
           </div>

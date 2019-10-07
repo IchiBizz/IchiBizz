@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
-import GoogleMapsProductList from "./GoogleMapsProductList";
+
+import GoogleMapsProductsList from "./GoogleMapsProductsList";
+
 import useStyles from "./ProductListStyles";
 import {
   Typography,
@@ -85,11 +87,11 @@ class ProductsList extends Component {
       )
     ];
 
-    const maxPrice = Math.max(
-      ...this.state.products.map(product => {
-        return product.price;
-      })
-    );
+    // const maxPrice = Math.max(
+    //   ...this.state.products.map(product => {
+    //     return product.price;
+    //   })
+    // );
 
     let filteredProduct = this.state.products.filter(product => {
       let searchMatched =
@@ -129,18 +131,15 @@ class ProductsList extends Component {
           handleChange={this.handleChange}
           distinctCategory={distinctCategory}
           distinctBrand={distinctBrand}
-          maxPrice={maxPrice}
+          // maxPrice={maxPrice}
           handleDateChange={this.handleDateChange}
           handlePriceChange={this.handlePriceChange}
         />
+        <GoogleMapsProductsList filteredProduct={filteredProduct} />
+
         <div className={classes.mapListContainer}>
           <div>
-            <GoogleMapsProductList filteredProduct={filteredProduct} />
-          </div>
-
-          <div>
             {filteredProduct.map(data => {
-              console.log(data.location.latitude);
               return (
                 <>
                   <Card className={classes.card}>
