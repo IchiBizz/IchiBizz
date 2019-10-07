@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
-import GoogleMapsInput from "./GoogleMapsInput";
 import useStyles from "./ProductListStyles";
 import {
   Typography,
@@ -66,9 +65,7 @@ class ProductsList extends Component {
   };
 
   render() {
-    console.log("price", this.state.priceValue);
     const { classes } = this.props;
-    console.log(classes);
 
     // the distinctCategory variable is created to populate the category dropdown
     const distinctCategory = [
@@ -94,6 +91,8 @@ class ProductsList extends Component {
     );
 
     let filteredProduct = this.state.products.filter(product => {
+      let isSoldMatch = !product.isSold;
+
       let searchMatched =
         product.title
           .toLowerCase()
@@ -116,12 +115,17 @@ class ProductsList extends Component {
       let dateMatched =
         Date.parse(product.availability) <= Date.parse(this.state.selectedDate);
 
-      return searchMatched && categoryMatched && priceMatched && dateMatched;
+      return (
+        isSoldMatch &&
+        searchMatched &&
+        categoryMatched &&
+        priceMatched &&
+        dateMatched
+      );
     });
 
     return (
       <>
-        <GoogleMapsInput />
         <h1>Product List</h1>
         <SearchFilter
           searchText={this.state.searchText}

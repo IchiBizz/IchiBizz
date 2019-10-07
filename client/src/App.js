@@ -9,7 +9,7 @@ export default class App extends Component {
     return (
       <div>
         <Route exact path="/products" component={ProductsList} />
-        <AddProduct />
+        <Route exact path="/products/add" component={AddProduct} />
       </div>
     );
   }
