@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import AddProduct from "./components/AddProduct";
-import ProductsList from "./components/ProductsList";
+import AddProduct from "./components/products/AddProduct";
+import ProductsList from "./components/products/ProductsList";
 import { Route } from "react-router-dom";
 import "./App.css";
 

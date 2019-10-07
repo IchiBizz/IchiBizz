@@ -10,9 +10,12 @@ import {
   TextField,
   Button,
   FormControl,
-  Select,
-  MenuItem,
-  Grid
+  Grid,
+  InputAdornment,
+  Radio,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel
 } from "@material-ui/core";
 
 export default class AddProduct extends Component {
@@ -24,17 +27,17 @@ export default class AddProduct extends Component {
     category: "",
     quantity: 0,
     price: 0,
-    currency: "",
+    currency: "EUR",
     tags: [],
     company: "",
     location: {
       latitude: null,
       longitude: null
     },
-    // Must be future date
-    availability: new Date(),
-    warrantyUntil: new Date(),
-    condition: ""
+    availability: null,
+    warrantyUntil: null,
+    condition: "",
+    createdAt: null
   };
 
   handleSubmit = event => {
@@ -51,13 +54,15 @@ export default class AddProduct extends Component {
         price: this.state.price,
         currency: this.state.currency,
         company: this.state.company,
+        // TODO: Location to be tested later
         location: {
-          latitude: this.state.latitude,
-          longitude: this.state.longitude
+          latitude: this.state.location.latitude,
+          longitude: this.state.location.longitude
         },
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
-        condition: this.state.condition
+        condition: this.state.condition,
+        createdAt: this.state.created_at
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
@@ -66,10 +71,10 @@ export default class AddProduct extends Component {
           description: "",
           imageUrl: [],
           brand: "",
-          category: [],
+          category: "",
           quantity: 0,
           price: 0,
-          currency: "",
+          currency: "EUR",
           tags: [],
           company: "",
           location: {
@@ -78,7 +83,8 @@ export default class AddProduct extends Component {
           },
           availability: null,
           warrantyUntil: null,
-          condition: ""
+          condition: "",
+          createdAt: null
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
       })
@@ -109,9 +115,7 @@ export default class AddProduct extends Component {
     this.setState({
       [name]: value
     });
-    // console.log("currency", this.state.currency);
-    // console.log("AVAILABILITY", this.state.availability);
-    // console.log("WARRANTY", this.state.warrantyUntil);
+    console.log("handleChange event.target.value", event.target.value);
   };
 
   //image upload
@@ -172,7 +176,7 @@ export default class AddProduct extends Component {
           value={this.state.title}
           onChange={this.handleChange}
         />
-        {/* description */}
+        {/* Description */}
         <TextField
           id="outlined-description-input"
           label="Description"
@@ -214,44 +218,27 @@ export default class AddProduct extends Component {
           onChange={this.handleChange}
         />
         {/* Price */}
-        {/* FIXME: Display only EUR associated with price */}
         <TextField
-          required
-          id="outlined-price-input"
+          id="outlined-adornment-price"
           label="Price"
           className={classes.textField}
           type="number"
           name="price"
-          placeholder="EUR 299.00"
-          autoComplete="price"
           margin="normal"
           variant="outlined"
           value={this.state.price}
           onChange={this.handleChange}
-        />
-        {/* FIXME: Display only EUR associated with price */}
-        {/* Currency */}
-        {/* <Select
-          value={this.state.currency}
-          onChange={this.handleChange}
-          labelWidth={20}
-          inputProps={{
-            name: "currency",
-            id: "outlined-currencey-simple"
+          InputProps={{
+            startAdornment:
+              <InputAdornment
+                position="start">EUR
+              </InputAdornment>
           }}
-          name="currency"
-        >
-          <MenuItem value="">
-            <em>Currency</em>
-          </MenuItem>
-          <MenuItem value="USD">USD</MenuItem>
-          <MenuItem value="EUR">EUR</MenuItem>
-          <MenuItem value="GBP">GBP</MenuItem>
-        </Select> */}
+        />
         {/* Company */}
           <TextField
           id="outlined-company-input"
-          label="Company"
+          label="Company Name"
           className={classes.textField}
           type="text"
           name="company"
@@ -297,7 +284,7 @@ export default class AddProduct extends Component {
               format="MM/dd/yyyy"
               margin="normal"
               id="date-picker-inline"
-              label="Warranty Date until (if any)"
+              label="Warranty until"
               value={this.state.warrantyUntil}
               onChange={this.handleDateChangeWarrantyUntil}
               KeyboardButtonProps={{
@@ -307,19 +294,30 @@ export default class AddProduct extends Component {
           </Grid>
         </MuiPickersUtilsProvider>
         {/* Condition */}
-        <TextField
-          id="outlined-condition-input"
-          label="Condition"
-          className={classes.textField}
-          type="text"
-          name="condition"
-          autoComplete="condition"
-          placeholder="e.g. used, partially defect"
-          margin="normal"
-          variant="outlined"
-          value={this.state.condition}
-          onChange={this.handleChange}
-        />
+        <FormControl
+          required
+          component="fieldset"
+          className={classes.formControl}>
+          <FormLabel component="legend">Condition</FormLabel>
+          <RadioGroup
+            aria-label="condition"
+            name="condition"
+            value={this.state.condition}
+            onChange={this.handleChange}>
+            <FormControlLabel
+              value="used"
+              control={<Radio />}
+              label="used"
+              name="condition"
+            />
+            <FormControlLabel
+              value="new"
+              control={<Radio />}
+              label="new"
+              name="condition"
+              />
+          </RadioGroup>
+        </FormControl>
         {/* image Url */}
         <label htmlFor="imageUrl">Upload Image(s): </label>
         <input
@@ -327,7 +325,7 @@ export default class AddProduct extends Component {
           multiple
           id="imageUrl"
           name="imageUrl"
-          // value={this.state.imageUrl}
+          // FIXME: value={this.state.imageUrl}
           onChange={this.imageHandler}
         />
         <br />
