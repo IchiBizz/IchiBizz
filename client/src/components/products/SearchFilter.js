@@ -41,7 +41,25 @@ export default class SearchFilter extends Component {
           value={this.props.searchText}
           onChange={this.props.handleChange}
         />
-        <InputLabel htmlFor="outlined-age-simple">Category</InputLabel>
+
+        <InputLabel htmlFor="outlined-location-simple">Location</InputLabel>
+        <Select
+          value={this.props.searchCity}
+          onChange={this.props.handleChange}
+          inputProps={{
+            name: "searchCity",
+            id: "searchCity"
+          }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.props.distinctCity.map(city => {
+            return <MenuItem value={city}>{city}</MenuItem>;
+          })}
+        </Select>
+
+        <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
         <Select
           value={this.props.searchCategory}
           onChange={this.props.handleChange}
@@ -58,7 +76,7 @@ export default class SearchFilter extends Component {
           })}
         </Select>
 
-        <InputLabel htmlFor="outlined-age-simple">Brand name</InputLabel>
+        <InputLabel htmlFor="outlined-brand-simple">Brand name</InputLabel>
         <Select
           value={this.props.searchBrand}
           onChange={this.props.handleChange}
