@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
 
-import GoogleMapsProductsList from "./GoogleMapsProductsList";
+import GoogleMapsProductsList from "../GoogleMapsProductsList";
 
 import useStyles from "./ProductListStyles";
 import {
