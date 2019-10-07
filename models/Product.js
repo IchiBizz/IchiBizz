@@ -20,10 +20,13 @@ const productSchema = new Schema({
   },
   currency: String,
   tags: [String],
-  company: String,
   location: {
     latitude: Number,
-    longitude: Number
+    longitude: Number,
+    company: String,
+    city: String,
+    streetName: String,
+    country: String
   },
   availability: Date,
   warrantyUntil: Date,
