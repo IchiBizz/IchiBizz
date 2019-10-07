@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import AddProduct from "./components/AddProduct";
-import ProductsList from "./components/ProductsList";
+import AddProduct from "./components/products/AddProduct";
+import ProductsList from "./components/products/ProductsList";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
-import Logout from "./components/Logout";
-
+import Contact from "./components/Contact";
 import { Route } from "react-router-dom";
 import "./App.css";
 
@@ -15,7 +14,7 @@ export default class App extends Component {
         <Route exact path="/products" component={ProductsList} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
-        <Route exact path="/logout" component={Logout} />
+        <Route exact path="/contact" component={Contact} />
       </div>
     );
   }
