@@ -15,7 +15,10 @@ import {
   Radio,
   RadioGroup,
   FormLabel,
-  FormControlLabel
+  FormControlLabel,
+  Select,
+  InputLabel,
+  MenuItem
 } from "@material-ui/core";
 
 export default class AddProduct extends Component {
@@ -49,6 +52,7 @@ export default class AddProduct extends Component {
       .post("/api/products/new", {
         title: this.state.title,
         description: this.state.description,
+        // FIXME: image Upload
         imageUrl: this.state.imageUrl,
         brand: this.state.brand,
         tags: this.state.tags,
@@ -91,7 +95,7 @@ export default class AddProduct extends Component {
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
         // FIXME: this.props.getData() is not a function
-        this.getData();
+        // this.getData();
       })
       .catch(err => {
         console.log(`[AddProduct.js]: response data`, err);
@@ -208,6 +212,34 @@ export default class AddProduct extends Component {
             value={this.state.brand}
             onChange={this.handleChange}
           />
+            {/* {Category} */}
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel htmlFor="outlined-category-simple">
+                Category
+              </InputLabel>
+              <Select
+                value={this.state.category}
+                onChange={this.handleChange}
+                inputProps={{
+                  name: 'category',
+                  id: 'outlined-category-simple',
+                }}
+              >
+                <MenuItem value="Category">
+                  <em>Select...</em>
+                </MenuItem>
+                <MenuItem value={"Food"}>Food</MenuItem>
+                <MenuItem value={"Textile"}>Textile</MenuItem>
+                <MenuItem value={"Energy"}>Energy</MenuItem>
+                <MenuItem value={"Architecture"}>Architecture</MenuItem>
+                <MenuItem value={"Woodwork"}>Woodwork</MenuItem>
+                <MenuItem value={"Art"}>Art</MenuItem>
+                <MenuItem value={"Economics"}>Economics</MenuItem>
+                <MenuItem value={"Science"}>Science</MenuItem>
+                <MenuItem value={"Education"}>Education</MenuItem>
+                <MenuItem value={"Manufactory"}>Manufactory</MenuItem>
+              </Select>
+            </FormControl>
             {/* Quantity */}
             <TextField
             required
