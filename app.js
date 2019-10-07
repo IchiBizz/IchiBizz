@@ -75,7 +75,10 @@ const index = require("./routes/index");
 app.use("/", index);
 
 const authRoutes = require("./routes/auth");
-app.use("/api/auth", authRoutes);
+app.use("/auth", authRoutes);
+
+const productRoutes = require("./routes/productDetail");
+app.use("/api/products", productRoutes);
 
 const productsListRoutes = require("./routes/productsList");
 app.use("/api/products", productsListRoutes);
