@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import AddProduct from "./AddProduct";
+// import AddProduct from "./AddProduct";
 // import {
 //   Button,
 //   Grid
@@ -30,12 +30,12 @@ export default class ProductDetails extends Component {
 
   getData = () => {
     const id = this.props.match.params.id;
-    console.log(`id`, id)
+    // console.log(`id`, id)
+
     axios
       .get(`/api/products/${id}`)
       .then(response => {
         this.setState({
-          product: response.data,
           title: response.data.title,
           description: response.data.description,
           imageUrl: response.data.imageUrl,
@@ -51,8 +51,7 @@ export default class ProductDetails extends Component {
           condition: response.data.condition
         });
 
-        // FIXME: Cast error: undefined
-        console.log(`GET this.state.product`, response)
+        console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
         console.log(err.response);
@@ -67,19 +66,57 @@ export default class ProductDetails extends Component {
   };
 
   render() {
-    if (this.state.error)
-    return <div>{this.state.error}</div>;
-    else if (!this.state.project) return <></>;
-    console.log(`[ProductDetails.js] return`, this.state)
+    // TODO 1: Implement Material UI Styles once we agreed on one style
+    // TODO 2 - @Ninette: Add latitude, longitude
+    const {
+      title,
+      description,
+      imageUrl,
+      brand,
+      tags,
+      category,
+      quantity,
+      price,
+      currency,
+      company,
+      availability,
+      warrantyUntil,
+      condition,
+      createdAt
+    } = this.state;
 
     return (
       <div>
-        <h1>Hello from ProductDetails Page</h1>
-        <AddProduct
-          productId={this.state.product._id}
-          // FIXME: get props data from child
-          getData={this.getData}
-        />
+        <h1>Product Details Page</h1>
+        <React.Fragment>
+        <div>
+          {
+            imageUrl.map(img => {
+              // Return all images
+              return (
+                <img src={img} alt="images"/>
+              )
+            })
+          }
+        </div>
+
+          <h3>{title}</h3>
+          <div>
+            {description}
+            {brand}
+            {tags}
+            {category}
+            {quantity}
+            {price}
+            {currency}
+            {company}
+            {/* TODO: latitude, longitude @Ninette */}
+            {availability}
+            {warrantyUntil}
+            {condition}
+            {createdAt}
+          </div>
+        </React.Fragment>
       </div>
     )
   }
