@@ -94,10 +94,13 @@ export default class ProductDetails extends Component {
         <React.Fragment>
           <div>
             {
-              imageUrl.map(img => {
+              imageUrl.map((img, index)=> {
                 // Return all images
                 return (
-                  <img src={img} alt="images"/>
+                  // FIXME: unique key w/o index
+                  <div key={index}>
+                    <img src={img} alt="images"/>
+                  </div>
                 )
               })
             }
