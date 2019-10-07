@@ -11,15 +11,22 @@ Geocode.setApiKey("AIzaSyAEEpqstn15A1q4yFwIv81jnDVG7X0hm9Q");
 Geocode.enableDebug();
 
 class GoogleMapsInput extends Component {
+  // state = {
+  //   address: "",
+  //   country: "",
+  //   city: "",
+  //   mapPosition: {
+  //     lat: this.props.center.lat,
+  //     lng: this.props.center.lng
+  //   },
+  //   markerPosition: {
+  //     lat: this.props.center.lat,
+  //     lng: this.props.center.lng
+  //   }
+  // };
+
   state = {
-    address: "",
-    country: "",
-    city: "",
-    mapPosition: {
-      lat: this.props.center.lat,
-      lng: this.props.center.lng
-    },
-    markerPosition: {
+    center: {
       lat: this.props.center.lat,
       lng: this.props.center.lng
     }
@@ -83,19 +90,21 @@ class GoogleMapsInput extends Component {
             latValue = data.geometry.location.lat,
             lngValue = data.geometry.location.lng;
 
-          this.setState({
-            address: address ? address : "",
-            city: city ? city : "",
-            country: country ? country : "",
-            markerPosition: {
-              lat: latValue,
-              lng: lngValue
-            },
-            mapPosition: {
-              lat: latValue,
-              lng: lngValue
-            }
-          });
+          this.props.getMapData(address, city, country, latValue, lngValue);
+
+          // this.setState({
+          //   address: address ? address : "",
+          //   city: city ? city : "",
+          //   country: country ? country : "",
+          //   markerPosition: {
+          //     lat: latValue,
+          //     lng: lngValue
+          //   },
+          //   mapPosition: {
+          //     lat: latValue,
+          //     lng: lngValue
+          //   }
+          // });
         })
         .then(err => {
           console.log(err);
@@ -114,19 +123,22 @@ class GoogleMapsInput extends Component {
           addressArray = response.results[0].address_components,
           city = this.getCity(addressArray),
           country = this.getCountry(addressArray);
-        this.setState({
-          address: address ? address : "",
-          country: country ? country : "",
-          city: city ? city : "",
-          markerPosition: {
-            lat: newLat,
-            lng: newLng
-          },
-          mapPosition: {
-            lat: newLat,
-            lng: newLng
-          }
-        });
+
+        this.props.getMapData(address, city, country, newLat, newLng);
+
+        // this.setState({
+        //   address: address ? address : "",
+        //   country: country ? country : "",
+        //   city: city ? city : "",
+        //   markerPosition: {
+        //     lat: newLat,
+        //     lng: newLng
+        //   },
+        //   mapPosition: {
+        //     lat: newLat,
+        //     lng: newLng
+        //   }
+        // });
       })
       .catch(err => {
         console.log(err);
@@ -141,26 +153,30 @@ class GoogleMapsInput extends Component {
   //     this.state.mapPosition.lng
   //   );
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
   render() {
     const AsyncMap = withScriptjs(
       withGoogleMap(props => (
         <GoogleMap
           google={this.props.google}
           defaultZoom={this.props.zoom}
-          defaultCenter={{
-            lat: this.state.mapPosition.lat,
-            lng: this.state.mapPosition.lng
+          center={{
+            lat: this.props.mapPosition.lat,
+            lng: this.props.mapPosition.lng
           }}
         >
           {/*Marker*/}
           <Marker
             google={this.props.google}
-            name={this.state.address}
+            name={this.props.address}
             draggable={true}
             onDragEnd={this.onMarkerDrag}
             position={{
-              lat: this.state.markerPosition.lat,
-              lng: this.state.markerPosition.lng
+              lat: this.props.markerPosition.lat,
+              lng: this.props.markerPosition.lng
             }}
           />
           <Marker />
@@ -190,7 +206,7 @@ class GoogleMapsInput extends Component {
               containerElement={<div style={{ height: this.props.height }} />}
               mapElement={<div style={{ height: `100%` }} />}
             />
-            <p>{this.state.address}</p>
+            <p>{this.props.address}</p>
           </div>
         </>
       );

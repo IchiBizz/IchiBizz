@@ -32,11 +32,15 @@ export default class AddProduct extends Component {
     tags: [],
     company: "",
     location: {
-      latitude: null,
-      longitude: null,
+      latitude: 52.52,
+      longitude: 13.405,
       city: "",
       address: "",
       country: ""
+    },
+    markerPosition: {
+      lat: 52.52,
+      lng: 13.405
     },
     availability: null,
     warrantyUntil: null,
@@ -144,6 +148,10 @@ export default class AddProduct extends Component {
         city: city,
         address: address,
         country: country
+      },
+      markerPosition: {
+        lat: lat,
+        lng: lng
       }
     });
   };
@@ -382,6 +390,17 @@ export default class AddProduct extends Component {
           height="300px"
           zoom={12}
           getMapData={this.getMapData}
+          markerPosition={{
+            lat: this.state.markerPosition.lat,
+            lng: this.state.markerPosition.lng
+          }}
+          address={this.state.location.address}
+          country={this.state.location.country}
+          city={this.state.location.city}
+          mapPosition={{
+            lat: this.state.location.latitude,
+            lng: this.state.location.longitude
+          }}
         />
       </>
     );
