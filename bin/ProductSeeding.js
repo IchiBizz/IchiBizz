@@ -7,7 +7,7 @@ const Faker = require("faker");
 const bcryptSalt = 10;
 
 mongoose
-  .connect("mongodb://localhost/ichibizz", {
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/ichibizz", {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
