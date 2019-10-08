@@ -21,17 +21,8 @@ export default class App extends Component {
         <Route exact path="/login" component={Login} />
         <Route exact path="/contact" component={Contact} />
 
-        <Route
-          exact
-          path="/products/:id"
-          component={ProductDetails}
-        />
-        <Route
-          exact
-          path="/products/new"
-          component={AddProduct}
-        />
-
+        <Route exact path="/products/:id" component={ProductDetails} />
+        <Route exact path="/products/new" component={AddProduct} />
       </div>
     );
   }
