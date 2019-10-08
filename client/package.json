@@ -12,6 +12,8 @@
     "date-fns": "^2.4.1",
     "react": "PORT=3000,^16.10.1",
     "react-dom": "^16.10.1",
+    "react-geocode": "^0.2.0",
+    "react-google-autocomplete": "^1.1.2",
     "react-google-maps": "^9.4.5",
     "react-mailto": "^0.4.0",
     "react-responsive-carousel": "^3.1.50",

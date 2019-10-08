@@ -34,79 +34,91 @@ class SearchFilter extends Component {
           value={this.props.searchText}
           onChange={this.props.handleChange}
         />
-        <div className="filterContainer">
-          {/* <div className={classes.filterContainer}> */}
-          <div>
-            <InputLabel htmlFor="outlined-age-simple">Category</InputLabel>
-            <Select
-              value={this.props.searchCategory}
-              onChange={this.props.handleChange}
-              inputProps={{
-                name: "searchCategory",
-                id: "searchCategory"
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {this.props.distinctCategory.map(category => {
-                return <MenuItem value={category}>{category}</MenuItem>;
-              })}
-            </Select>
-          </div>
-          <div>
-            <InputLabel htmlFor="outlined-age-simple">Brand name</InputLabel>
-            <Select
-              value={this.props.searchBrand}
-              onChange={this.props.handleChange}
-              inputProps={{
-                name: "searchBrand",
-                id: "searchBrand"
-              }}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {this.props.distinctBrand.map(brand => {
-                return <MenuItem value={brand}>{brand}</MenuItem>;
-              })}
-            </Select>
-          </div>
 
-          <div className={classes.root}>
-            <Typography id="range-slider" gutterBottom>
-              Price range
-            </Typography>
-            <Slider
-              name="priceValue"
-              value={this.props.priceValue}
-              onChange={this.props.handlePriceChange}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              max={20000}
-              // getAriaValueText={valuetext}
-            />
-          </div>
-          <div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <Grid container justify="space-around">
-                <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  id="date-picker-inline"
-                  label="Filter by availability"
-                  name="selectedDate"
-                  value={this.props.selectedDate}
-                  onChange={this.props.handleDateChange}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date"
-                  }}
-                />
-              </Grid>
-            </MuiPickersUtilsProvider>
-          </div>
+        <InputLabel htmlFor="outlined-location-simple">Location</InputLabel>
+        <Select
+          value={this.props.searchCity}
+          onChange={this.props.handleChange}
+          inputProps={{
+            name: "searchCity",
+            id: "searchCity"
+          }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.props.distinctCity.map(city => {
+            return <MenuItem value={city}>{city}</MenuItem>;
+          })}
+        </Select>
+
+        <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
+        <Select
+          value={this.props.searchCategory}
+          onChange={this.props.handleChange}
+          inputProps={{
+            name: "searchCategory",
+            id: "searchCategory"
+          }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.props.distinctCategory.map(category => {
+            return <MenuItem value={category}>{category}</MenuItem>;
+          })}
+        </Select>
+
+        <InputLabel htmlFor="outlined-brand-simple">Brand name</InputLabel>
+        <Select
+          value={this.props.searchBrand}
+          onChange={this.props.handleChange}
+          inputProps={{
+            name: "searchBrand",
+            id: "searchBrand"
+          }}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.props.distinctBrand.map(brand => {
+            return <MenuItem value={brand}>{brand}</MenuItem>;
+          })}
+        </Select>
+
+        <div className={classes.root}>
+          <Typography id="range-slider" gutterBottom>
+            Price range
+          </Typography>
+          <Slider
+            name="priceValue"
+            value={this.props.priceValue}
+            onChange={this.props.handlePriceChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            max={this.props.maxPrice}
+            // getAriaValueText={valuetext}
+          />
+        </div>
+        <div className={classes.root}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Filter by availability"
+                name="selectedDate"
+                value={this.props.selectedDate}
+                onChange={this.props.handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date"
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
         </div>
       </>
     );

@@ -23,6 +23,9 @@ class ProductsList extends Component {
     searchText: "",
     searchCategory: "",
     searchBrand: "",
+
+    searchCity: "",
+
     priceValue: [20, 300],
     selectedDate: new Date("December 31, 2019")
   };
@@ -50,9 +53,6 @@ class ProductsList extends Component {
     this.setState({
       [name]: value
     });
-    console.log(this.state.searchCategory);
-    console.log(this.state.searchText);
-    console.log(this.state.priceValue);
   };
 
   handlePriceChange = (event, newValue) => {
@@ -87,6 +87,14 @@ class ProductsList extends Component {
       )
     ];
 
+    const distinctCity = [
+      ...new Set(
+        this.state.products.map(product => {
+          return product.location.city;
+        })
+      )
+    ];
+
     // const maxPrice = Math.max(
     //   ...this.state.products.map(product => {
     //     return product.price;
@@ -94,6 +102,8 @@ class ProductsList extends Component {
     // );
 
     let filteredProduct = this.state.products.filter(product => {
+      let isSoldMatch = product.isSold === false;
+
       let searchMatched =
         product.title
           .toLowerCase()
@@ -116,7 +126,13 @@ class ProductsList extends Component {
       let dateMatched =
         Date.parse(product.availability) <= Date.parse(this.state.selectedDate);
 
-      return searchMatched && categoryMatched && priceMatched && dateMatched;
+      return (
+        isSoldMatch &&
+        searchMatched &&
+        categoryMatched &&
+        priceMatched &&
+        dateMatched
+      );
     });
 
     return (
@@ -126,12 +142,15 @@ class ProductsList extends Component {
           searchText={this.state.searchText}
           searchCategory={this.state.searchCategory}
           searchBrand={this.state.searchBrand}
+          searchCity={this.state.searchCity}
           priceValue={this.state.priceValue}
           selectedDate={this.state.selectedDate}
           handleChange={this.handleChange}
           distinctCategory={distinctCategory}
           distinctBrand={distinctBrand}
+          distinctCity={distinctCity}
           // maxPrice={maxPrice}
+
           handleDateChange={this.handleDateChange}
           handlePriceChange={this.handlePriceChange}
         />
