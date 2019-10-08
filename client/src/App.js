@@ -20,6 +20,7 @@ export default class App extends Component {
           path="/products/new"
           component={AddProduct}
         />
+
       </div>
     );
   }
