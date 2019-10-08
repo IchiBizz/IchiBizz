@@ -14,18 +14,27 @@ import "./App.css";
 
 export default class App extends Component {
   render() {
+    state = {
+      user: this.props.user
+    };
+    setUser = user => {
+      this.setState({
+        user: user
+      });
+    };
+
     return (
       <div className="App">
-        <Route exact path="/products" component={ProductsList} />
         <Route exact path="/navbar" component={Navbar} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/contact" component={Contact} />
-
         <Switch>
+          <Route exact path="/contact" component={Contact} />
           <Route exact path="/products/:id" component={ProductDetails} />
           <Route exact path="/products/new" component={AddProduct} />
+          <Route exact path="/products" component={ProductsList} />
         </Switch>
+
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/login" component={Login} />
       </div>
     );
   }

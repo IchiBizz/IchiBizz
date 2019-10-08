@@ -16,7 +16,11 @@ require("./configs/passport");
 // const flash = require("connect-flash");
 
 mongoose
-  .connect("mongodb://localhost/ichibizz", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/ichibizz", {
+    useNewUrlParser: true,
+    // Deprecation Warning Fix
+    useUnifiedTopology: true
+  })
   .then(x => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
@@ -54,8 +58,21 @@ app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
 
-// // default value for title local
-// app.locals.title = "Express - Generated with IronGenerator";
+// Heroku Deployment Builds
+app.use(express.static(path.join(__dirname, "/client/build")));
+
+hbs.registerHelper("ifUndefined", (value, options) => {
+  if (arguments.length < 2)
+    throw new Error("Handlebars Helper ifUndefined needs 1 parameter");
+  if (typeof value !== undefined) {
+    return options.inverse(this);
+  } else {
+    return options.fn(this);
+  }
+});
+
+// default value for title local
+app.locals.title = "Express - Generated with IronGenerator";
 
 // Enable authentication using session + passport
 const MongoStore = require("connect-mongo")(session);
@@ -81,5 +98,11 @@ app.use("/api/products", productRoutes);
 
 const productsListRoutes = require("./routes/productsList");
 app.use("/api/products", productsListRoutes);
+
+// Deployment
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/client/build/index.html");
+});
 
 module.exports = app;
