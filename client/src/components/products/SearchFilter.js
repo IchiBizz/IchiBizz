@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Slider,
   TextField,
@@ -7,26 +6,20 @@ import {
   Select,
   MenuItem,
   Grid,
-  Typography
+  Typography,
+  withStyles
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from "@material-ui/pickers";
+import useStyles from "./../SearchFilterStyles";
+import "./../../App.css";
 
-export default class SearchFilter extends Component {
+class SearchFilter extends Component {
   render() {
-    const useStyles = makeStyles(theme => ({
-      card: {
-        maxWidth: 100
-      },
-      root: {
-        width: 300
-      }
-    }));
     const classes = useStyles;
-
     return (
       <>
         <TextField
@@ -41,6 +34,7 @@ export default class SearchFilter extends Component {
           value={this.props.searchText}
           onChange={this.props.handleChange}
         />
+
 
         <InputLabel htmlFor="outlined-location-simple">Location</InputLabel>
         <Select
@@ -122,11 +116,17 @@ export default class SearchFilter extends Component {
               onChange={this.props.handleDateChange}
               KeyboardButtonProps={{
                 "aria-label": "change date"
-              }}
-            />
-          </Grid>
-        </MuiPickersUtilsProvider>
+
+            
+                  }}
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
+          </div>
+        </div>
       </>
     );
   }
 }
+
+export default withStyles(useStyles)(SearchFilter);
