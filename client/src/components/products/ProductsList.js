@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
-
+import { ProductContext } from "../../contexts/ProductContext";
 import GoogleMapsProductsList from "./GoogleMapsProductsList";
 
 import useStyles from "./ProductListStyles";
@@ -18,8 +17,8 @@ import {
 } from "@material-ui/core";
 
 class ProductsList extends Component {
+  static contextType = ProductContext;
   state = {
-    products: [],
     searchText: "",
     searchCategory: "",
     searchBrand: "",
@@ -27,24 +26,9 @@ class ProductsList extends Component {
     selectedDate: new Date("December 31, 2019")
   };
 
-  getData = () => {
-    axios
-      .get("/api/products")
-      .then(response => {
-        console.log(response);
-        this.setState({
-          products: response.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
   componentDidMount = () => {
-    this.getData();
+    this.context.getProductData();
   };
-
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -71,9 +55,10 @@ class ProductsList extends Component {
     const { classes } = this.props;
 
     // the distinctCategory variable is created to populate the category dropdown
+
     const distinctCategory = [
       ...new Set(
-        this.state.products.map(product => {
+        this.context.state.products.map(product => {
           return product.category;
         })
       )
@@ -81,7 +66,7 @@ class ProductsList extends Component {
 
     const distinctBrand = [
       ...new Set(
-        this.state.products.map(product => {
+        this.context.state.products.map(product => {
           return product.brand;
         })
       )
@@ -93,7 +78,7 @@ class ProductsList extends Component {
     //   })
     // );
 
-    let filteredProduct = this.state.products.filter(product => {
+    let filteredProduct = this.context.state.products.filter(product => {
       let searchMatched =
         product.title
           .toLowerCase()
