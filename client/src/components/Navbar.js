@@ -107,23 +107,19 @@ export default function SwipeableTemporaryDrawer() {
   );
 
   return (
-    <div className="userPage">
-      <div className="wrapper">
-        <div classname="naVbar">
-          <Button onClick={toggleDrawer("right", true)}>
-            <MenuRoundedIcon fontSize="large" color="primary" />
-          </Button>
-          <SwipeableDrawer
-            anchor="right"
-            open={state.right}
-            onClose={toggleDrawer("right", false)}
-            onOpen={toggleDrawer("right", true)}
-          >
-            {sideList("right")}
-          </SwipeableDrawer>
-          <ProductsList />
-        </div>
-      </div>
+    <div classname="naVbar">
+      <Button onClick={toggleDrawer("right", true)}>
+        <MenuRoundedIcon fontSize="large" color="primary" />
+      </Button>
+      <SwipeableDrawer
+        anchor="right"
+        open={state.right}
+        onClose={toggleDrawer("right", false)}
+        onOpen={toggleDrawer("right", true)}
+      >
+        {sideList("right")}
+      </SwipeableDrawer>
+      <ProductsList />
     </div>
   );
 }
