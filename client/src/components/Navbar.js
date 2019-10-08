@@ -18,7 +18,7 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import { blue, red } from "@material-ui/core/colors";
 import "../App.css";
-
+import ProductsList from "./products/ProductsList";
 const useStyles = makeStyles({
   list: {
     width: 250
@@ -55,7 +55,10 @@ export default function SwipeableTemporaryDrawer() {
     >
       <List>
         <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
+          <Link
+            to="/contact"
+            style={{ color: "#616161", textDecoration: "none" }}
+          >
             <PermIdentityIcon />
             Profile
             <ListItemText />
@@ -104,18 +107,23 @@ export default function SwipeableTemporaryDrawer() {
   );
 
   return (
-    <div classname="naVbar" style={{ textAlign: "right", position: "sticky" }}>
-      <Button onClick={toggleDrawer("right", true)}>
-        <MenuRoundedIcon fontSize="large" color="primary" />
-      </Button>
-      <SwipeableDrawer
-        anchor="right"
-        open={state.right}
-        onClose={toggleDrawer("right", false)}
-        onOpen={toggleDrawer("right", true)}
-      >
-        {sideList("right")}
-      </SwipeableDrawer>
+    <div className="userPage">
+      <div className="wrapper">
+        <div classname="naVbar">
+          <Button onClick={toggleDrawer("right", true)}>
+            <MenuRoundedIcon fontSize="large" color="primary" />
+          </Button>
+          <SwipeableDrawer
+            anchor="right"
+            open={state.right}
+            onClose={toggleDrawer("right", false)}
+            onOpen={toggleDrawer("right", true)}
+          >
+            {sideList("right")}
+          </SwipeableDrawer>
+          <ProductsList />
+        </div>
+      </div>
     </div>
   );
 }
