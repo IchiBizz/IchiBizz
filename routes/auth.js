@@ -10,7 +10,7 @@ const bcrypt = require("bcrypt");
 router.post("/signup", (req, res) => {
   const { username, password, email } = req.body;
   // console.log(req.body.password);
-  if (!password || password < 6) {
+  if (!password || password < 8) {
     return res
       .status(400)
       .json({ message: "the password must be min. 8 char." });
@@ -44,6 +44,7 @@ router.post("/signup", (req, res) => {
         password: hash,
         email: email
       }).then(dbUser => {
+        res.json({ message: "you have signed up successfully" });
         //login user after signup
 
         req.login(dbUser, err => {
@@ -78,7 +79,7 @@ router.post("/login", (req, res) => {
           .json({ message: "Error while attempting to login" });
       }
       console.log("login?", user);
-      return res.json(user);
+      return res.json(user, { message: "you have logged in successfully" });
     });
   })(req, res);
 });
@@ -88,7 +89,6 @@ router.delete("/logout", (req, res) => {
   req.logout();
   res.json({ message: "Successful logout" });
 });
-
 
 // get api/ loggedin
 router.get("/loggedin", (req, res) => {
