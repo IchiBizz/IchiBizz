@@ -21,8 +21,12 @@ export default class ProductContextProvider extends Component {
         console.log(err);
       });
   };
+  componentDidMount = () => {
+    this.getProductData();
+  };
 
   render() {
+    console.log(this.state.products);
     return (
       <ProductContext.Provider
         value={{ state: this.state, getProductData: this.getProductData }}

@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import { Typography } from "@material-ui/core";
+import { ProductContext } from "../../contexts/ProductContext";
 
 export default class DashboardSeller extends Component {
+  static contextType = ProductContext;
+
   render() {
+    console.log(this.context);
     return (
       <Typography
         component="div"

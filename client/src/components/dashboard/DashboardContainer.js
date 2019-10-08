@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import { AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
 import useStyles from "./DashboardStyles";
 import DashboardSeller from "./DashboardSeller";
 import DashboardBuyer from "./DashboardBuyer";
 
 export default function DashboardContainer() {
-  const classes = useStyles();
+  const classes = useStyles;
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleChangeTabs = (event, newValue) => {

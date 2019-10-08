@@ -26,9 +26,6 @@ class ProductsList extends Component {
     selectedDate: new Date("December 31, 2019")
   };
 
-  componentDidMount = () => {
-    this.context.getProductData();
-  };
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
