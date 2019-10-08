@@ -28,7 +28,6 @@ class ProductsList extends Component {
 
     priceValue: [20, 300],
     selectedDate: new Date("December 31, 2019")
-
   };
 
   getData = () => {
@@ -88,7 +87,6 @@ class ProductsList extends Component {
       )
     ];
 
-
     const distinctCity = [
       ...new Set(
         this.state.products.map(product => {
@@ -97,14 +95,11 @@ class ProductsList extends Component {
       )
     ];
 
-    
-
     // const maxPrice = Math.max(
     //   ...this.state.products.map(product => {
     //     return product.price;
     //   })
     // );
-
 
     let filteredProduct = this.state.products.filter(product => {
       let isSoldMatch = product.isSold === false;
@@ -153,10 +148,7 @@ class ProductsList extends Component {
           handleChange={this.handleChange}
           distinctCategory={distinctCategory}
           distinctBrand={distinctBrand}
-
           distinctCity={distinctCity}
-        
-
           // maxPrice={maxPrice}
 
           handleDateChange={this.handleDateChange}

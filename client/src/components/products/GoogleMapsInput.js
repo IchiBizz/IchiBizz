@@ -11,20 +11,6 @@ Geocode.setApiKey("AIzaSyAEEpqstn15A1q4yFwIv81jnDVG7X0hm9Q");
 Geocode.enableDebug();
 
 class GoogleMapsInput extends Component {
-  // state = {
-  //   address: "",
-  //   country: "",
-  //   city: "",
-  //   mapPosition: {
-  //     lat: this.props.center.lat,
-  //     lng: this.props.center.lng
-  //   },
-  //   markerPosition: {
-  //     lat: this.props.center.lat,
-  //     lng: this.props.center.lng
-  //   }
-  // };
-
   state = {
     center: {
       lat: this.props.center.lat,
@@ -66,20 +52,6 @@ class GoogleMapsInput extends Component {
         lngValue = place.geometry.location.lng();
 
       this.props.getMapData(address, city, country, latValue, lngValue);
-
-      // this.setState({
-      //   address: address ? address : "",
-      //   city: city ? city : "",
-      //   country: country ? country : "",
-      //   markerPosition: {
-      //     lat: latValue,
-      //     lng: lngValue
-      //   },
-      //   mapPosition: {
-      //     lat: latValue,
-      //     lng: lngValue
-      //   }
-      // });
     } else {
       Geocode.fromAddress(place.name)
         .then(response => {
@@ -93,20 +65,6 @@ class GoogleMapsInput extends Component {
             lngValue = data.geometry.location.lng;
 
           this.props.getMapData(address, city, country, latValue, lngValue);
-
-          // this.setState({
-          //   address: address ? address : "",
-          //   city: city ? city : "",
-          //   country: country ? country : "",
-          //   markerPosition: {
-          //     lat: latValue,
-          //     lng: lngValue
-          //   },
-          //   mapPosition: {
-          //     lat: latValue,
-          //     lng: lngValue
-          //   }
-          // });
         })
         .then(err => {
           console.log(err);
@@ -127,33 +85,11 @@ class GoogleMapsInput extends Component {
           country = this.getCountry(addressArray);
 
         this.props.getMapData(address, city, country, newLat, newLng);
-
-        // this.setState({
-        //   address: address ? address : "",
-        //   country: country ? country : "",
-        //   city: city ? city : "",
-        //   markerPosition: {
-        //     lat: newLat,
-        //     lng: newLng
-        //   },
-        //   mapPosition: {
-        //     lat: newLat,
-        //     lng: newLng
-        //   }
-        // });
       })
       .catch(err => {
         console.log(err);
       });
   };
-
-  //  ()=> this.props.getMapData(
-  //     this.state.address,
-  //     this.state.country,
-  //     this.state.city,
-  //     this.state.mapPosition.lat,
-  //     this.state.mapPosition.lng
-  //   );
 
   shouldComponentUpdate(nextProps, nextState) {
     return false;

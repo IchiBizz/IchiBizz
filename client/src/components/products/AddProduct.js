@@ -311,8 +311,7 @@ export default class AddProduct extends Component {
             value={this.state.company}
             onChange={this.handleChange}
           />
-          {/* Location / TO BE ADDED BY NINETTE */}
-
+          {/* Location (read-only) this is populated from the map*/}
           <TextField
             disabled
             id="outlined-location"
@@ -325,7 +324,6 @@ export default class AddProduct extends Component {
             variant="outlined"
             value={this.state.location.address}
           />
-
           {/* Availability */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
@@ -417,7 +415,7 @@ export default class AddProduct extends Component {
             Create
           </Button>
         </FormControl>
-
+        {/* GoogleMaps for entering location */}
         <GoogleMapsInput
           google={this.props.google}
           center={{
