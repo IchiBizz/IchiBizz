@@ -10,13 +10,23 @@ const bcrypt = require("bcrypt");
 router.post("/signup", (req, res) => {
   const { username, password, email } = req.body;
   // console.log(req.body.password);
-  if (!password || password < 8) {
+  if (!password || password.length < 8) {
     return res
       .status(400)
       .json({ message: "the password must be min. 8 char." });
   }
+
   if (!email) {
     return res.status(400).json({ message: "the email can not be empty" });
+  }
+  if (!email.includes("@")) {
+    return res.status(400).json({ message: "write the correct email" });
+  }
+  if (!/^[a-zA-Z0-9-_.+]+$/.test(username)) {
+    return res
+      .status(400)
+
+      .json({ message: "Your username can't have any special characters" });
   }
   User.findOne({ email: email }).then(found => {
     if (found) {
@@ -28,6 +38,7 @@ router.post("/signup", (req, res) => {
   if (!username) {
     return res.status(400).json({ message: "the username can not be empty" });
   }
+
   User.findOne({ username: username })
     .then(found => {
       if (found) {
