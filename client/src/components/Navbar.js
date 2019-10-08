@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
@@ -47,27 +47,51 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        {["Profile", "My Dashboard", "Products", "Drafts"].map(
-          (text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          )
-        )}
+        <ListItem>
+          <Link to="#">
+            <InboxIcon />
+            Profile
+            <ListItemText />
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to="#">
+            <InboxIcon />
+            My Dashboard
+            <ListItemText />
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to="#">
+            <InboxIcon />
+            Wishlist
+            <ListItemText />
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to="#">
+            <InboxIcon />
+            Find Products
+            <ListItemText />
+          </Link>
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {["Log out", "Home page"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem>
+          <Link to="#">
+            <InboxIcon />
+            Home Page
+            <ListItemText />
+          </Link>
+        </ListItem>
+        <ListItem>
+          <Link to="#">
+            <InboxIcon />
+            Logout
+            <ListItemText />
+          </Link>
+        </ListItem>
       </List>
     </div>
   );
