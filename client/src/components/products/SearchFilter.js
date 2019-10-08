@@ -35,7 +35,6 @@ class SearchFilter extends Component {
           onChange={this.props.handleChange}
         />
 
-
         <InputLabel htmlFor="outlined-location-simple">Location</InputLabel>
         <Select
           value={this.props.searchCity}
@@ -101,28 +100,25 @@ class SearchFilter extends Component {
             // getAriaValueText={valuetext}
           />
         </div>
-
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <Grid container justify="space-around">
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Filter by availability"
-              name="selectedDate"
-              value={this.props.selectedDate}
-              onChange={this.props.handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date"
-
-            
-                  }}
-                />
-              </Grid>
-            </MuiPickersUtilsProvider>
-          </div>
+        <div className={classes.root}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Filter by availability"
+                name="selectedDate"
+                value={this.props.selectedDate}
+                onChange={this.props.handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date"
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
         </div>
       </>
     );

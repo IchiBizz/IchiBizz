@@ -196,7 +196,7 @@ export default class AddProduct extends Component {
 
     const classes = styling;
     return (
-
+      <>
         <FormControl onSubmit={this.handleSubmit}>
           {/* Title */}
           <TextField
@@ -240,36 +240,34 @@ export default class AddProduct extends Component {
             value={this.state.brand}
             onChange={this.handleChange}
           />
-            {/* {Category} */}
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="outlined-category-simple">
-                Category
-              </InputLabel>
-              <Select
-                value={this.state.category}
-                onChange={this.handleChange}
-                inputProps={{
-                  name: 'category',
-                  id: 'outlined-category-simple',
-                }}
-              >
-                <MenuItem value="Category">
-                  <em>Select...</em>
-                </MenuItem>
-                <MenuItem value={"Food"}>Food</MenuItem>
-                <MenuItem value={"Textile"}>Textile</MenuItem>
-                <MenuItem value={"Energy"}>Energy</MenuItem>
-                <MenuItem value={"Architecture"}>Architecture</MenuItem>
-                <MenuItem value={"Woodwork"}>Woodwork</MenuItem>
-                <MenuItem value={"Art"}>Art</MenuItem>
-                <MenuItem value={"Economics"}>Economics</MenuItem>
-                <MenuItem value={"Science"}>Science</MenuItem>
-                <MenuItem value={"Education"}>Education</MenuItem>
-                <MenuItem value={"Manufactory"}>Manufactory</MenuItem>
-              </Select>
-            </FormControl>
-            {/* Quantity */}
-            <TextField
+          {/* {Category} */}
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
+            <Select
+              value={this.state.category}
+              onChange={this.handleChange}
+              inputProps={{
+                name: "category",
+                id: "outlined-category-simple"
+              }}
+            >
+              <MenuItem value="Category">
+                <em>Select...</em>
+              </MenuItem>
+              <MenuItem value={"Food"}>Food</MenuItem>
+              <MenuItem value={"Textile"}>Textile</MenuItem>
+              <MenuItem value={"Energy"}>Energy</MenuItem>
+              <MenuItem value={"Architecture"}>Architecture</MenuItem>
+              <MenuItem value={"Woodwork"}>Woodwork</MenuItem>
+              <MenuItem value={"Art"}>Art</MenuItem>
+              <MenuItem value={"Economics"}>Economics</MenuItem>
+              <MenuItem value={"Science"}>Science</MenuItem>
+              <MenuItem value={"Education"}>Education</MenuItem>
+              <MenuItem value={"Manufactory"}>Manufactory</MenuItem>
+            </Select>
+          </FormControl>
+          {/* Quantity */}
+          <TextField
             required
             id="outlined-quantity-input"
             label="Quantity"
@@ -284,7 +282,6 @@ export default class AddProduct extends Component {
           />
           {/* Price */}
           <TextField
-
             id="outlined-adornment-price"
             label="Price"
             className={classes.textField}
@@ -295,16 +292,13 @@ export default class AddProduct extends Component {
             value={this.state.price}
             onChange={this.handleChange}
             InputProps={{
-
-              startAdornment:
-                <InputAdornment
-                  position="start">EUR
-                </InputAdornment>
+              startAdornment: (
+                <InputAdornment position="start">EUR</InputAdornment>
+              )
             }}
           />
           {/* Company */}
-            <TextField
-
+          <TextField
             id="outlined-company-input"
             label="Company Name"
             className={classes.textField}
@@ -374,33 +368,27 @@ export default class AddProduct extends Component {
           <FormControl
             required
             component="fieldset"
-
             className={classes.formControl}
           >
-
             <FormLabel component="legend">Condition</FormLabel>
             <RadioGroup
               aria-label="condition"
               name="condition"
               value={this.state.condition}
-
               onChange={this.handleChange}
             >
-
               <FormControlLabel
                 value="used"
                 control={<Radio />}
                 label="used"
                 name="condition"
-
               />
               <FormControlLabel
                 value="new"
                 control={<Radio />}
                 label="new"
                 name="condition"
-                />
-
+              />
             </RadioGroup>
           </FormControl>
           {/* image Url */}
@@ -452,7 +440,6 @@ export default class AddProduct extends Component {
           }}
         />
       </>
-
     );
   }
 }
