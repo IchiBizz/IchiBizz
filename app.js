@@ -81,7 +81,5 @@ app.use("/api/products", productRoutes);
 
 const productsListRoutes = require("./routes/productsList");
 app.use("/api/products", productsListRoutes);
-const contactRoutes = require("./routes/contacts");
-app.use("/api/contacts", contactRoutes);
 
 module.exports = app;
