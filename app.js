@@ -10,8 +10,10 @@ const logger = require("morgan");
 const path = require("path");
 
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-const flash = require("connect-flash");
+const passport = require("passport");
+
+require("./configs/passport");
+// const flash = require("connect-flash");
 
 mongoose
   .connect(process.env.MONGODB_URI ||"mongodb://localhost/ichibizz", {
@@ -73,23 +75,24 @@ hbs.registerHelper("ifUndefined", (value, options) => {
 app.locals.title = "Express - Generated with IronGenerator";
 
 // Enable authentication using session + passport
+const MongoStore = require("connect-mongo")(session);
 app.use(
   session({
-    secret: "irongenerator",
-    resave: true,
-    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection })
   })
 );
-app.use(flash());
-require("./passport")(app);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 const index = require("./routes/index");
 app.use("/", index);
 
 const authRoutes = require("./routes/auth");
-app.use("/auth", authRoutes);
-
+app.use("/api/auth", authRoutes);
 const productRoutes = require("./routes/productDetail");
 app.use("/api/products", productRoutes);
 
