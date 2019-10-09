@@ -119,7 +119,6 @@ export default function SwipeableTemporaryDrawer() {
       >
         {sideList("right")}
       </SwipeableDrawer>
-      <ProductsList />
     </div>
   );
 }

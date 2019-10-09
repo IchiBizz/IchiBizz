@@ -46,20 +46,21 @@ export default class App extends Component {
         </main>
       </div>
       // ) : (
-
-      //    <div className="userPage">
-      // <div className="wrapper">
-      //   <Navbar />
-      //   <Switch>
-      //   <Route exact path="/products" component={ProductsList} />
-      //     <Route exact path="/contact" component={Contact} />
-      //     <Route exact path="/product" component={Product} />
-      //     <Route exact path="/products/:id" component={ProductDetails} />
-      //     <Route exact path="/products/new" component={AddProduct} />
-      //   </Switch>
-      //   </div>
-      // </div>
+        
+        <div className="userPage">
+        <Navbar />
+        <Switch>
+        <div className="wrapper">
+        <Route exact path="/products" component={ProductsList} />
+          <Route exact path="/products/new" component={AddProduct} />
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/product" component={Product} />
+          <Route exact path="/products/:id" component={ProductDetails} />
+        </div>
+        </Switch>
+      
+      </div>
       //  )}
-    );
+    // );
   }
 }

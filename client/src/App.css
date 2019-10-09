@@ -35,6 +35,7 @@ body {
 .wrapper {
   background-color: rgba(233, 245, 255, 0.7);
   width: 90vw;
+  display: flex;
   /* border: 1px solid black; */
 }
 
