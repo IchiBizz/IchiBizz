@@ -92,7 +92,7 @@ export default class EditProduct extends Component {
     console.log(id)
 
     axios
-      // GET api/products/new to map with defined route in GET method of '/products/ProductDetails.js`
+      //UPDATE /edit/:id route
       .put(`/api/products/edit/${id}`, {
         title: this.state.title,
         description: this.state.description,
