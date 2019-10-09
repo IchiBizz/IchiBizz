@@ -1,8 +1,10 @@
-* {
+　 * {
   margin: 0;
   padding: 0;
 }
-
+body {
+  font-family: "Kreon", serif !important;
+}
 .App {
   text-align: center;
   height: 100vh;
@@ -27,8 +29,6 @@
   background-attachment: fixed;
   background-position: center center;
   width: 100vw;
-
-  border: 1px solid black;
   display: flex;
   justify-content: center;
 }
@@ -39,8 +39,89 @@
   /* border: 1px solid black; */
 }
 
-.naVbar > button {
+.naVbarButton {
+  position: fixed;
+  top: 1em;
+  right: 10%;
+}
+.Video-bg {
   position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+}
+
+.Video-bg__video {
+  /* position: absolute; */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.titlebox {
+  position: relative;
+  overflow: hidden;
+  padding: 200px 0;
+  z-index: 2;
+}
+.titlebox:before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 0;
+  width: 150%;
+  height: 80%;
+  margin: 10% -10% 0;
+  /* background: #245037; */
+  border: 1px solid black;
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+  z-index: -1;
+}
+.contents_inner {
+  box-sizing: boder-box;
+  width: 100%;
+  max-width: 640px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 100px 10px 120px;
+  color: #fff;
+  text-align: center;
+}
+.loginbox {
+  position: relative;
+  overflow: hidden;
+  padding: 200px 0;
+  z-index: 2;
+}
+.loginbox:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 140%;
+  height: 51%;
+  margin: 10% -20% 0;
+  background: #245037;
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+  z-index: -1;
+}
+
+.logincontainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 140px;
 }

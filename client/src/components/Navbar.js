@@ -79,7 +79,10 @@ export default function SwipeableTemporaryDrawer() {
           </Link>
         </ListItem>
         <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
+          <Link
+            to="/products"
+            style={{ color: "#616161", textDecoration: "none" }}
+          >
             <MoodIcon />
             Find Products
             <ListItemText />
@@ -88,13 +91,6 @@ export default function SwipeableTemporaryDrawer() {
       </List>
       <Divider />
       <List>
-        <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
-            <HomeIcon />
-            Home Page
-            <ListItemText />
-          </Link>
-        </ListItem>
         <ListItem>
           <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
             <MeetingRoomIcon />
@@ -108,9 +104,13 @@ export default function SwipeableTemporaryDrawer() {
 
   return (
     <div classname="naVbar">
-      <Button onClick={toggleDrawer("right", true)}>
-        <MenuRoundedIcon fontSize="large" color="primary" />
-      </Button>
+      <MenuRoundedIcon
+        className="naVbarButton"
+        fontSize="large"
+        color="primary"
+        onClick={toggleDrawer("right", true)}
+      />
+
       <SwipeableDrawer
         anchor="right"
         open={state.right}

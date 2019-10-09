@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ProductsList from "./components/products/ProductsList";
-
+import WebFont from "webfontloader";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Contact from "./components/Contact";
@@ -24,32 +24,47 @@ export default class App extends Component {
   //   });
   // };
 
- 
   render() {
     return (
-     
+      // {user ? (
 
-// {user ? (
-        
-      // <div className="App"> 
-      //   <Route exact path="/signup" component={SignUp} />
-      //   <Route exact path="/login" component={Login} />
-      //  </div>
-          // ) : (
-
-         <div className="userPage">
-      <div className="wrapper">
-        <Navbar />
-        <Switch>
-        <Route exact path="/products" component={ProductsList} />
-          <Route exact path="/contact" component={Contact} />
-          <Route exact path="/product" component={Product} />
-          <Route exact path="/products/:id" component={ProductDetails} />
-          <Route exact path="/products/new" component={AddProduct} />
-        </Switch>
-        </div>
+      <div className="App">
+        <section className="titlebox">
+          <div className="Video-bg">
+            <video
+              loop
+              muted
+              autoPlay
+              poster="./bgvideo2.mp4"
+              className="fullscreen-bg__video"
+            >
+              <source src="./bgvideo2.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div className="contents_inner">ichbizz</div>
+        </section>
+        <section className="loginbox">
+          <div className="logincontainer">
+            <SignUp />
+            <Login />
+          </div>
+        </section>
       </div>
-        //  )}
+      // ) : (
+
+      //    <div className="userPage">
+      // <div className="wrapper">
+      //   <Navbar />
+      //   <Switch>
+      //   <Route exact path="/products" component={ProductsList} />
+      //     <Route exact path="/contact" component={Contact} />
+      //     <Route exact path="/product" component={Product} />
+      //     <Route exact path="/products/:id" component={ProductDetails} />
+      //     <Route exact path="/products/new" component={AddProduct} />
+      //   </Switch>
+      //   </div>
+      // </div>
+      //  )}
     );
   }
 }

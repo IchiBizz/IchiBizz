@@ -45,7 +45,6 @@ export default class SignUp extends Component {
   render() {
     return (
       <>
-        <h2>Sign Up</h2>
         <FormControl variant="outlined">
           <TextField
             label="username"
@@ -86,10 +85,12 @@ export default class SignUp extends Component {
             onChange={this.handleChange}
           />
           <label htmlFor="password">
-            *password must contain Capital letter and number
+            *password must contain
+            <br />
+            Capital letter and number
           </label>
           <Button variant="outlined" onClick={this.handleSubmit}>
-            submit
+            SIGN UP
           </Button>
         </FormControl>
       </>

@@ -44,7 +44,6 @@ export default class Login extends Component {
   render() {
     return (
       <>
-        <h2>Log in</h2>
         <FormControl variant="outlined">
           <TextField
             label="email"
@@ -73,7 +72,7 @@ export default class Login extends Component {
           />
 
           <Button variant="outlined" onClick={this.handleSubmit}>
-            submit
+            LOG IN
           </Button>
         </FormControl>
       </>
