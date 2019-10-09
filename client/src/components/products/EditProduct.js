@@ -412,9 +412,9 @@ export default class EditProduct extends Component {
                 id="date-picker-inline"
                 label="Warranty until"
                 value={this.state.warrantyUntil}
-                onChange={this.state.handleDateChangeWarrantyUntil}
+                onChange={this.handleDateChangeWarrantyUntil}
                 KeyboardButtonProps={{
-                  "aria-label": "change date"
+                  "aria-label": "Change Date"
                 }}
               />
             </Grid>
