@@ -111,7 +111,7 @@ app.use("/api/products", productsListRoutes);
 
 // Uploader for Cloudinary
 const cloudinaryRoutes = require("./routes/cloudinary");
-app.use("/api/products", cloudinaryRoutes);
+app.use("/api/cloudinary", cloudinaryRoutes);
 
 // Deployment
 app.use((req, res) => {

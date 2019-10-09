@@ -88,24 +88,15 @@ export default class ProductDetails extends Component {
       createdAt
     } = this.state;
 
+    console.log(imageUrl)
     return (
       <div>
         <h1>Product Details Page</h1>
         <React.Fragment>
-          {/* <div>
-          // FIXME: Images Array upload
-            {
-              imageUrl.map((img, index)=> {
-                // Return all images
-                return (
-                  // FIXME: unique key w/o index
-                  <div key={index}>
-                    <img src={img} alt="images"/>
-                  </div>
-                )
-              })
-            }
-          </div> */}
+          <div>
+          
+            <img src={imageUrl} alt="business img"/>
+          </div>
           <h2>{title}</h2>
           <div>
             {description}
