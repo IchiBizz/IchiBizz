@@ -5,6 +5,8 @@ const Product = require("../models/Product");
 // GET '/api/products' => Get all products on the client
 router.get("/", (req, res) => {
   Product.find()
+    .populate("requested")
+    .populate("wishlist")
     .then(products => {
       if (!products) {
         res.status(400).json(products);

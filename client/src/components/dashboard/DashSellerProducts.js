@@ -51,7 +51,7 @@ class DashSellerProducts extends Component {
   handleOpen = id => {
     console.log(id);
     this.setState({
-      alertOpen: (this.state.alertOpen = true),
+      alertOpen: true,
       deleteId: id
     });
   };
@@ -59,7 +59,7 @@ class DashSellerProducts extends Component {
   handleClose = () => {
     console.log(this.props);
     this.setState({
-      alertOpen: (this.state.alertOpen = false)
+      alertOpen: false
     });
   };
 
@@ -70,8 +70,14 @@ class DashSellerProducts extends Component {
       this.setState({
         deleteId: ""
       });
+
+      let updatedProductState = this.context.state.products.filter(
+        product => product._id !== id
+      );
+
+      this.context.updateProductData(updatedProductState);
       this.handleClose();
-      this.props.history.push("/dashboard");
+      // this.props.history.push("/dashboard");
     });
   };
 
@@ -88,7 +94,7 @@ class DashSellerProducts extends Component {
 
     return (
       <>
-        <h1 style={{ textAlign: "center" }}>Requests to buy</h1>
+        <h1 style={{ textAlign: "center" }}>Your Products</h1>
         <Link to={"/products/new"}>
           <Fab
             color="secondary"

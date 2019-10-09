@@ -100,4 +100,33 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+//TODO: this might be an overlap with edit page put request so need to be reviewed for match.
+// EDIT/api/products/:id
+router.put("sell/:id", (req, res) => {
+  const { isSold, userId } = req.body;
+  Product.findByIdAndUpdate(
+    req.params.id,
+    { isSold: isSold, buyer: userId },
+    { new: true }
+  )
+    .then(product => {
+      res.json(product);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
+// REMOVE /api/products/wish/:id
+router.put("wish/:id", (req, res) => {
+  let id = req.params.id;
+  const { userId } = req.body;
+  Product.findByIdAndUpdate(id, { $pull: { wishlist: userId } })
+    .then(product => {
+      res.json(product);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
 module.exports = router;

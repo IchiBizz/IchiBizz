@@ -21,6 +21,11 @@ export default class ProductContextProvider extends Component {
         console.log(err);
       });
   };
+
+  updateProductData = products => {
+    this.setState({ products });
+  };
+
   componentDidMount = () => {
     this.getProductData();
   };
@@ -29,7 +34,7 @@ export default class ProductContextProvider extends Component {
     console.log(this.state.products);
     return (
       <ProductContext.Provider
-        value={{ state: this.state, getProductData: this.getProductData }}
+        value={{ state: this.state, updateProductData: this.updateProductData }}
       >
         {this.props.children}
       </ProductContext.Provider>
