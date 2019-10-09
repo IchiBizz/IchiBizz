@@ -97,6 +97,7 @@ export default class ProductDetails extends Component {
         <React.Fragment>
           <div>
             {
+              // TODO: Provide a unique key
               imageUrl.map(img => {
                 return (
                 <ul>
