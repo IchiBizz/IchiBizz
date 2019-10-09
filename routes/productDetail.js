@@ -7,8 +7,8 @@ const User = require("../models/User");
 
 // POST '/api/products' => Create product
 router.post("/new", (req, res) => {
-  console.log("[AddProduct.js]: POST route");
-  console.log("req body", req.body);
+  // console.log("[AddProduct.js]: POST route");
+  // console.log("req body", req.body);
   const {
     title,
     description,
