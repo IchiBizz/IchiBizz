@@ -77,20 +77,12 @@ export default class EditProduct extends Component {
       });
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-    console.log("handleChange event.target.value", event.target.value);
-  };
-
   handleSubmit = event => {
     event.preventDefault();
 
     axios
       // GET api/products/new to map with defined route in GET method of '/products/ProductDetails.js`
-      .post("/api/products/new", {
+      .put("/api/products/edit/:id", {
         title: this.state.title,
         description: this.state.description,
         // FIXME: image Upload
@@ -147,15 +139,6 @@ export default class EditProduct extends Component {
       });
   };
 
-  //image upload
-  imageHandler = event => {
-    console.log(event.target.files[0]);
-    this.setState({
-      // TODO: Render all images later, not only first one
-      imageUrl: [...this.state.imageUrl, event.target.files[0].name]
-    });
-  };
-
   // catching the date for availability
   handleDateChange = date => {
     this.setState({
@@ -172,6 +155,23 @@ export default class EditProduct extends Component {
     console.log("warrantyUntil:", date);
   };
 
+  handleChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+    console.log("handleChange event.target.value", event.target.value);
+  };
+
+  //image upload
+  imageHandler = event => {
+    console.log(event.target.files[0]);
+    this.setState({
+      // TODO: Render all images later, not only first one
+      imageUrl: [...this.state.imageUrl, event.target.files[0].name]
+    });
+  };
+  
   componentDidMount = () => {
     this.getData();
   };
