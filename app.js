@@ -8,6 +8,7 @@ const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
+const cors = require("cors");
 
 const session = require("express-session");
 const passport = require("passport");
@@ -36,6 +37,15 @@ const debug = require("debug")(
 );
 
 const app = express();
+
+// Security for uploads
+app.use(cors({
+  // Allow localhost and live server
+  origin: [
+    "http://localhost:3000",
+    "https://ichibizz.herokuapp.com"
+  ]
+}));
 
 // Middleware Setup
 app.use(logger("dev"));
@@ -98,6 +108,10 @@ app.use("/api/products", productRoutes);
 
 const productsListRoutes = require("./routes/productsList");
 app.use("/api/products", productsListRoutes);
+
+// Uploader for Cloudinary
+const cloudinaryRoutes = require("./routes/cloudinary");
+app.use("/api/products", cloudinaryRoutes);
 
 // Deployment
 app.use((req, res) => {
