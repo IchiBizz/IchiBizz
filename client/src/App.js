@@ -14,15 +14,6 @@ import "./App.css";
 
 export default class App extends Component {
   render() {
-    state = {
-      user: this.props.user
-    };
-    setUser = user => {
-      this.setState({
-        user: user
-      });
-    };
-
     return (
       <div className="App">
         <Route exact path="/navbar" component={Navbar} />

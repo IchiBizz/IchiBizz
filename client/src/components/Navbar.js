@@ -55,14 +55,20 @@ export default function SwipeableTemporaryDrawer() {
     >
       <List>
         <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
+          <Link
+            to="profile"
+            style={{ color: "#616161", textDecoration: "none" }}
+          >
             <PermIdentityIcon />
             Profile
             <ListItemText />
           </Link>
         </ListItem>
         <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
+          <Link
+            to="/daschboard"
+            style={{ color: "#616161", textDecoration: "none" }}
+          >
             <DashboardIcon />
             My Dashboard
             <ListItemText />
@@ -85,13 +91,6 @@ export default function SwipeableTemporaryDrawer() {
       </List>
       <Divider />
       <List>
-        <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
-            <HomeIcon />
-            Home Page
-            <ListItemText />
-          </Link>
-        </ListItem>
         <ListItem>
           <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
             <MeetingRoomIcon />
