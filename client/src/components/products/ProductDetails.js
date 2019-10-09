@@ -52,7 +52,7 @@ export default class ProductDetails extends Component {
           warrantyUntil: response.data.warrantyUntil,
           condition: response.data.condition,
           createdAt: response.data.createdAt
-        });
+        })
         // console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
@@ -71,6 +71,7 @@ export default class ProductDetails extends Component {
     // TODO 1: Implement Material UI Styles once we agreed on one style
 
     const {
+      id,
       title,
       description,
       imageUrl,
@@ -88,14 +89,24 @@ export default class ProductDetails extends Component {
       createdAt
     } = this.state;
 
-    console.log(imageUrl)
+   //  console.log(`imageUrl`, imageUrl);
+
     return (
       <div>
         <h1>Product Details Page</h1>
         <React.Fragment>
           <div>
-          
-            <img src={imageUrl} alt="business img"/>
+            {
+              imageUrl.map(img => {
+                return (
+                <ul>
+                  <li>
+                    <img src={img} alt="business img"/>
+                  </li>
+                </ul>
+                )
+              })
+            }
           </div>
           <h2>{title}</h2>
           <div>
