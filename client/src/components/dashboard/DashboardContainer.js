@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AppBar, Tabs, Tab, Typography, Box } from "@material-ui/core";
+import { AppBar, Tabs, Tab } from "@material-ui/core";
 import useStyles from "./DashboardStyles";
 import DashboardSeller from "./DashboardSeller";
 import DashboardBuyer from "./DashboardBuyer";

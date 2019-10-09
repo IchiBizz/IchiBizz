@@ -8,6 +8,7 @@ const User = require("../models/User");
 // POST '/api/products' => Create product
 router.post("/new", (req, res) => {
   console.log("[AddProduct.js]: POST route");
+  console.log("req body", req.body);
   const {
     title,
     description,
@@ -21,6 +22,9 @@ router.post("/new", (req, res) => {
     company,
     latitude,
     longitude,
+    city,
+    address,
+    country,
     availability,
     warrantyUntil,
     condition
@@ -41,8 +45,13 @@ router.post("/new", (req, res) => {
     currency: currency,
     tags: tags,
     company: company,
-    latitude: latitude,
-    longitude: longitude,
+    location: {
+      latitude: latitude,
+      longitude: longitude,
+      city: city,
+      address: address,
+      country: country
+    },
     availability: availability,
     warrantyUntil: warrantyUntil,
     condition: condition,
@@ -50,19 +59,21 @@ router.post("/new", (req, res) => {
     // TODO: To be added after authentication setup
     // seller: owner
   })
-  .then(product => {
-    res.status(200).json(product);
-  })
-  .catch(err => {
-    res.json(`ERROR creating product:`, err);
-  });
+
+    .then(product => {
+      console.log(`PRODUCT:`, product);
+      res.status(200).json(product);
+    })
+    .catch(err => {
+      res.json(`ERROR creating product:`, err);
+    });
 });
 
 // ============ CRUD: GET METHOD ============ //
 
 // GET /api/products/:id
 router.get("/:id", (req, res) => {
-  console.log(`START GET route...`)
+  console.log(`START GET route...`);
   Product.findById(req.params.id)
     .then(product => {
       console.log(`[productDetail.js] GET route: product`, product);
@@ -71,6 +82,18 @@ router.get("/:id", (req, res) => {
       } else {
         res.json(product);
       }
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
+// DELETE /api/products/:id
+router.delete("/:id", (req, res) => {
+  let id = req.params.id;
+  Product.findByIdAndDelete(id)
+    .then(() => {
+      res.json({ message: "delete successful" });
     })
     .catch(err => {
       res.json(err);
