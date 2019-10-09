@@ -44,7 +44,7 @@ export default class SignUp extends Component {
 
   render() {
     return (
-      <>
+      <div id="signup">
         <FormControl variant="outlined">
           <TextField
             label="username"
@@ -93,7 +93,7 @@ export default class SignUp extends Component {
             SIGN UP
           </Button>
         </FormControl>
-      </>
+      </div>
     );
   }
 }

@@ -14,10 +14,6 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
 export default class App extends Component {
-  //  state = {
-  //   user: this.props.user
-  // };
-
   // setUser = user => {
   //   this.setState({
   //     user: user
@@ -29,26 +25,25 @@ export default class App extends Component {
       // {user ? (
 
       <div className="App">
-        <section className="titlebox">
-          <div className="Video-bg">
-            <video
-              loop
-              muted
-              autoPlay
-              poster="./bgvideo2.mp4"
-              className="fullscreen-bg__video"
-            >
-              <source src="./bgvideo2.mp4" type="video/mp4" />
-            </video>
+        <video id="bgVideo" loop autoPlay>
+          <source
+            src="https://storage.coverr.co/videos/coverr-basel-overview-1567677321016?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6IjExNDMyN0NEOTRCMUFCMTFERTE3IiwiaWF0IjoxNTcwNjI1MDAxfQ.1zi6LtQBomwYbISEzHE0pUOxJ1b2CFblXsaAFiCEago"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+        <main>
+          <div className="contents_inner">
+            <h1>ichbizz</h1> <br />
+            <h2>to get their business started</h2>
           </div>
-          <div className="contents_inner">ichbizz</div>
-        </section>
-        <section className="loginbox">
-          <div className="logincontainer">
-            <SignUp />
-            <Login />
-          </div>
-        </section>
+          <section className="loginbox">
+            <div className="logincontainer">
+              <SignUp />
+              <Login />
+            </div>
+          </section>
+        </main>
       </div>
       // ) : (
 

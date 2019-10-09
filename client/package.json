@@ -11,6 +11,7 @@
     "axios": "^0.19.0",
     "date-fns": "^2.4.1",
     "react": "PORT=3000,^16.10.1",
+    "react-background-video-player": "^1.1.6",
     "react-dom": "^16.10.1",
     "react-geocode": "^0.2.0",
     "react-google-autocomplete": "^1.1.2",

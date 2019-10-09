@@ -36,14 +36,14 @@ export default class Login extends Component {
       } else {
         // this.props.setUser(data);
         console.log(this.props.history);
-        this.props.history.push("/");
+        this.props.history.push("/dashboard");
       }
     });
   };
 
   render() {
     return (
-      <>
+      <div id="login">
         <FormControl variant="outlined">
           <TextField
             label="email"
@@ -75,7 +75,7 @@ export default class Login extends Component {
             LOG IN
           </Button>
         </FormControl>
-      </>
+      </div>
     );
   }
 }
