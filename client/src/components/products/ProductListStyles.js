@@ -15,6 +15,12 @@ const useStyles = theme => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
+  },
+  button: {
+    // margin: theme.spacing(1)
+  },
+  input: {
+    display: "none"
   }
 });
 

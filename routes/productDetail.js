@@ -102,11 +102,11 @@ router.delete("/:id", (req, res) => {
 
 //TODO: this might be an overlap with edit page put request so need to be reviewed for match.
 // EDIT/api/products/:id
-router.put("sell/:id", (req, res) => {
-  const { isSold, userId } = req.body;
+router.put("/sell/:id", (req, res) => {
+  const { isSold } = req.body;
   Product.findByIdAndUpdate(
     req.params.id,
-    { isSold: isSold, buyer: userId },
+    { isSold: isSold, buyer: req.user._id },
     { new: true }
   )
     .then(product => {
@@ -117,11 +117,15 @@ router.put("sell/:id", (req, res) => {
     });
 });
 
-// REMOVE /api/products/wish/:id
-router.put("wish/:id", (req, res) => {
+// REMOVE /api/products/wish/remove/:id
+router.put("/wish/remove/:id", (req, res) => {
   let id = req.params.id;
-  const { userId } = req.body;
-  Product.findByIdAndUpdate(id, { $pull: { wishlist: userId } })
+  Product.findByIdAndUpdate(
+    id,
+    { $pull: { wishlist: req.user._id } },
+    { new: true }
+  )
+    .populate("wishlist")
     .then(product => {
       res.json(product);
     })
@@ -129,4 +133,46 @@ router.put("wish/:id", (req, res) => {
       res.json(err);
     });
 });
+
+// ADD /api/products/wish/add/:id
+router.put("/wish/add/:id", (req, res) => {
+  let id = req.params.id;
+
+  Product.findByIdAndUpdate(
+    id,
+    { $push: { wishlist: req.user._id } },
+    { new: true }
+  )
+    .populate("wishlist")
+    .then(product => {
+      console.log(product);
+      res.json(product);
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(err);
+    });
+});
+
+// ADD Request /api/products/request/:id
+router.put("/request/:id", (req, res) => {
+  let id = req.params.id;
+  Product.findByIdAndUpdate(
+    id,
+    { $push: { requested: req.user._id } },
+    { new: true }
+  )
+    .populate("requested")
+    .then(product => {
+      console.log(product);
+
+      res.json(product);
+    })
+    .catch(err => {
+      console.log(err);
+
+      res.json(err);
+    });
+});
+
 module.exports = router;

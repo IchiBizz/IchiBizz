@@ -1,64 +1,77 @@
 import React, { Component } from "react";
 import ProductsList from "./components/products/ProductsList";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
 import ProductDetails from "./components/products/ProductDetails";
 import AddProduct from "./components/products/AddProduct";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
-import ProductContextProvider from "./contexts/ProductContext";
 import { Route, Redirect } from "react-router-dom";
 import "./App.css";
-import { LoggedInUserContext } from "./contexts/LoggedInUserContext";
 import UserContextProvider from "./contexts/UserContext";
+import Protected from "./Protected";
+import { ProductProvider } from "./contexts/ProductContext";
+import { SessionUserProvider } from "./contexts/SessionUserContext";
 
 export default class App extends Component {
-  static contextType = LoggedInUserContext;
+  state = {
+    products: this.props.products,
+    user: this.props.user
+  };
+
+  updateProductData = products => {
+    this.setState({ products });
+  };
+
   render() {
     return (
       <div>
-        <UserContextProvider>
-          <ProductContextProvider>
-            <Route exact path="/dashboard" component={DashboardContainer} />
-            <Route exact path="/products" component={ProductsList} />
-          </ProductContextProvider>
-          <Route exact path="/products/:id" component={ProductDetails} />
-          <Route exact path="/products/new" component={AddProduct} />
-        </UserContextProvider>
-
-        {/* TODO: Setup protected routes */}
-        {/* <ProductContextProvider>
-          <Route
-            exact
-            path="/dashboard"
-            render={props => {
-              if (this.context.state.user)
-                return <DashboardContainer {...props} />;
-              else return <Redirect to="/" />;
+        <SessionUserProvider value={{ user: this.state.user }}>
+          <ProductProvider
+            value={{
+              products: this.state.products,
+              updateProductData: this.updateProductData
             }}
-          />
-          <Route
-            exact
-            path="/products"
-            render={props => {
-              if (this.context.state.user) return <ProductsList {...props} />;
-              else return <Redirect to="/" />;
-            }}
-          />
-        </ProductContextProvider>
-        <Route
-          exact
-          path="/products/:id"
-          render={props => {
-            if (this.context.state.user) return <ProductDetails {...props} />;
-            else return <Redirect to="/" />;
-          }}
-        />
-        <Route
-          exact
-          path="/products/new"
-          render={props => {
-            if (this.context.state.user) return <AddProduct {...props} />;
-            else return <Redirect to="/" />;
-          }}
-        /> */}
+          >
+            <Route
+              exact
+              path="/signup"
+              user={this.state.user}
+              component={SignUp}
+            />
+            <Route
+              exact
+              path="/login"
+              user={this.state.user}
+              component={Login}
+            />
+            <UserContextProvider>
+              <Protected
+                exact
+                path="/dashboard"
+                user={this.state.user}
+                component={DashboardContainer}
+              />
+              <Protected
+                exact
+                path="/products"
+                user={this.state.user}
+                component={ProductsList}
+              />
+              <Protected
+                exact
+                path="/products/:id"
+                user={this.state.user}
+                component={ProductDetails}
+              />
+              <Protected
+                exact
+                path="/products/new"
+                user={this.state.user}
+                component={AddProduct}
+              />
+            </UserContextProvider>
+          </ProductProvider>
+        </SessionUserProvider>
       </div>
     );
   }
