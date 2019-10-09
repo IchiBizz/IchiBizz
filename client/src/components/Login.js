@@ -6,7 +6,6 @@ import { TextField, FormControl, Button } from "@material-ui/core";
 export default class Login extends Component {
   state = {
     password: "",
-    username: "",
     email: ""
   };
 
@@ -27,6 +26,7 @@ export default class Login extends Component {
     console.log(this.state.password);
     login(email, password).then(data => {
       console.log("login?react?", data);
+      window.confirm(data.message);
       if (data.message) {
         this.setState({
           message: data.message,
