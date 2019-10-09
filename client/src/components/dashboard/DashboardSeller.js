@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import DashSellerProducts from "./DashSellerProducts";
-// import DashSellerRequests from "./DashSellerRequests";
+import DashSellerRequests from "./DashSellerRequests";
 import { Typography } from "@material-ui/core";
 
 export default class DashboardSeller extends Component {
@@ -14,7 +14,7 @@ export default class DashboardSeller extends Component {
         aria-labelledby="seller-tabpanel"
       >
         <DashSellerProducts />
-        {/* <DashSellerRequests /> */}
+        <DashSellerRequests />
       </Typography>
     );
   }
