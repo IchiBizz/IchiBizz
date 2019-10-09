@@ -90,4 +90,62 @@ router.get("/:id", (req, res) => {
     });
 });
 
+// ============ CRUD: UPDATE METHOD ============ //
+
+// GET /api/products/:id
+router.put("/edit/:id", (req, res) => {
+  const {
+    title,
+    description,
+    imageUrl,
+    brand,
+    category,
+    quantity,
+    price,
+    currency,
+    tags,
+    company,
+    latitude,
+    longitude,
+    city,
+    address,
+    country,
+    availability,
+    warrantyUntil,
+    condition
+  } = req.body;
+
+  console.log(`START UPDATE route...`)
+  Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      title,
+      description,
+      imageUrl,
+      brand,
+      category,
+      quantity,
+      price,
+      currency,
+      tags,
+      company,
+      latitude,
+      longitude,
+      city,
+      address,
+      country,
+      availability,
+      warrantyUntil,
+      condition
+    },
+    { new: true }
+  )
+    .then(product => {
+      res.json(product);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 module.exports = router;

@@ -20,6 +20,7 @@ import {
   InputLabel,
   MenuItem
 } from "@material-ui/core";
+import GoogleMapsInput from "./GoogleMapsInput";
 
 export default class EditProduct extends Component {
   state = {
@@ -34,8 +35,15 @@ export default class EditProduct extends Component {
     tags: [],
     company: "",
     location: {
-      latitude: null,
-      longitude: null
+      latitude: 52.52,
+      longitude: 13.405,
+      city: "",
+      address: "",
+      country: ""
+    },
+    markerPosition: {
+      lat: 52.52,
+      lng: 13.405
     },
     availability: null,
     warrantyUntil: null,
@@ -80,9 +88,12 @@ export default class EditProduct extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
+    const id = this.props.match.params.id;
+    console.log(id)
+
     axios
       // GET api/products/new to map with defined route in GET method of '/products/ProductDetails.js`
-      .put("/api/products/edit/:id", {
+      .put(`/api/products/edit/${id}`, {
         title: this.state.title,
         description: this.state.description,
         // FIXME: image Upload
@@ -106,7 +117,7 @@ export default class EditProduct extends Component {
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
-        console.log("latitude", this.state.location.latitude);
+        // console.log("latitude", this.state.location.latitude);
         this.setState({
           title: "",
           description: "",
@@ -131,8 +142,6 @@ export default class EditProduct extends Component {
           createdAt: null
         });
         console.log(`[EditProduct.js] response.data:`, response.data);
-        // FIXME: this.props.getData() is not a function
-        // this.getData();
       })
       .catch(err => {
         console.log(`ERROR editing product`, err);
@@ -171,7 +180,23 @@ export default class EditProduct extends Component {
       imageUrl: [...this.state.imageUrl, event.target.files[0].name]
     });
   };
-  
+
+  getMapData = (address, country, city, lat, lng) => {
+    this.setState({
+      location: {
+        latitude: lat,
+        longitude: lng,
+        city: city,
+        address: address,
+        country: country
+      },
+      markerPosition: {
+        lat: lat,
+        lng: lng
+      }
+    });
+  };
+
   componentDidMount = () => {
     this.getData();
   };
@@ -209,9 +234,7 @@ export default class EditProduct extends Component {
 
     const classes = styling;
 
-    console.log(`PROPS`, this.state)
-
-
+    console.log(`PROPS BEFORE RENDER`, this.state)
 
     return (
       <div>
@@ -259,6 +282,20 @@ export default class EditProduct extends Component {
             value={this.state.brand}
             onChange={this.handleChange}
           />
+          {/* Tags */}
+          {/* <Checkbox
+            id="outlined-tags-input"
+            label="Tags"
+            className={classes.textField}
+            type="checkbox"
+            name="tags"
+            placeholder="Restaurant"
+            autoComplete="tags"
+            margin="normal"
+            variant="outlined"
+            value={this.state.tags}
+            onChange={this.handleChange}
+          /> */}
           {/* {Category} */}
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
@@ -342,6 +379,7 @@ export default class EditProduct extends Component {
             margin="normal"
             variant="outlined"
             value={this.state.location.address}
+            onChange={this.getMapData}
           />
           {/* Availability */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -434,6 +472,28 @@ export default class EditProduct extends Component {
            Update
           </Button>
         </FormControl>
+          {/* GoogleMaps for entering location */}
+          <GoogleMapsInput
+          google={this.props.google}
+          center={{
+            lat: 52.52,
+            lng: 13.405
+          }}
+          height="300px"
+          zoom={12}
+          getMapData={this.getMapData}
+          markerPosition={{
+            lat: this.state.markerPosition.lat,
+            lng: this.state.markerPosition.lng
+          }}
+          address={this.state.location.address}
+          country={this.state.location.country}
+          city={this.state.location.city}
+          mapPosition={{
+            lat: this.state.location.latitude,
+            lng: this.state.location.longitude
+          }}
+        />
       </div>
     );
   }

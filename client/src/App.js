@@ -7,7 +7,7 @@ import { Route } from "react-router-dom";
 import "./App.css";
 
 export default class App extends Component {
-  
+
   render() {
     return (
       <div>
@@ -27,7 +27,6 @@ export default class App extends Component {
           path="/products/edit/:id"
           component={EditProduct}
         />
-
       </div>
     );
   }
