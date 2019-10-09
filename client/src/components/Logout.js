@@ -25,7 +25,7 @@ export default class Logout extends Component {
         });
       })
       .then(() => {
-        this.props.history.push("/projects");
+        this.props.history.push("/products");
       });
   };
 

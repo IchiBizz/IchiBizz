@@ -26,7 +26,8 @@ export default class SignUp extends Component {
     const { username, email, password } = this.state;
     console.log(this.state.username);
     signup(username, email, password).then(data => {
-      console.log("signup?", data);
+      console.log("signup?", data.message);
+      window.confirm(data.message);
       if (data.message) {
         this.setState({
           message: data.message,

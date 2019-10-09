@@ -286,6 +286,7 @@ export default class AddProduct extends Component {
             label="Price"
             className={classes.textField}
             type="number"
+          
             name="price"
             margin="normal"
             variant="outlined"
