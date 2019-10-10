@@ -122,9 +122,10 @@ body {
   margin: 5%
 }
 
-.addProductBtn> *{
+.addProductBtn{
   text-align: center;
   text-decoration: none;
+  display: inline-block
 }
 #bgVideo {
   width: 100%;

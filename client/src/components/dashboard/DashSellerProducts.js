@@ -74,16 +74,20 @@ const DashSellerProducts = props => {
   return (
     <>
       {console.log(products)}
-      <h1 style={{ textAlign: "center" }}>Your Products</h1>
-      <Link to={"/products/new"}>
+      <h2 style={{ textAlign: "center" }}>Your Products</h2>
+      <Link to={"/products/new"} style={{ textDecoration: "none" }}>
         <Fab
           color="secondary"
           variant="extended"
           aria-label="add-product"
           // className={classes.fab}
           className="addProductBtn"
+          style={{ margin: " 0 43%" }}
         >
-          <AddIcon className={classes.extendedIcon} />
+          <AddIcon
+            className={classes.extendedIcon}
+            style={{ textAlign: "center" }}
+          />
           Add Product
         </Fab>
       </Link>
@@ -108,7 +112,7 @@ const DashSellerProducts = props => {
                   <TableRow>
                     <TableCell>
                       <img
-                        style={{ height: "15%" }}
+                        style={{ height: "100px" }}
                         src={`${data.imageUrl[0]}`}
                         alt="product-image"
                       />

@@ -76,7 +76,7 @@ const DashboardBuyerWish = props => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Your Wishlist</h1>
+      <h2 style={{ textAlign: "center" }}>Your Wishlist</h2>
       <Paper>
         <Table>
           <TableHead>
