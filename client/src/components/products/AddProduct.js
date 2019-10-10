@@ -212,6 +212,8 @@ export default class AddProduct extends Component {
     return (
       <>
         <div className="content">
+          <h2>creating your post</h2>
+
           <FormControl onSubmit={this.handleSubmit}>
             {/* Title */}
             <TextField
@@ -256,6 +258,7 @@ export default class AddProduct extends Component {
               onChange={this.handleChange}
             />
             {/* Category */}
+            <h3>category</h3>
             <Select
               value={this.state.category}
               onChange={this.handleChange}
@@ -366,6 +369,7 @@ export default class AddProduct extends Component {
             }}
           />
         </div>
+
         <div className="contentAfter">
           {/* Availability */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -407,36 +411,37 @@ export default class AddProduct extends Component {
           </MuiPickersUtilsProvider>
 
           {/* Condition */}
-
-          <FormControl
-            required
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <p></p>
-            <br></br>
-            <h3>condition</h3>
-            <RadioGroup
-              aria-label="condition"
-              name="condition"
-              value={this.state.condition}
-              onChange={this.handleChange}
-              // style={{ display: "flex", jusifyContent: "center" }}
+         
+            <FormControl
+              required
+              component="fieldset"
+              className={classes.formControl}
             >
-              <FormControlLabel
-                value="used"
-                control={<Radio />}
-                label="used"
+              <p></p>
+              <br></br>
+              <h3>condition</h3>
+              <RadioGroup
+                aria-label="condition"
                 name="condition"
-              />
-              <FormControlLabel
-                value="new"
-                control={<Radio />}
-                label="new"
-                name="condition"
-              />
-            </RadioGroup>
-          </FormControl>
+                value={this.state.condition}
+                onChange={this.handleChange}
+                style={{ display: "flex", jusifyContent: "center" }}
+              >
+                <FormControlLabel
+                  value="used"
+                  control={<Radio />}
+                  label="used"
+                  name="condition"
+                />
+                <FormControlLabel
+                  value="new"
+                  control={<Radio />}
+                  label="new"
+                  name="condition"
+                />
+              </RadioGroup>
+            </FormControl>
+  
           {/* image Url */}
 
           <div

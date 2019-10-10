@@ -29,8 +29,8 @@ export default class App extends Component {
               <Route exact path="/contact" component={Contact} />
               <Route exact path="/products/:id" component={ProductDetails} />
               <Route exact path="/products/new" component={AddProduct} />
-              <Route component={Error} />
             </div>
+              <Route component={Error} />
           </Switch>
         </div>
       </>

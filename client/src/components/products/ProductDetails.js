@@ -47,7 +47,7 @@ export default class ProductDetails extends Component {
           warrantyUntil: response.data.warrantyUntil,
           condition: response.data.condition,
           createdAt: response.data.createdAt
-        })
+        });
         // console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
@@ -84,25 +84,24 @@ export default class ProductDetails extends Component {
       createdAt
     } = this.state;
 
-   //  console.log(`imageUrl`, imageUrl);
+    //  console.log(`imageUrl`, imageUrl);
 
     return (
       <div>
-        <h1>Product Details Page</h1>
+        {/* <h1>Product Details Page</h1> */}
         <React.Fragment>
           <div>
-            {
-              // TODO: Provide a unique key
-              imageUrl && imageUrl.map(img => {
+            {// TODO: Provide a unique key
+            imageUrl &&
+              imageUrl.map(img => {
                 return (
-                <ul>
-                  <li>
-                    <img src={img} alt="business img"/>
-                  </li>
-                </ul>
-                )
-              })
-            }
+                  <ul>
+                    <li>
+                      <img src={img} alt="business img" />
+                    </li>
+                  </ul>
+                );
+              })}
           </div>
           <h2>{title}</h2>
           <div>
@@ -122,9 +121,8 @@ export default class ProductDetails extends Component {
             {isSold}
             {createdAt}
           </div>
-
         </React.Fragment>
       </div>
-    )
+    );
   }
 }

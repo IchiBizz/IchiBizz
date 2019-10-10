@@ -24,6 +24,7 @@ export default class Home extends Component {
           </div>
           <section className="loginbox">
             <div className="logincontainer">
+              
               <SignUp />
               <Login />
             </div>
