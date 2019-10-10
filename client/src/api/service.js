@@ -31,5 +31,13 @@ export default {
     return service.post('/new', newImage)
       .then(res => res.data)
       .catch(errorHandler);
+  },
+
+  // Upload image on `AddProduct` page
+  updateImage (newImage) {
+    console.log('New Image saved: ', newImage)
+    return service.put(`/edit`, newImage)
+      .then(res => res.data)
+      .catch(errorHandler);
   }
 }
