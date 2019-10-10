@@ -23,9 +23,15 @@ function MapList(props) {
     };
   }, []);
 
+  const mapStyles = {
+    width: "100%",
+    height: "100%"
+  };
+
   return (
     <>
       <GoogleMap
+        style={mapStyles}
         defaultZoom={4}
         defaultCenter={{ lat: -34, lng: 150 }}
         // defaultOptions={{ styles: mapStyles }}
@@ -73,12 +79,12 @@ const MapWrapped = withScriptjs(withGoogleMap(MapList));
 export default function GoogleMapsProductsList(props) {
   console.log(props);
   return (
-    <div style={{ width: "40vw", height: "80vh" }}>
+    <div>
       <MapWrapped
         googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyAEEpqstn15A1q4yFwIv81jnDVG7X0hm9Q`}
         loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `100%` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
+        containerElement={<div style={{ height: `400px` }} />}
+        mapElement={<div style={{ height: "500px", width: "800px" }} />}
         filteredProduct={props.filteredProduct}
       />
     </div>

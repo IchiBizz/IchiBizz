@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
-
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 import GoogleMapsProductsList from "../GoogleMapsProductsList";
-
+import Switch from "@material-ui/core/Switch";
+import Paper from "@material-ui/core/Paper";
+import Fade from "@material-ui/core/Fade";
 import useStyles from "./ProductListStyles";
 import {
   Typography,
@@ -23,6 +25,8 @@ class ProductsList extends Component {
     searchText: "",
     searchCategory: "",
     searchBrand: "",
+
+    checked: false,
 
     searchCity: "",
 
@@ -67,8 +71,14 @@ class ProductsList extends Component {
     });
   };
 
+  handleMapChange = name => event => {
+    this.setState({ [name]: event.target.checked });
+  };
+
   render() {
     const { classes } = this.props;
+    console.log(this.props);
+    this.handleMapChange = this.handleMapChange.bind(this);
 
     // the distinctCategory variable is created to populate the category dropdown
     const distinctCategory = [
@@ -137,7 +147,7 @@ class ProductsList extends Component {
 
     return (
       <div className={classes.listPageContainer}>
-        <h1>Product List</h1>
+        <h2>Product List</h2>
         <SearchFilter
           searchText={this.state.searchText}
           searchCategory={this.state.searchCategory}
@@ -154,9 +164,31 @@ class ProductsList extends Component {
           handleDateChange={this.handleDateChange}
           handlePriceChange={this.handlePriceChange}
         />
-        <GoogleMapsProductsList filteredProduct={filteredProduct} />
 
-        <div className={classes.mapListContainer}>
+        <FormControlLabel
+          control={
+            <Switch
+              name="switch"
+              checked={this.state.checked}
+              onChange={this.handleMapChange("checked")}
+            />
+          }
+          label="check the map"
+        />
+        <div className={classes.container}>
+          <Fade in={this.state.checked}>
+            <Paper elevation={4} className={classes.paper}>
+              <GoogleMapsProductsList filteredProduct={filteredProduct} />
+            </Paper>
+          </Fade>
+        </div>
+
+        {/* <GoogleMapsProductsList filteredProduct={filteredProduct} /> */}
+
+        <div
+          className={classes.mapListContainer}
+          style={{ borderStyle: "solid", borderColor: "red" }}
+        >
           <div>
             {filteredProduct.map(data => {
               return (

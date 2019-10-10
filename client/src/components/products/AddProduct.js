@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import DateFnsUtils from "@date-io/date-fns";
+import "../../App.css";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
@@ -166,7 +167,8 @@ export default class AddProduct extends Component {
   render() {
     const styling = makeStyles(theme => ({
       button: {
-        margin: theme.spacing(1)
+        margin: theme.spacing(1),
+        backgroundColor: "yellow"
       },
       textField: {
         marginLeft: theme.spacing(1),
@@ -196,7 +198,7 @@ export default class AddProduct extends Component {
 
     const classes = styling;
     return (
-      <>
+      <div className="content">
         <FormControl onSubmit={this.handleSubmit}>
           {/* Title */}
           <TextField
@@ -286,7 +288,6 @@ export default class AddProduct extends Component {
             label="Price"
             className={classes.textField}
             type="number"
-          
             name="price"
             margin="normal"
             variant="outlined"
@@ -363,43 +364,51 @@ export default class AddProduct extends Component {
               />
             </Grid>
           </MuiPickersUtilsProvider>
-          {/* Condition */}
-          <FormControl
-            required
-            component="fieldset"
-            className={classes.formControl}
-          >
-            <FormLabel component="legend">Condition</FormLabel>
-            <RadioGroup
-              aria-label="condition"
-              name="condition"
-              value={this.state.condition}
-              onChange={this.handleChange}
+
+          <div style={{ justifyContent: "center" }}>
+            {/* Condition */}
+
+            <FormControl
+              required
+              component="fieldset"
+              className={classes.formControl}
             >
-              <FormControlLabel
-                value="used"
-                control={<Radio />}
-                label="used"
+              <p></p>
+              <br></br>
+              <h3>condition</h3>
+              <RadioGroup
+                aria-label="condition"
                 name="condition"
-              />
-              <FormControlLabel
-                value="new"
-                control={<Radio />}
-                label="new"
-                name="condition"
-              />
-            </RadioGroup>
-          </FormControl>
-          {/* image Url */}
-          <label htmlFor="imageUrl">Upload Image(s): </label>
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            // FIXME: value={this.state.imageUrl}
-            onChange={this.imageHandler}
-          />
+                value={this.state.condition}
+                onChange={this.handleChange}
+                // style={{ display: "flex", jusifyContent: "center" }}
+              >
+                <FormControlLabel
+                  value="used"
+                  control={<Radio />}
+                  label="used"
+                  name="condition"
+                />
+                <FormControlLabel
+                  value="new"
+                  control={<Radio />}
+                  label="new"
+                  name="condition"
+                />
+              </RadioGroup>
+            </FormControl>
+            {/* image Url */}
+
+            <label htmlFor="imageUrl">Upload Image(s): </label>
+            <input
+              type="file"
+              multiple
+              id="imageUrl"
+              name="imageUrl"
+              // FIXME: value={this.state.imageUrl}
+              onChange={this.imageHandler}
+            />
+          </div>
           <br />
           {/* // FIXME: Decide tagging via Google Vision
 
@@ -415,9 +424,12 @@ export default class AddProduct extends Component {
           >
             Create
           </Button>
+          <p></p>
         </FormControl>
         {/* GoogleMaps for entering location */}
+
         <GoogleMapsInput
+          className="googlemap"
           google={this.props.google}
           center={{
             lat: 52.52,
@@ -438,7 +450,7 @@ export default class AddProduct extends Component {
             lng: this.state.location.longitude
           }}
         />
-      </>
+      </div>
     );
   }
 }

@@ -19,6 +19,7 @@ import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import { blue, red } from "@material-ui/core/colors";
 import "../App.css";
 import ProductsList from "./products/ProductsList";
+// import iconSun from '../../public/iconSun-small.png';
 const useStyles = makeStyles({
   list: {
     width: 250
@@ -103,7 +104,10 @@ export default function SwipeableTemporaryDrawer() {
   );
 
   return (
-    <div classname="naVbar">
+    <div className="naVbar">
+      <div className="iconSun">
+        <iconSun />
+      </div>
       <MenuRoundedIcon
         className="naVbarButton"
         fontSize="large"

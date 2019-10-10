@@ -5,6 +5,7 @@
 body {
   font-family: "Kreon", serif !important;
   font-size: 16px;
+  color: rgb(68, 68, 68);
 }
 .App {
   text-align: center;
@@ -16,6 +17,13 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+#titleimg {
+  width: 100%;
+}
+#titleimg img {
   width: 100%;
 }
 .filterContainer > * {
@@ -32,22 +40,38 @@ body {
   justify-content: center;
 }
 
+/* white paper */
 .wrapper {
-  background-color: rgba(233, 245, 255, 0.7);
+  background-color: rgba(233, 245, 255, 0.83);
   width: 90vw;
   display: flex;
-  /* border: 1px solid black; */
+  flex-direction: column;
+  justify-content: center;
+}
+/* component size(width) */
+.content {
+  width: 60%;
+  left: 20%;
+  top: 10%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid pink;
+}
+.element.style {
+  width: 650px;
 }
 
 .naVbarButton {
+  width: 100vw;
   position: fixed;
   top: 1em;
   right: 10%;
 }
 
 #bgVideo {
-  max-width: 100%;
-  max-height: 100%;
+  display: block;
+  margin: 0 0 0 auto;
 }
 
 #login,
@@ -61,19 +85,35 @@ h1 {
 
 .contents_inner {
   box-sizing: boder-box;
+  margin: 100px;
   width: 100%;
-  max-width: 640px;
-  height: 100%;
+  max-width: 800px;
+  padding-top: 100px;
   margin: 0 auto;
-  color: #fff;
+  color: rgb(0, 27, 81);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
 }
+
 .loginbox {
   position: relative;
   overflow: hidden;
-  padding: 200px 0;
+  padding: 170px 0;
   z-index: 2;
 }
+
+.main {
+  position: absolute;
+  border: 1px solid black;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
 .loginbox:before {
   content: "";
   position: absolute;
@@ -81,7 +121,6 @@ h1 {
   width: 140%;
   height: 51%;
   margin: 10% -20% 0;
-
   background-image: linear-gradient(to right, rgb(0, 27, 81) 0%, #517fa4 100%);
   -webkit-transform-origin: left center;
   -ms-transform-origin: left center;
@@ -97,4 +136,8 @@ h1 {
   justify-content: center;
   flex-wrap: wrap;
   background-color: rgba(233, 245, 255, 0.7);
+}
+
+.googlemap {
+  width: 10px;
 }
