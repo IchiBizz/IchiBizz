@@ -23,11 +23,11 @@ let users = [];
 
 // Full Faker Data
 const seedInitialUsers = () => {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 5; i++) {
     users.push({
       username: Faker.internet.userName(),
       email: Faker.internet.email(),
-      password: bcrypt.hashSync("faker", bcrypt.genSaltSync(bcryptSalt)),
+      password: bcrypt.hashSync("faker1234", bcrypt.genSaltSync(bcryptSalt)),
       firstName: Faker.name.firstName(),
       lastName: Faker.name.lastName(),
       address: {
@@ -37,6 +37,7 @@ const seedInitialUsers = () => {
         city: Faker.address.city(),
         country: Faker.address.country()
       },
+      // This ensures 17 chars for phone number
       phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({ min: 0, max: 5 }),
       reviews: Faker.lorem.paragraphs()
@@ -51,7 +52,7 @@ users.push(
   {
     username: "noriko",
     email: "noriko@noriko.io",
-    password: bcrypt.hashSync("noriko", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("noriko1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Noriko",
     lastName: Faker.name.lastName(),
     address: {
@@ -68,7 +69,7 @@ users.push(
   {
     username: "ninette",
     email: "ninette@ninette.io",
-    password: bcrypt.hashSync("ninette", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("ninette1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Ninette",
     lastName: Faker.name.lastName(),
     address: {
@@ -85,7 +86,7 @@ users.push(
   {
     username: "thuy",
     email: "thuy@thuy.io",
-    password: bcrypt.hashSync("thuy", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("thuy1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Thuy",
     lastName: Faker.name.lastName(),
     address: {
@@ -102,7 +103,7 @@ users.push(
   {
     username: "bob",
     email: Faker.internet.email(),
-    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("bob12345", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Bob",
     lastName: Faker.name.lastName(),
     address: {
@@ -119,7 +120,7 @@ users.push(
   {
     username: "alice",
     email: Faker.internet.email(),
-    password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("alice1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Alice",
     lastName: Faker.name.lastName(),
     address: {

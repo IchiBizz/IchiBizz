@@ -150,6 +150,10 @@ let tagsList = [
 let loremIpsumLong = [
   "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
   "Lorem ipsum på svenska är en klar förbättring version på den uppskattade Lorem ipsum varianten. Sociala nätverk kan aldrig fånga en fisk. En annan sak är att man ibland går ensam till de olika festerna. Niklas tog tag i datorn och lyfte den mot himmeln. Så nu tar vi en paus och inväntar resultatet av dagens skrivande."
+];
+
+const productNames = [
+  "Bosch Power Tools Combo Kit CLPK22-120", "Bosch Electric Tankless Water Heater", "Bosch JS260 120-Volt Top-Handle Jigsaw", "Acer SB220Q bi 21.5 Full HD (1920 x 1080)", "Lenovo Flex 14 2-in-1 Convertible Laptop, 14 Inch FHD Touchscreen Display", "Beats Solo3 Wireless On-Ear Headphones - Matte Black", "Ubiquiti UniFi AC Lite AP - Wireless Access Point - 802.11 B/A/G/n/AC Wireless Access Point", "Watch Battery Replacement Tool Kit", "Office Chair | Innovadesk Comfy Chair", "Computer Desk 47 - Office Table", "South Shore 4-Shelf Storage Bookcase, Royal Cherry", "Nathan James 65503 Theo 5-Shelf Wood Ladder Bookcase", "Wood Computer Monitor Stand Raiser Black with 3 Tier Desktop Organizer", "Brother Business Color Laser Printer, HL-L8360CDW, WLAN", "Canon TS9120 Wireless All-In-One Printer with Scanner and Copier", "HP Laserjet Pro M148dw All-in-One Wireless Monochrome Laser Printer (4PA41A)"
 ]
 
 let conditions = ["used", "new"];
@@ -171,7 +175,7 @@ const seedInitialProducts = () => {
         users[(Math.floor(Math.random() * users.length) + 4) % 10];
 
       products.push({
-        title: Faker.lorem.sentence(),
+        title: Faker.random.arrayElement(productNames),
         description: Faker.random.arrayElement(loremIpsumLong),
         imageUrl: [
           // returns e.g. "http://lorempixel.com/640/480/business"
@@ -204,8 +208,8 @@ const seedInitialProducts = () => {
           address: Faker.address.streetAddress(),
           country: Faker.address.country()
         },
-        availability: Faker.date.future(),
-        warrantyUntil: Faker.date.future(),
+        availability: Faker.date.recent(),
+        warrantyUntil: Faker.date.(),
         condition: Faker.random.arrayElement(conditions),
         isSold: false,
         seller: randomSeller._id,
