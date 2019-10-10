@@ -5,7 +5,7 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import Contact from "./components/Contact";
 import Navbar from "./components/Navbar";
-
+import EditProduct from "./components/products/EditProduct";
 import ProductDetails from "./components/products/ProductDetails";
 import AddProduct from "./components/products/AddProduct";
 import Product from "./components/products/User";
@@ -19,10 +19,6 @@ export default class App extends Component {
   //     user: user
   //   });
   // };
-
-import EditProduct from "./components/products/EditProduct";
-import SignUp from "./components/SignUp";
-
 
   render() {
     return (
@@ -48,18 +44,6 @@ import SignUp from "./components/SignUp";
             </div>
           </section>
         </div>
-
-        <Route
-          exact
-          path="/products/new"
-          component={AddProduct}
-        />
-        <Route
-          exact
-          path="/products/edit/:id"
-          component={EditProduct}
-        />
-    
       </div>
 
       // <div className="userPage">

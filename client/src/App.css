@@ -70,13 +70,14 @@ body {
 }
 
 #bgVideo {
+  width: 100%;
   display: block;
   margin: 0 0 0 auto;
 }
 
 #login,
 #signup {
-  padding: 10px;
+  padding: 40px;
 }
 h1 {
   font-size: 4rem;
