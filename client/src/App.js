@@ -53,7 +53,7 @@ export default class App extends Component {
                   user={this.state.user}
                   component={DashboardContainer}
                 />
-                <Protected
+                <Route
                   exact
                   path="/products"
                   user={this.state.user}
@@ -65,7 +65,7 @@ export default class App extends Component {
                   user={this.state.user}
                   component={AddProduct}
                 />
-                <Protected
+                <Route
                   exact
                   path="/products/:id"
                   user={this.state.user}
