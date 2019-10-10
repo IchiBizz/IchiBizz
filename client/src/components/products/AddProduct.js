@@ -56,7 +56,7 @@ export default class AddProduct extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log(this.state)
+    console.log(this.state);
     axios
       // GET api/products/new to map POST route in the backend`
       .post("/api/products/new", {
@@ -147,15 +147,18 @@ export default class AddProduct extends Component {
     // req.body to .create() method when creating a new Image in '/api/products/new' POST route
     uploadData.append("imageUrl", event.target.files[0]);
 
-    service.handleUpload(uploadData)
-    .then(response => {
-      console.log(response)
-        this.setState({imageUrl:[...this.state.imageUrl,response.secure_url]});
+    service
+      .handleUpload(uploadData)
+      .then(response => {
+        console.log(response);
+        this.setState({
+          imageUrl: [...this.state.imageUrl, response.secure_url]
+        });
       })
       .catch(err => {
         console.log("Error while uploading the file: ", err);
       });
-  }
+  };
 
   getMapData = (address, country, city, lat, lng) => {
     this.setState({
@@ -207,53 +210,52 @@ export default class AddProduct extends Component {
 
     const classes = styling;
     return (
-      <div className="content">
-        <FormControl onSubmit={this.handleSubmit}>
-          {/* Title */}
-          <TextField
-            required
-            id="outlined-title-input"
-            label="Title"
-            className={classes.textField}
-            type="text"
-            name="title"
-            placeholder="e.g. Nestlé D1234 Coffee Maker"
-            autoComplete="title"
-            margin="normal"
-            variant="outlined"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          {/* Description */}
-          <TextField
-            id="outlined-description-input"
-            label="Description"
-            className={classes.textField}
-            type="text"
-            name="description"
-            autoComplete="description"
-            margin="normal"
-            variant="outlined"
-            value={this.state.description}
-            onChange={this.handleChange}
-          />
-          {/* Brand */}
-          <TextField
-            id="outlined-brand-input"
-            label="Brand"
-            className={classes.textField}
-            type="text"
-            name="brand"
-            placeholder="e.g. Apple"
-            autoComplete="brand"
-            margin="normal"
-            variant="outlined"
-            value={this.state.brand}
-            onChange={this.handleChange}
-          />
-          {/* {Category} */}
-          <FormControl variant="outlined" className={classes.formControl}>
-            <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
+      <>
+        <div className="content">
+          <FormControl onSubmit={this.handleSubmit}>
+            {/* Title */}
+            <TextField
+              required
+              id="outlined-title-input"
+              label="Title"
+              className={classes.textField}
+              type="text"
+              name="title"
+              placeholder="e.g. Nestlé D1234 Coffee Maker"
+              autoComplete="title"
+              margin="normal"
+              variant="outlined"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
+            {/* Description */}
+            <TextField
+              id="outlined-description-input"
+              label="Description"
+              className={classes.textField}
+              type="text"
+              name="description"
+              autoComplete="description"
+              margin="normal"
+              variant="outlined"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+            {/* Brand */}
+            <TextField
+              id="outlined-brand-input"
+              label="Brand"
+              className={classes.textField}
+              type="text"
+              name="brand"
+              placeholder="e.g. Apple"
+              autoComplete="brand"
+              margin="normal"
+              variant="outlined"
+              value={this.state.brand}
+              onChange={this.handleChange}
+            />
+            {/* Category */}
             <Select
               value={this.state.category}
               onChange={this.handleChange}
@@ -322,11 +324,12 @@ export default class AddProduct extends Component {
             value={this.state.company}
             onChange={this.handleChange}
           />
+
           {/* Location (read-only) this is populated from the map*/}
           <TextField
             disabled
             id="outlined-location"
-            label="Location"
+            label="Location/seach on the google map"
             className={classes.textField}
             type="text"
             name="address"
@@ -335,6 +338,35 @@ export default class AddProduct extends Component {
             variant="outlined"
             value={this.state.location.address}
           />
+        </div>
+
+        {/* google map */}
+
+        <div className="contentGmap">
+          <GoogleMapsInput
+            className="googlemap"
+            google={this.props.google}
+            center={{
+              lat: 52.52,
+              lng: 13.405
+            }}
+            height="300px"
+            zoom={12}
+            getMapData={this.getMapData}
+            markerPosition={{
+              lat: this.state.markerPosition.lat,
+              lng: this.state.markerPosition.lng
+            }}
+            address={this.state.location.address}
+            country={this.state.location.country}
+            city={this.state.location.city}
+            mapPosition={{
+              lat: this.state.location.latitude,
+              lng: this.state.location.longitude
+            }}
+          />
+        </div>
+        <div className="contentAfter">
           {/* Availability */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
@@ -374,115 +406,99 @@ export default class AddProduct extends Component {
             </Grid>
           </MuiPickersUtilsProvider>
 
-          <div style={{ justifyContent: "center" }}>
-            {/* Condition */}
+          {/* Condition */}
 
-            <FormControl
-              required
-              component="fieldset"
-              className={classes.formControl}
+          <FormControl
+            required
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <p></p>
+            <br></br>
+            <h3>condition</h3>
+            <RadioGroup
+              aria-label="condition"
+              name="condition"
+              value={this.state.condition}
+              onChange={this.handleChange}
+              // style={{ display: "flex", jusifyContent: "center" }}
             >
-              <p></p>
-              <br></br>
-              <h3>condition</h3>
-              <RadioGroup
-                aria-label="condition"
+              <FormControlLabel
+                value="used"
+                control={<Radio />}
+                label="used"
                 name="condition"
-                value={this.state.condition}
-                onChange={this.handleChange}
-                // style={{ display: "flex", jusifyContent: "center" }}
-              >
-                <FormControlLabel
-                  value="used"
-                  control={<Radio />}
-                  label="used"
-                  name="condition"
-                />
-                <FormControlLabel
-                  value="new"
-                  control={<Radio />}
-                  label="new"
-                  name="condition"
-                />
-              </RadioGroup>
-            </FormControl>
-            {/* image Url */} 
-      
-          <label htmlFor="imageUrl">Upload Image: </label>
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <br />
-          {/* // FIXME: Decide tagging via Google Vision
-          Category: [google vision?] */}
-          <br />
-          <Button
-            type="submit"
-            variant="outlined"
-            className={classes.button}
-            onClick={this.handleSubmit}
-            noValidate >
-            Create
-          </Button>
-          <p></p>
-        </FormControl>
-        {/* GoogleMaps for entering location */}
+              />
+              <FormControlLabel
+                value="new"
+                control={<Radio />}
+                label="new"
+                name="condition"
+              />
+            </RadioGroup>
+          </FormControl>
+          {/* image Url */}
 
-        <GoogleMapsInput
-          className="googlemap"
-          google={this.props.google}
-          center={{
-            lat: 52.52,
-            lng: 13.405
-          }}
-          height="300px"
-          zoom={12}
-          getMapData={this.getMapData}
-          markerPosition={{
-            lat: this.state.markerPosition.lat,
-            lng: this.state.markerPosition.lng
-          }}
-          address={this.state.location.address}
-          country={this.state.location.country}
-          city={this.state.location.city}
-          mapPosition={{
-            lat: this.state.location.latitude,
-            lng: this.state.location.longitude
-          }}
-        />
-      </div>
+          <div
+            className="contentImgfile"
+            style={{ justifyContent: "space-around", border: "1px" }}
+          >
+            <label htmlFor="imageUrl">Upload Image: </label>
+            <input
+              type="file"
+              multiple
+              id="imageUrl"
+              name="imageUrl"
+              onChange={this.handleImageUpload}
+            />
+            <input
+              type="file"
+              multiple
+              id="imageUrl"
+              name="imageUrl"
+              onChange={this.handleImageUpload}
+            />
+            <input
+              type="file"
+              multiple
+              id="imageUrl"
+              name="imageUrl"
+              onChange={this.handleImageUpload}
+            />
+            <input
+              type="file"
+              multiple
+              id="imageUrl"
+              name="imageUrl"
+              onChange={this.handleImageUpload}
+            />
+            <input
+              type="file"
+              multiple
+              id="imageUrl"
+              name="imageUrl"
+              onChange={this.handleImageUpload}
+            />
+            <br />
+            {/* // FIXME: Decide tagging via Google Vision
+          Category: [google vision?] */}
+            <br />
+            <FormControl>
+              <Button
+                type="submit"
+                variant="outlined"
+                className={classes.button}
+                onClick={this.handleSubmit}
+                noValidate
+              >
+                Create
+              </Button>
+              <p></p>
+            </FormControl>
+            {/* GoogleMaps for entering location */}
+          </div>
+        </div>
+      </>
     );
   }
 }
