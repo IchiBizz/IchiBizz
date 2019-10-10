@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Button } from "@material-ui/core";
+import useStyles from "./ProductListStyles";
+import { ProductContext } from "../../contexts/ProductContext";
+import { SessionUserContext } from "../../contexts/SessionUserContext";
 
-export default class ProductDetails extends Component {
+class ProductDetails extends Component {
+  static contextType = ProductContext;
   state = {
     title: "",
     description: "",
@@ -21,17 +26,21 @@ export default class ProductDetails extends Component {
     warrantyUntil: null,
     condition: "",
     isSold: false,
-    createdAt: null
+    createdAt: null,
+    _id: "",
+    requested: []
   };
 
   getData = () => {
     const id = this.props.match.params.id;
-    // console.log(`id`, id)
+    // console.log(`id`, id);
 
     axios
       .get(`/api/products/${id}`)
       .then(response => {
         // TODO @Ninette: latitude, longitude
+        console.log("resopnse", response);
+
         this.setState({
           title: response.data.title,
           description: response.data.description,
@@ -46,26 +55,43 @@ export default class ProductDetails extends Component {
           availability: response.data.availability,
           warrantyUntil: response.data.warrantyUntil,
           condition: response.data.condition,
-          createdAt: response.data.createdAt
+          createdAt: response.data.createdAt,
+          requested: response.data.requested,
+          _id: response.data._id
         });
         // console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
-        console.log(`ERR`, err.response);
-        if (err.response.status === 404) {
-          this.setState({ error: "Not found" });
-        }
+        console.log(err);
       });
+    // .catch(err => {
+    //   console.log(`ERR`, err.response);
+    //   if (err.response.status === 404) {
+    //     this.setState({ error: "Not found" });
+    //   }
+    // });
   };
 
   componentDidMount = () => {
     this.getData();
   };
 
+  handleClick = id => {
+    console.log("handle id", id);
+    axios.put(`api/products/request/${id}`).then(response => {
+      console.log("request response", response);
+      let updatedProducts = this.context.products.map(product => {
+        if (id === response.data._id) return response.data;
+        else return product;
+      });
+      this.context.updateProductData(updatedProducts);
+    });
+  };
+
   render() {
     // TODO 1: Implement Material UI Styles once we agreed on one style
-
     const {
+      id,
       title,
       description,
       imageUrl,
@@ -80,27 +106,32 @@ export default class ProductDetails extends Component {
       warrantyUntil,
       condition,
       isSold,
-      createdAt
+      createdAt,
+      _id,
+      requested
     } = this.state;
+
+    //  console.log(`imageUrl`, imageUrl);
+
+    console.log("requested", requested, "title", title);
 
     return (
       <div>
-        <h1>Product Details Page</h1>
+        {/* <h1>Product Details Page</h1> */}
         <React.Fragment>
-          {/* <div>
-          // FIXME: Images Array upload
-            {
-              imageUrl.map((img, index)=> {
-                // Return all images
+          <div>
+            {// TODO: Provide a unique key
+            imageUrl &&
+              imageUrl.map(img => {
                 return (
-                  // FIXME: unique key w/o index
-                  <div key={index}>
-                    <img src={img} alt="images"/>
-                  </div>
-                )
-              })
-            }
-          </div> */}
+                  <ul>
+                    <li>
+                      <img src={img} alt="business img" />
+                    </li>
+                  </ul>
+                );
+              })}
+          </div>
           <h2>{title}</h2>
           <div>
             {description}
@@ -119,9 +150,37 @@ export default class ProductDetails extends Component {
             {isSold}
             {createdAt}
           </div>
+          <p>
+            Send request to seller and he or she will be able to view your email
+            address to contact you
+          </p>
+          {
+            <SessionUserContext.Consumer>
+              {contextUser => {
+                console.log("requested", requested);
+                console.log("id", _id);
+                console.log("session user id", contextUser);
 
+                return requested.some(user => user === contextUser.user._id) ? (
+                  <Button variant="contained" color="primary" disabled>
+                    Request Sent
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleClick(_id)}
+                  >
+                    Send Request
+                  </Button>
+                );
+              }}
+            </SessionUserContext.Consumer>
+          }
         </React.Fragment>
       </div>
-    )
+    );
   }
 }
+
+export default ProductDetails;

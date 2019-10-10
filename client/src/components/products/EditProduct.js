@@ -21,6 +21,7 @@ import {
   MenuItem
 } from "@material-ui/core";
 import GoogleMapsInput from "./GoogleMapsInput";
+import service from "./../../api/service";
 
 export default class EditProduct extends Component {
   state = {
@@ -171,14 +172,23 @@ export default class EditProduct extends Component {
     });
     console.log("handleChange event.target.value", event.target.value);
   };
+  
+   // Upload to Cloudinary
+   handleImageUpload = event => {
+    console.log("The Image to be uploaded is: ", event.target.files[0]);
 
-  //image upload
-  imageHandler = event => {
-    console.log(event.target.files[0]);
-    this.setState({
-      // TODO: Render all images later, not only first one
-      imageUrl: [...this.state.imageUrl, event.target.files[0].name]
-    });
+    const uploadData = new FormData();
+    // req.body to .create() method when creating a new Image in '/api/products/new' POST route
+    uploadData.append("imageUrl", event.target.files[0]);
+
+    service.handleUpload(uploadData)
+    .then(response => {
+      console.log(response)
+        this.setState({imageUrl:[...this.state.imageUrl,response.secure_url]});
+      })
+      .catch(err => {
+        console.log("Error while uploading the file: ", err);
+      });
   };
 
   getMapData = (address, country, city, lat, lng) => {
@@ -446,21 +456,46 @@ export default class EditProduct extends Component {
               />
             </RadioGroup>
           </FormControl>
+          <br />
+          {/* // FIXME: Decide tagging via Google Vision
+          Category: [google vision?] */}
           {/* image Url */}
-          <label htmlFor="imageUrl">Upload Image(s): </label>
+          <label htmlFor="imageUrl">Upload Image </label>
           <input
             type="file"
             multiple
             id="imageUrl"
             name="imageUrl"
-            // FIXME: value={this.state.imageUrl}
-            onChange={this.state.imageHandler}
+            onChange={this.handleImageUpload}
           />
-          <br />
-          {/* // FIXME: Decide tagging via Google Vision
-
-          Category: [google vision?] */}
-
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
           <br />
           <Button
             type="submit"

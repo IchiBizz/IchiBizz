@@ -1,9 +1,13 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
-
-import GoogleMapsProductsList from "../GoogleMapsProductsList";
+import Switch from "@material-ui/core/Switch";
+import Paper from "@material-ui/core/Paper";
+import Fade from "@material-ui/core/Fade";
+import { ProductContext } from "../../contexts/ProductContext";
+import { SessionUserContext } from "../../contexts/SessionUserContext";
+import GoogleMapsProductsList from "./GoogleMapsProductsList";
+import axios from "axios";
 
 import useStyles from "./ProductListStyles";
 import {
@@ -14,166 +18,210 @@ import {
   Button,
   CardActionArea,
   Card,
+  FormControlLabel,
+  Checkbox,
   withStyles
 } from "@material-ui/core";
+import { Favorite, FavoriteBorder } from "@material-ui/icons";
 
-class ProductsList extends Component {
-  state = {
-    products: [],
+const ProductsList = props => {
+  const { user } = useContext(SessionUserContext);
+
+  const { products, updateProductData } = useContext(ProductContext);
+  const [inputValues, setInputValues] = useState({
     searchText: "",
     searchCategory: "",
     searchBrand: "",
+    searchCity: ""
+  });
+  const [priceValue, setPriceValue] = useState([20, 300]);
+  const [selectedDate, setSelectedDate] = useState(
+    new Date("December 31, 2019")
+  );
+  const [wishValue, setWishValue] = useState(false);
 
-    searchCity: "",
+  const [checked, setChecked] = useState(false);
 
-    priceValue: [20, 300],
-    selectedDate: new Date("December 31, 2019")
-  };
-
-  getData = () => {
-    axios
-      .get("/api/products")
-      .then(response => {
-        console.log(response);
-        this.setState({
-          products: response.data
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
-
-  componentDidMount = () => {
-    this.getData();
-  };
-
-  handleChange = event => {
+  let handleChange = event => {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    setInputValues({ ...inputValues, [name]: value });
   };
 
-  handlePriceChange = (event, newValue) => {
-    this.setState({
-      priceValue: newValue
-    });
+  let handlePriceChange = (event, newValue) => {
+    setPriceValue(newValue);
   };
 
-  handleDateChange = date => {
-    this.setState({
-      selectedDate: date
-    });
+  let handleDateChange = date => {
+    setSelectedDate(date);
   };
 
-  render() {
-    const { classes } = this.props;
-
-    // the distinctCategory variable is created to populate the category dropdown
-    const distinctCategory = [
-      ...new Set(
-        this.state.products.map(product => {
-          return product.category;
-        })
-      )
-    ];
-
-    const distinctBrand = [
-      ...new Set(
-        this.state.products.map(product => {
-          return product.brand;
-        })
-      )
-    ];
-
-    const distinctCity = [
-      ...new Set(
-        this.state.products.map(product => {
-          return product.location && product.location.city;
-        })
-      )
-    ];
-
-    // const maxPrice = Math.max(
-    //   ...this.state.products.map(product => {
-    //     return product.price;
-    //   })
-    // );
-
-    let filteredProduct = this.state.products.filter(product => {
-      let isSoldMatch = product.isSold === false;
-
-      let searchMatched =
-        product.title
-          .toLowerCase()
-          .includes(this.state.searchText.toLowerCase()) ||
-        product.tags.find(tag => {
-          return tag
-            .toLowerCase()
-            .includes(this.state.searchText.toLowerCase());
+  let handleWishChange = event => {
+    setWishValue(event.target.checked);
+    let productId = event.target.value;
+    if (event.target.checked) {
+      axios.put(`/api/products/wish/add/${productId}`).then(response => {
+        console.log(response.data);
+        let updatedProducts = products.map(product => {
+          if (product._id === response.data._id) return response.data;
+          else return product;
         });
+        updateProductData(updatedProducts);
+      });
+    } else {
+      axios.put(`/api/products/wish/remove/${productId}`).then(response => {
+        let updatedProducts = products.map(product => {
+          if (product._id === response.data._id) return response.data;
+          else return product;
+        });
+        updateProductData(updatedProducts);
+      });
+    }
+  };
 
-      let categoryMatched = product.category
+  // the distinctCategory variable is created to populate the category dropdown
+
+  // render() {
+  //   const { classes } = this.props;
+
+  const classes = useStyles();
+
+  // the distinctCategory variable is created to populate the category dropdown
+  const distinctCategory = [
+    ...new Set(
+      products.map(product => {
+        return product.category;
+      })
+    )
+  ];
+
+  const handleMapChange = event => {
+    setChecked(event.target.checked);
+  };
+
+  // the distinctCategory variable is created to populate the category dropdown
+
+  const distinctBrand = [
+    ...new Set(
+      products.map(product => {
+        return product.brand;
+      })
+    )
+  ];
+
+  const distinctCity = [
+    ...new Set(
+      products.map(product => {
+        return product.location && product.location.city;
+      })
+    )
+  ];
+
+  // const maxPrice = Math.max(
+  //   ...products.map(product => {
+  //     return product.price;
+  //   })
+  // );
+
+  let filteredProduct = products.filter(product => {
+    let isSoldMatch = product.isSold === false;
+
+    let searchMatched =
+      product.title
         .toLowerCase()
-        .includes(this.state.searchCategory.toLowerCase());
+        .includes(inputValues.searchText.toLowerCase()) ||
+      product.tags.find(tag => {
+        return tag.toLowerCase().includes(inputValues.searchText.toLowerCase());
+      });
 
-      let priceMatched =
-        product.price >= this.state.priceValue[0] &&
-        product.price <= this.state.priceValue[1];
+    let categoryMatched = product.category
+      .toLowerCase()
+      .includes(inputValues.searchCategory.toLowerCase());
 
-      // Date.parse converts the date string into milliseconds
-      let dateMatched =
-        Date.parse(product.availability) <= Date.parse(this.state.selectedDate);
+    let priceMatched =
+      product.price >= priceValue[0] && product.price <= priceValue[1];
 
-      return (
-        isSoldMatch &&
-        searchMatched &&
-        categoryMatched &&
-        priceMatched &&
-        dateMatched
-      );
-    });
+    // Date.parse converts the date string into milliseconds
+    let dateMatched =
+      Date.parse(product.availability) <= Date.parse(selectedDate);
 
     return (
-      <div className={classes.listPageContainer}>
-        <h1>Product List</h1>
-        <SearchFilter
-          searchText={this.state.searchText}
-          searchCategory={this.state.searchCategory}
-          searchBrand={this.state.searchBrand}
-          searchCity={this.state.searchCity}
-          priceValue={this.state.priceValue}
-          selectedDate={this.state.selectedDate}
-          handleChange={this.handleChange}
-          distinctCategory={distinctCategory}
-          distinctBrand={distinctBrand}
-          distinctCity={distinctCity}
-          // maxPrice={maxPrice}
+      isSoldMatch &&
+      searchMatched &&
+      categoryMatched &&
+      priceMatched &&
+      dateMatched
+    );
+  });
 
-          handleDateChange={this.handleDateChange}
-          handlePriceChange={this.handlePriceChange}
+  return (
+    <div className={classes.listPageContainer} style={{ textAlign: "center" }}>
+      <h2>search the products</h2>
+      <SearchFilter
+        searchText={inputValues.searchText}
+        searchCategory={inputValues.searchCategory}
+        searchBrand={inputValues.searchBrand}
+        searchCity={inputValues.searchCity}
+        priceValue={priceValue}
+        selectedDate={selectedDate}
+        handleChange={handleChange}
+        distinctCategory={distinctCategory}
+        distinctBrand={distinctBrand}
+        distinctCity={distinctCity}
+        // maxPrice={maxPrice}
+
+        handleDateChange={handleDateChange}
+        handlePriceChange={handlePriceChange}
+      />
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <FormControlLabel
+          control={
+            <Switch
+              name="switch"
+              checked={checked}
+              onChange={handleMapChange}
+            />
+          }
+          label="check the map"
         />
-        <GoogleMapsProductsList filteredProduct={filteredProduct} />
+        <div className={classes.container}>
+          <Fade in={checked}>
+            <Paper elevation={4} className={classes.paper}>
+              <GoogleMapsProductsList filteredProduct={filteredProduct} />
+            </Paper>
+          </Fade>
+        </div>
+      </div>
 
+      <div style={{ marginTop: "200px", marginLeft: "10px" }}>
         <div className={classes.mapListContainer}>
           <div>
-            {filteredProduct.map(data => {
+            {filteredProduct.map(product => {
               return (
                 <>
-                  <Card className={classes.card}>
+                  <Card
+                    className={classes.card}
+                    style={{ width: "350px", color: "white" }}
+                  >
                     <CardActionArea>
                       <CardMedia
                         component="img"
-                        alt={data.title}
-                        height="140"
-                        image={`${data.imageUrl[0]}`}
-                        title={data.title}
+                        alt={product.title}
+                        height="350"
+                        image={`${product.imageUrl[0]}`}
+                        title={product.title}
                       />
                       <CardContent>
-                        <Link to={`/products/${data._id}`}>
+                        <Link to={`/products/${product._id}`}>
                           <Typography gutterBottom variant="h5" component="h2">
-                            {data.title}
+                            {product.title}
                           </Typography>
                         </Link>
                         <Typography
@@ -181,16 +229,39 @@ class ProductsList extends Component {
                           color="textSecondary"
                           component="p"
                         >
-                          {data.description} <br />
-                          {data.currency} {data.price}
+                          {product.description} <br />
+                          {product.currency} {product.price}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
                     <CardActions>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            icon={<FavoriteBorder />}
+                            checkedIcon={<Favorite />}
+                            value={product._id}
+                            checked={product.wishlist.some(
+                              wishlist => wishlist._id === user._id
+                            )}
+                            onChange={handleWishChange}
+                          />
+                        }
+                        label="Add to Wishlist"
+                      />
+                    </CardActions>
+                    {console.log(
+                      product.wishlist.some(
+                        wishlist => wishlist._id === user._id
+                      ),
+                      product.wishlist,
+                      user._id
+                    )}
+                    {/* <CardActions>
                       <Button size="small" color="primary">
                         Add to wishlist
                       </Button>
-                    </CardActions>
+                    </CardActions> */}
                   </Card>
                 </>
               );
@@ -198,8 +269,8 @@ class ProductsList extends Component {
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default withStyles(useStyles)(ProductsList);

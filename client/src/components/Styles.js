@@ -5,6 +5,7 @@ const Styles = theme => ({
     marginLeft: 10,
     marginRight: 30
   }
+  
 });
 
 export default Styles;
