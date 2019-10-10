@@ -68,7 +68,7 @@ const DashSellerProducts = props => {
   const classes = useStyles();
 
   let filteredProduct = products.filter(product => {
-    return product.seller === user.user._id;
+    return product.seller._id === user.user._id;
   });
 
   return (
@@ -80,13 +80,14 @@ const DashSellerProducts = props => {
           color="secondary"
           variant="extended"
           aria-label="add-product"
-          className={classes.fab}
+          // className={classes.fab}
+          className="addProductBtn"
         >
           <AddIcon className={classes.extendedIcon} />
           Add Product
         </Fab>
       </Link>
-      <Paper>
+      <Paper className="soldProductContainer">
         <Table>
           <TableHead>
             <TableRow>
@@ -112,7 +113,9 @@ const DashSellerProducts = props => {
                         alt="product-image"
                       />
                     </TableCell>
-                    <TableCell>{data.title}</TableCell>
+                    <TableCell>
+                      <Link to={`/products/${data._id}`}>{data.title}</Link>
+                    </TableCell>
                     <TableCell>{data.quantity}</TableCell>
                     <TableCell>{data.price}</TableCell>
                     <TableCell>{data.isSold ? "Sold" : "Available"}</TableCell>
