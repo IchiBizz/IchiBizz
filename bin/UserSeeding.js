@@ -27,7 +27,7 @@ const seedInitialUsers = () => {
     users.push({
       username: Faker.internet.userName(),
       email: Faker.internet.email(),
-      password: bcrypt.hashSync("faker", bcrypt.genSaltSync(bcryptSalt)),
+      password: bcrypt.hashSync("faker1234", bcrypt.genSaltSync(bcryptSalt)),
       firstName: Faker.name.firstName(),
       lastName: Faker.name.lastName(),
       address: {
@@ -52,7 +52,7 @@ users.push(
   {
     username: "noriko",
     email: "noriko@noriko.io",
-    password: bcrypt.hashSync("noriko", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("noriko1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Noriko",
     lastName: Faker.name.lastName(),
     address: {
@@ -69,7 +69,7 @@ users.push(
   {
     username: "ninette",
     email: "ninette@ninette.io",
-    password: bcrypt.hashSync("ninette", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("ninette1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Ninette",
     lastName: Faker.name.lastName(),
     address: {
@@ -86,7 +86,7 @@ users.push(
   {
     username: "thuy",
     email: "thuy@thuy.io",
-    password: bcrypt.hashSync("thuy", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("thuy1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Thuy",
     lastName: Faker.name.lastName(),
     address: {
@@ -103,7 +103,7 @@ users.push(
   {
     username: "bob",
     email: Faker.internet.email(),
-    password: bcrypt.hashSync("bob", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("bob12345", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Bob",
     lastName: Faker.name.lastName(),
     address: {
@@ -120,7 +120,7 @@ users.push(
   {
     username: "alice",
     email: Faker.internet.email(),
-    password: bcrypt.hashSync("alice", bcrypt.genSaltSync(bcryptSalt)),
+    password: bcrypt.hashSync("alice1234", bcrypt.genSaltSync(bcryptSalt)),
     firstName: "Alice",
     lastName: Faker.name.lastName(),
     address: {
