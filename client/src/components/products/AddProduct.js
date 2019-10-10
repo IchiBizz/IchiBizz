@@ -22,6 +22,7 @@ import {
   MenuItem
 } from "@material-ui/core";
 import GoogleMapsInput from "./GoogleMapsInput";
+import service from "./../../api/service";
 
 export default class AddProduct extends Component {
   state = {
@@ -55,8 +56,9 @@ export default class AddProduct extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
+    console.log(this.state)
     axios
-      // GET api/products/new to map with defined route in GET method of '/products/ProductDetails.js`
+      // GET api/products/new to map POST route in the backend`
       .post("/api/products/new", {
         title: this.state.title,
         description: this.state.description,
@@ -106,8 +108,6 @@ export default class AddProduct extends Component {
           createdAt: null
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
-        // FIXME: this.props.getData() is not a function
-        // this.getData();
       })
       .catch(err => {
         console.log(`[AddProduct.js]: response data`, err);
@@ -139,14 +139,23 @@ export default class AddProduct extends Component {
     console.log("handleChange event.target.value", event.target.value);
   };
 
-  //image upload
-  imageHandler = event => {
-    console.log(event.target.files[0]);
-    this.setState({
-      // TODO: Render all images later, not only first one
-      imageUrl: [...this.state.imageUrl, event.target.files[0].name]
-    });
-  };
+  // Upload to Cloudinary
+  handleImageUpload = event => {
+    console.log("The Image to be uploaded is: ", event.target.files[0]);
+
+    const uploadData = new FormData();
+    // req.body to .create() method when creating a new Image in '/api/products/new' POST route
+    uploadData.append("imageUrl", event.target.files[0]);
+
+    service.handleUpload(uploadData)
+    .then(response => {
+      console.log(response)
+        this.setState({imageUrl:[...this.state.imageUrl,response.secure_url]});
+      })
+      .catch(err => {
+        console.log("Error while uploading the file: ", err);
+      });
+  }
 
   getMapData = (address, country, city, lat, lng) => {
     this.setState({
@@ -397,31 +406,54 @@ export default class AddProduct extends Component {
                 />
               </RadioGroup>
             </FormControl>
-            {/* image Url */}
-
-            <label htmlFor="imageUrl">Upload Image(s): </label>
-            <input
-              type="file"
-              multiple
-              id="imageUrl"
-              name="imageUrl"
-              // FIXME: value={this.state.imageUrl}
-              onChange={this.imageHandler}
-            />
-          </div>
+            {/* image Url */} 
+      
+          <label htmlFor="imageUrl">Upload Image: </label>
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
           <br />
           {/* // FIXME: Decide tagging via Google Vision
-
           Category: [google vision?] */}
-
           <br />
           <Button
             type="submit"
             variant="outlined"
             className={classes.button}
             onClick={this.handleSubmit}
-            noValidate
-          >
+            noValidate >
             Create
           </Button>
           <p></p>
