@@ -192,12 +192,7 @@ const seedInitialProducts = () => {
         title: Faker.random.arrayElement(productNames),
         description: Faker.random.arrayElement(loremIpsumLong),
         imageUrl: [
-          // returns e.g. "http://lorempixel.com/640/480/business"
-          Faker.image.business(),
-          Faker.image.business(),
-          Faker.image.business(),
-          Faker.image.business(),
-          Faker.image.business()
+          Faker.random.arrayElement(imagesList)
         ],
         brand: Faker.random.arrayElement(brandsList),
         category: Faker.random.arrayElement(categories),
@@ -222,7 +217,7 @@ const seedInitialProducts = () => {
           address: Faker.address.streetAddress(),
           country: Faker.address.country()
         },
-        availability: Faker.date.recent(),
+        availability: Faker.date.between('2019-10-10', '2015-10-13'),
         warrantyUntil: Faker.date.future(),
         condition: Faker.random.arrayElement(conditions),
         isSold: false,
