@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import AddProduct from "./AddProduct";
-import { Button, withStyles } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import useStyles from "./ProductListStyles";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SessionUserContext } from "../../contexts/SessionUserContext";
@@ -61,11 +60,14 @@ class ProductDetails extends Component {
         // console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
-        console.log(`ERR`, err.response);
-        if (err.response.status === 404) {
-          this.setState({ error: "Not found" });
-        }
+        console.log(err);
       });
+    // .catch(err => {
+    //   console.log(`ERR`, err.response);
+    //   if (err.response.status === 404) {
+    //     this.setState({ error: "Not found" });
+    //   }
+    // });
   };
 
   componentDidMount = () => {
@@ -84,7 +86,6 @@ class ProductDetails extends Component {
 
   render() {
     // TODO 1: Implement Material UI Styles once we agreed on one style
-    const { classes } = this.props;
     const {
       title,
       description,
@@ -148,20 +149,15 @@ class ProductDetails extends Component {
           {
             <SessionUserContext.Consumer>
               {contextUser => {
+                console.log("requested", requested);
                 return requested.some(user => user._id === contextUser._id) ? (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}
-                    disabled
-                  >
+                  <Button variant="contained" color="primary" disabled>
                     Request Sent
                   </Button>
                 ) : (
                   <Button
                     variant="contained"
                     color="primary"
-                    className={classes.button}
                     onClick={() => this.handleClick(_id)}
                   >
                     Send Request
@@ -176,4 +172,4 @@ class ProductDetails extends Component {
   }
 }
 
-export default withStyles(useStyles)(ProductDetails);
+export default ProductDetails;

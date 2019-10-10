@@ -21,11 +21,8 @@ import {
   MenuItem
 } from "@material-ui/core";
 import GoogleMapsInput from "./GoogleMapsInput";
-import { SessionUserContext } from "../../contexts/SessionUserContext";
 
 export default class AddProduct extends Component {
-  static contextType = SessionUserContext;
-
   state = {
     title: "",
     description: "",
@@ -51,8 +48,7 @@ export default class AddProduct extends Component {
     availability: null,
     warrantyUntil: null,
     condition: "",
-    createdAt: null,
-    seller: this.context.user._id
+    createdAt: null
   };
 
   handleSubmit = event => {
@@ -80,8 +76,7 @@ export default class AddProduct extends Component {
         availability: this.state.availability,
         warrantyUntil: this.state.warrantyUntil,
         condition: this.state.condition,
-        createdAt: this.state.created_at,
-        seller: this.state.seller
+        createdAt: this.state.created_at
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
@@ -107,8 +102,7 @@ export default class AddProduct extends Component {
           availability: null,
           warrantyUntil: null,
           condition: "",
-          createdAt: null,
-          seller: this.context.user._id
+          createdAt: null
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
         // FIXME: this.props.getData() is not a function

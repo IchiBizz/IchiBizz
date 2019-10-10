@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-const ProtectedRoute = ({
+const Protected = ({
   component: Component,
   user,
   path,
@@ -22,4 +22,4 @@ const ProtectedRoute = ({
   );
 };
 
-export default ProtectedRoute;
+export default Protected;

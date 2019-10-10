@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import ProductDetails from "./components/products/ProductDetails";
 import AddProduct from "./components/products/AddProduct";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import "./App.css";
 import UserContextProvider from "./contexts/UserContext";
 import Protected from "./Protected";
@@ -32,44 +32,46 @@ export default class App extends Component {
               updateProductData: this.updateProductData
             }}
           >
-            <Route
-              exact
-              path="/signup"
-              user={this.state.user}
-              component={SignUp}
-            />
-            <Route
-              exact
-              path="/login"
-              user={this.state.user}
-              component={Login}
-            />
-            <UserContextProvider>
-              <Protected
+            <Switch>
+              <Route
                 exact
-                path="/dashboard"
+                path="/signup"
                 user={this.state.user}
-                component={DashboardContainer}
+                component={SignUp}
               />
-              <Protected
+              <Route
                 exact
-                path="/products"
+                path="/login"
                 user={this.state.user}
-                component={ProductsList}
+                component={Login}
               />
-              <Protected
-                exact
-                path="/products/:id"
-                user={this.state.user}
-                component={ProductDetails}
-              />
-              <Protected
-                exact
-                path="/products/new"
-                user={this.state.user}
-                component={AddProduct}
-              />
-            </UserContextProvider>
+              <UserContextProvider>
+                <Protected
+                  exact
+                  path="/dashboard"
+                  user={this.state.user}
+                  component={DashboardContainer}
+                />
+                <Protected
+                  exact
+                  path="/products"
+                  user={this.state.user}
+                  component={ProductsList}
+                />
+                <Protected
+                  exact
+                  path="/products/:id"
+                  user={this.state.user}
+                  component={ProductDetails}
+                />
+                <Protected
+                  exact
+                  path="/products/new"
+                  user={this.state.user}
+                  component={AddProduct}
+                />
+              </UserContextProvider>
+            </Switch>
           </ProductProvider>
         </SessionUserProvider>
       </div>

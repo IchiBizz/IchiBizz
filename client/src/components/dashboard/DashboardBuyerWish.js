@@ -1,6 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { Component, useState, useContext, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import {
+  Typography,
   Table,
   TableBody,
   TableHead,
@@ -18,20 +20,20 @@ import {
 } from "@material-ui/core";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SessionUserContext } from "../../contexts/SessionUserContext";
-import AddIcon from "@material-ui/icons/Add";
-import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CancelIcon from "@material-ui/icons/Cancel";
 import axios from "axios";
 import useStyles from "./DashboardStyles";
 
-const DashSellerProducts = props => {
+const DashboardBuyerWish = props => {
+  console.log("props", props);
+  const user = useContext(SessionUserContext);
+  const { products, updateProductData } = useContext(ProductContext);
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [deleteId, setDeleteId] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(0);
-
-  const user = useContext(SessionUserContext);
-  const { products, updateProductData } = useContext(ProductContext);
 
   const handleChangeRowsPerPage = event => {
     let value = +event.target.value;
@@ -52,50 +54,39 @@ const DashSellerProducts = props => {
     setAlertOpen(false);
   };
 
-  const handleDelete = () => {
-    axios.delete(`/api/products/${deleteId}`).then(response => {
+  const handleRemove = () => {
+    let id = deleteId;
+    axios.put(`/api/products/wish/remove/${id}`).then(response => {
       setDeleteId("");
-      let updatedProductState = products.filter(
-        product => product._id !== deleteId
-      );
-
-      updateProductData(updatedProductState);
       handleClose();
-      // props.history.push("/dashboard");
+      let updatedProducts = products.filter(product => product._id !== id);
+      updateProductData(updatedProducts);
     });
   };
 
-  const classes = useStyles();
-
   let filteredProduct = products.filter(product => {
-    return product.seller === user.user._id;
+    return product.wishlist.some(wish => {
+      return wish._id === user.user._id;
+    });
   });
+
+  console.log("product", products);
+  console.log("wishlist", filteredProduct);
+  console.log("user id", user.user._id);
 
   return (
     <>
-      {console.log(products)}
-      <h1 style={{ textAlign: "center" }}>Your Products</h1>
-      <Link to={"/products/new"}>
-        <Fab
-          color="secondary"
-          variant="extended"
-          aria-label="add-product"
-          className={classes.fab}
-        >
-          <AddIcon className={classes.extendedIcon} />
-          Add Product
-        </Fab>
-      </Link>
+      <h1 style={{ textAlign: "center" }}>Your Wishlist</h1>
       <Paper>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
+
               <TableCell>Title</TableCell>
               <TableCell>Quantity</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell />
               <TableCell />
             </TableRow>
           </TableHead>
@@ -104,7 +95,7 @@ const DashSellerProducts = props => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(data => {
                 return (
-                  <TableRow>
+                  <TableRow key={data._id}>
                     <TableCell>
                       <img
                         style={{ height: "15%" }}
@@ -112,23 +103,15 @@ const DashSellerProducts = props => {
                         alt="product-image"
                       />
                     </TableCell>
+
                     <TableCell>{data.title}</TableCell>
                     <TableCell>{data.quantity}</TableCell>
                     <TableCell>{data.price}</TableCell>
                     <TableCell>{data.isSold ? "Sold" : "Available"}</TableCell>
                     <TableCell>
-                      <Tooltip title="Edit">
-                        <IconButton aria-label="edit">
-                          <Link to={`/products/${data._id}`}>
-                            <EditIcon />
-                          </Link>
-                        </IconButton>
-                      </Tooltip>
-                    </TableCell>
-                    <TableCell>
-                      <Tooltip title="Delete">
-                        <IconButton aria-label="delete">
-                          <DeleteIcon onClick={() => handleOpen(data._id)} />
+                      <Tooltip title="Remove">
+                        <IconButton aria-label="remove">
+                          <CancelIcon onClick={() => handleOpen(data._id)} />
                         </IconButton>
                       </Tooltip>
                     </TableCell>
@@ -160,14 +143,14 @@ const DashSellerProducts = props => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Are you sure you want to delete this product?"}
+          {"Are you sure you want to remove from Wishlist?"}
         </DialogTitle>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleDelete} color="primary" autoFocus>
-            Delete
+          <Button onClick={handleRemove} color="primary" autoFocus>
+            Remove
           </Button>
         </DialogActions>
       </Dialog>
@@ -175,4 +158,4 @@ const DashSellerProducts = props => {
   );
 };
 
-export default DashSellerProducts;
+export default DashboardBuyerWish;

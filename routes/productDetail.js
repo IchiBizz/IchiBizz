@@ -29,6 +29,7 @@ router.post("/new", (req, res) => {
     warrantyUntil,
     condition
   } = req.body;
+  const seller = req.user._id;
 
   // FIXME: To be added after authentication setup
   // const owner = req.user._id;
@@ -55,9 +56,8 @@ router.post("/new", (req, res) => {
     availability: availability,
     warrantyUntil: warrantyUntil,
     condition: condition,
-    isSold: false
-    // TODO: To be added after authentication setup
-    // seller: owner
+    isSold: false,
+    seller: seller
   })
 
     .then(product => {
@@ -92,8 +92,8 @@ router.get("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   let id = req.params.id;
   Product.findByIdAndDelete(id)
-    .then(() => {
-      res.json({ message: "delete successful" });
+    .then(product => {
+      res.json(product);
     })
     .catch(err => {
       res.json(err);
@@ -101,12 +101,12 @@ router.delete("/:id", (req, res) => {
 });
 
 //TODO: this might be an overlap with edit page put request so need to be reviewed for match.
-// EDIT/api/products/:id
+// EDIT/api/products/sell/:id
 router.put("/sell/:id", (req, res) => {
-  const { isSold } = req.body;
+  const { isSold, buyer } = req.body;
   Product.findByIdAndUpdate(
     req.params.id,
-    { isSold: isSold, buyer: req.user._id },
+    { isSold: isSold, buyer: buyer },
     { new: true }
   )
     .then(product => {
