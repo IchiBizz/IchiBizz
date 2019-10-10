@@ -17,7 +17,7 @@ require("./configs/passport");
 // const flash = require("connect-flash");
 
 mongoose
-  .connect(process.env.MONGODB_URI ||"mongodb://localhost/ichibizz", {
+  .connect(process.env.MONGODB_URI || "mongodb://localhost/ichibizz", {
     useNewUrlParser: true,
     // Deprecation Warning Fix
     useUnifiedTopology: true
@@ -39,13 +39,12 @@ const debug = require("debug")(
 const app = express();
 
 // Security for uploads
-app.use(cors({
-  // Allow localhost and live server
-  origin: [
-    "http://localhost:3000",
-    "https://ichibizz.herokuapp.com"
-  ]
-}));
+app.use(
+  cors({
+    // Allow localhost and live server
+    origin: ["http://localhost:3000", "https://ichibizz.herokuapp.com"]
+  })
+);
 
 // Middleware Setup
 app.use(logger("dev"));
@@ -109,6 +108,8 @@ app.use("/api/products", productRoutes);
 const productsListRoutes = require("./routes/productsList");
 app.use("/api/products", productsListRoutes);
 
+const usersListRoutes = require("./routes/usersList");
+app.use("/api/users", usersListRoutes);
 // Uploader for Cloudinary
 const cloudinaryRoutes = require("./routes/cloudinary");
 app.use("/api/cloudinary", cloudinaryRoutes);

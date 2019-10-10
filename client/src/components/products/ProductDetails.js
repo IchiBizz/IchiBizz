@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Button } from "@material-ui/core";
+import useStyles from "./ProductListStyles";
+import { ProductContext } from "../../contexts/ProductContext";
+import { SessionUserContext } from "../../contexts/SessionUserContext";
 
-export default class ProductDetails extends Component {
+class ProductDetails extends Component {
+  static contextType = ProductContext;
   state = {
     title: "",
     description: "",
@@ -21,7 +26,9 @@ export default class ProductDetails extends Component {
     warrantyUntil: null,
     condition: "",
     isSold: false,
-    createdAt: null
+    createdAt: null,
+    _id: "",
+    requested: []
   };
 
   getData = () => {
@@ -51,20 +58,32 @@ export default class ProductDetails extends Component {
         // console.log(`GET this.state.response`, response.data)
       })
       .catch(err => {
-        console.log(`ERR`, err.response);
-        if (err.response.status === 404) {
-          this.setState({ error: "Not found" });
-        }
+        console.log(err);
       });
+    // .catch(err => {
+    //   console.log(`ERR`, err.response);
+    //   if (err.response.status === 404) {
+    //     this.setState({ error: "Not found" });
+    //   }
+    // });
   };
 
   componentDidMount = () => {
     this.getData();
   };
 
+  handleClick = id => {
+    axios.put(`api/products/request/${id}`).then(response => {
+      let updatedProducts = this.context.products.map(product => {
+        if (id === response.data._id) return response.data;
+        else return product;
+      });
+      this.context.updateProductData(updatedProducts);
+    });
+  };
+
   render() {
     // TODO 1: Implement Material UI Styles once we agreed on one style
-
     const {
       id,
       title,
@@ -81,7 +100,9 @@ export default class ProductDetails extends Component {
       warrantyUntil,
       condition,
       isSold,
-      createdAt
+      createdAt,
+      _id,
+      requested
     } = this.state;
 
     //  console.log(`imageUrl`, imageUrl);
@@ -121,8 +142,34 @@ export default class ProductDetails extends Component {
             {isSold}
             {createdAt}
           </div>
+          <p>
+            Send request to seller and he or she will be able to view your email
+            address to contact you
+          </p>
+          {
+            <SessionUserContext.Consumer>
+              {contextUser => {
+                console.log("requested", requested);
+                return requested.some(user => user._id === contextUser._id) ? (
+                  <Button variant="contained" color="primary" disabled>
+                    Request Sent
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => this.handleClick(_id)}
+                  >
+                    Send Request
+                  </Button>
+                );
+              }}
+            </SessionUserContext.Consumer>
+          }
         </React.Fragment>
       </div>
     );
   }
 }
+
+export default ProductDetails;
