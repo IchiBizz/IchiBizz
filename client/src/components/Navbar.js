@@ -21,7 +21,7 @@ import { blue, red } from "@material-ui/core/colors";
 import "../App.css";
 import ProductsList from "./products/ProductsList";
 import { withRouter } from "react-router";
-// import iconSun from '../../public/iconSun-small.png';
+
 const useStyles = makeStyles({
   list: {
     width: 250
@@ -109,9 +109,6 @@ let SwipeableTemporaryDrawer = props => {
 
   return (
     <div className="naVbar">
-      <div className="iconSun">
-        <iconSun />
-      </div>
       <MenuRoundedIcon
         className="naVbarButton"
         fontSize="large"

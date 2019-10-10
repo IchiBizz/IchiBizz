@@ -341,33 +341,33 @@ export default class AddProduct extends Component {
             variant="outlined"
             value={this.state.location.address}
           />
-        </div>
 
-        {/* google map */}
+          {/* google map */}
 
-        <div className="contentGmap">
-          <GoogleMapsInput
-            className="googlemap"
-            google={this.props.google}
-            center={{
-              lat: 52.52,
-              lng: 13.405
-            }}
-            height="300px"
-            zoom={12}
-            getMapData={this.getMapData}
-            markerPosition={{
-              lat: this.state.markerPosition.lat,
-              lng: this.state.markerPosition.lng
-            }}
-            address={this.state.location.address}
-            country={this.state.location.country}
-            city={this.state.location.city}
-            mapPosition={{
-              lat: this.state.location.latitude,
-              lng: this.state.location.longitude
-            }}
-          />
+          <div className="contentGmap">
+            <GoogleMapsInput
+              className="googlemap"
+              google={this.props.google}
+              center={{
+                lat: 52.52,
+                lng: 13.405
+              }}
+              height="300px"
+              zoom={12}
+              getMapData={this.getMapData}
+              markerPosition={{
+                lat: this.state.markerPosition.lat,
+                lng: this.state.markerPosition.lng
+              }}
+              address={this.state.location.address}
+              country={this.state.location.country}
+              city={this.state.location.city}
+              mapPosition={{
+                lat: this.state.location.latitude,
+                lng: this.state.location.longitude
+              }}
+            />
+          </div>
         </div>
 
         <div className="contentAfter">
@@ -417,15 +417,21 @@ export default class AddProduct extends Component {
             component="fieldset"
             className={classes.formControl}
           >
-            <p></p>
-            <br></br>
-            <h3>condition</h3>
+            <div style={{ textAlign: "center" }}>
+              <h3>condition</h3>
+            </div>
             <RadioGroup
               aria-label="condition"
               name="condition"
+              label="condition"
               value={this.state.condition}
               onChange={this.handleChange}
-              style={{ display: "flex", jusifyContent: "center" }}
+              style={{
+                display: "flex",
+                jusifyContent: "center",
+                alignItems: "center",
+                margin: "auto"
+              }}
             >
               <FormControlLabel
                 value="used"
@@ -444,10 +450,7 @@ export default class AddProduct extends Component {
 
           {/* image Url */}
 
-          <div
-            className="contentImgfile"
-            style={{ justifyContent: "space-around", border: "1px" }}
-          >
+          <div className="contentImgfile">
             <label htmlFor="imageUrl">Upload Image: </label>
             <input
               type="file"
@@ -489,28 +492,6 @@ export default class AddProduct extends Component {
           Category: [google vision?] */}
             <br />
 
-            {/* GoogleMaps for entering location */}
-            <GoogleMapsInput
-              google={this.props.google}
-              center={{
-                lat: 52.52,
-                lng: 13.405
-              }}
-              height="300px"
-              zoom={12}
-              getMapData={this.getMapData}
-              markerPosition={{
-                lat: this.state.markerPosition.lat,
-                lng: this.state.markerPosition.lng
-              }}
-              address={this.state.location.address}
-              country={this.state.location.country}
-              city={this.state.location.city}
-              mapPosition={{
-                lat: this.state.location.latitude,
-                lng: this.state.location.longitude
-              }}
-            />
             <br />
             <FormControl>
               <Button
@@ -524,7 +505,6 @@ export default class AddProduct extends Component {
               </Button>
               <p></p>
             </FormControl>
-            {/* GoogleMaps for entering location */}
           </div>
         </div>
       </>
