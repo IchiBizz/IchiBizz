@@ -13,12 +13,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import useStyles from "./DashboardStyles";
 
 const DashboardBuyerOrder = props => {
-  console.log("props", props);
   const user = useContext(SessionUserContext);
   const { products, updateProductData } = useContext(ProductContext);
 
   let filteredProduct = products.filter(product => {
-    return product.buyer === user.user._id;
+    return product.buyer ? product.buyer._id === user.user._id : false;
   });
 
   console.log("buyer filered", filteredProduct);

@@ -68,7 +68,7 @@ const DashSellerProducts = props => {
   const classes = useStyles();
 
   let filteredProduct = products.filter(product => {
-    return product.seller === user.user._id;
+    return product.seller._id === user.user._id;
   });
 
   return (
@@ -112,7 +112,9 @@ const DashSellerProducts = props => {
                         alt="product-image"
                       />
                     </TableCell>
-                    <TableCell>{data.title}</TableCell>
+                    <TableCell>
+                      <Link to={`/products/${data._id}`}>{data.title}</Link>
+                    </TableCell>
                     <TableCell>{data.quantity}</TableCell>
                     <TableCell>{data.price}</TableCell>
                     <TableCell>{data.isSold ? "Sold" : "Available"}</TableCell>

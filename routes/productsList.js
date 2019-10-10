@@ -7,6 +7,8 @@ router.get("/", (req, res) => {
   Product.find()
     .populate("requested")
     .populate("wishlist")
+    .populate("seller")
+    .populate("buyer")
     .then(products => {
       if (!products) {
         res.status(400).json(products);

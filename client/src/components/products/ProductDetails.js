@@ -73,6 +73,7 @@ class ProductDetails extends Component {
   };
 
   handleClick = id => {
+    console.log("handle id", id);
     axios.put(`api/products/request/${id}`).then(response => {
       let updatedProducts = this.context.products.map(product => {
         if (id === response.data._id) return response.data;

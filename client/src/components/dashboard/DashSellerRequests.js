@@ -12,7 +12,6 @@ import {
 import { ProductContext } from "../../contexts/ProductContext";
 import { SessionUserContext } from "../../contexts/SessionUserContext";
 import { UserContext } from "../../contexts/UserContext";
-
 import axios from "axios";
 import useStyles from "./DashboardStyles";
 
@@ -30,7 +29,7 @@ const DashSellerRequests = props => {
 
     products.forEach(product => {
       if (product._id === productId) {
-        product.isSold = event.target.checked;
+        // product.isSold = event.target.checked;
         axios
           .put(`api/products/sell/${productId}`, {
             isSold: event.target.checked,
@@ -48,16 +47,8 @@ const DashSellerRequests = props => {
   };
 
   let filteredProduct = products.filter(product => {
-    return product.seller === user.user._id;
+    return product.seller._id === user.user._id && product.requested.length > 0;
   });
-
-  let filteredBuyer = userList.state.users.filter(user => {
-    products.some(product => {
-      return user._id === product.buyer;
-    });
-  });
-  console.log("product list", filteredProduct);
-  console.log("buyer list", filteredBuyer);
 
   return (
     <>
@@ -103,19 +94,35 @@ const DashSellerRequests = props => {
                                   />
                                 </TableCell>
                               </TableRow>
-                            ) : (
+                            ) : product.buyer._id === reqUser._id ? (
                               <TableRow>
                                 <TableCell>
-                                  BUYER NAME
-                                  {/* {user.firstName}
-                                  {user.lastName} */}
+                                  {product.buyer.firstName}{" "}
+                                  {product.buyer.lastName}
                                 </TableCell>
-                                <TableCell></TableCell>
+                                <TableCell> {product.buyer.email}</TableCell>
                                 <TableCell>
-                                  Sell
+                                  Sold
                                   <Checkbox
                                     disabled
                                     checked
+                                    value={product._id}
+                                    inputProps={{
+                                      "aria-label": "sales checkbox"
+                                    }}
+                                  />
+                                </TableCell>
+                              </TableRow>
+                            ) : (
+                              <TableRow>
+                                <TableCell>
+                                  {reqUser.firstName} {reqUser.lastName}
+                                </TableCell>
+                                <TableCell>{reqUser.email}</TableCell>
+                                <TableCell>
+                                  Sold
+                                  <Checkbox
+                                    disabled
                                     value={product._id}
                                     inputProps={{
                                       "aria-label": "sales checkbox"
