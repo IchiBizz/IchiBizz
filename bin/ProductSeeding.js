@@ -209,7 +209,7 @@ const seedInitialProducts = () => {
           country: Faker.address.country()
         },
         availability: Faker.date.recent(),
-        warrantyUntil: Faker.date.(),
+        warrantyUntil: Faker.date.future(),
         condition: Faker.random.arrayElement(conditions),
         isSold: false,
         seller: randomSeller._id,
