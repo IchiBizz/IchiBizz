@@ -23,11 +23,9 @@ mongoose
 let products = [];
 let businessTypes = [
   "Furniture",
-  "Tailoring",
-  "Sales",
+  "Tailor Shop",
   "Hair Shop",
-  "Music",
-  "Office",
+  "Agency",
   "Butchery",
   "Bakery",
   "Kiosk",
@@ -35,20 +33,58 @@ let businessTypes = [
   "Medicine",
   "Telecommunication",
   "Carpentry",
-  "Decorating",
-  "Wedding",
+  "Decoration",
   "Ice Cream Store",
   "Cafeteria",
   "Restaurant",
   "Copy Shop",
   "Brewery",
-  "Film",
-  "Marketing",
   "Pharmacy",
   "Kitchen",
   "Hotel",
-  "Accommodation"
+  "Software Development",
+  "IT",
+  "NGO",
+  "Co-working Space",
+  "Rental Service",
+  "Candy Store",
+  "Pizzeria",
+  "Museum",
+  "Art Gallery",
+  "Grocery Store",
+  "Lawyer",
+  "Repair Store",
+  "Bike Store"
 ];
+
+let categories = [
+  "Film",
+  "Music",
+  "Medicine",
+  "Print",
+  "Sport",
+  "Fitness",
+  "Manufacturing",
+  "Craftsmanship",
+  "Art",
+  "Education",
+  "Science",
+  "Sales",
+  "Marketing",
+  "Social Work",
+  "Pschology",
+  "Beverages & Food",
+  "Shopping",
+  "Clothing",
+  "Carpentry",
+  "Journalism",
+  "Events",
+  "Accommodation",
+  "Technology",
+  "Photography",
+  "Legal Services",
+  "Mechanics"
+]
 
 let brandsList = [
   "Wilkinson",
@@ -76,7 +112,9 @@ let brandsList = [
   "IBM",
   "SAP",
   "Lenovo",
-  "Ubanara"
+  "Ubanara",
+  "Bosch",
+  "Black & Decker"
 ];
 
 // Tags can be used by buyers search for products and sellers to categorize their products
@@ -109,12 +147,21 @@ let tagsList = [
   "printer"
 ];
 
+let loremIpsumLong = [
+  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  "Lorem ipsum på svenska är en klar förbättring version på den uppskattade Lorem ipsum varianten. Sociala nätverk kan aldrig fånga en fisk. En annan sak är att man ibland går ensam till de olika festerna. Niklas tog tag i datorn och lyfte den mot himmeln. Så nu tar vi en paus och inväntar resultatet av dagens skrivande."
+];
+
+const productNames = [
+  "Bosch Power Tools Combo Kit CLPK22-120", "Bosch Electric Tankless Water Heater", "Bosch JS260 120-Volt Top-Handle Jigsaw", "Acer SB220Q bi 21.5 Full HD (1920 x 1080)", "Lenovo Flex 14 2-in-1 Convertible Laptop, 14 Inch FHD Touchscreen Display", "Beats Solo3 Wireless On-Ear Headphones - Matte Black", "Ubiquiti UniFi AC Lite AP - Wireless Access Point - 802.11 B/A/G/n/AC Wireless Access Point", "Watch Battery Replacement Tool Kit", "Office Chair | Innovadesk Comfy Chair", "Computer Desk 47 - Office Table", "South Shore 4-Shelf Storage Bookcase, Royal Cherry", "Nathan James 65503 Theo 5-Shelf Wood Ladder Bookcase", "Wood Computer Monitor Stand Raiser Black with 3 Tier Desktop Organizer", "Brother Business Color Laser Printer, HL-L8360CDW, WLAN", "Canon TS9120 Wireless All-In-One Printer with Scanner and Copier", "HP Laserjet Pro M148dw All-in-One Wireless Monochrome Laser Printer (4PA41A)"
+]
+
 let conditions = ["used", "new"];
 
 const seedInitialProducts = () => {
   User.find().then(users => {
     users.forEach(user => console.log(user._id));
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 100; i++) {
       // randomSeller includes the current user
       let randomSeller = users[Math.floor(Math.random() * users.length)];
       // randomBuyer is incremented (by 1, 2, 3) to ensure the buyer is not the current user buying their own selling product
@@ -128,8 +175,8 @@ const seedInitialProducts = () => {
         users[(Math.floor(Math.random() * users.length) + 4) % 10];
 
       products.push({
-        title: Faker.lorem.sentence(),
-        description: Faker.lorem.sentences(),
+        title: Faker.random.arrayElement(productNames),
+        description: Faker.random.arrayElement(loremIpsumLong),
         imageUrl: [
           // returns e.g. "http://lorempixel.com/640/480/business"
           Faker.image.business(),
@@ -139,7 +186,7 @@ const seedInitialProducts = () => {
           Faker.image.business()
         ],
         brand: Faker.random.arrayElement(brandsList),
-        category: Faker.random.arrayElement(businessTypes),
+        category: Faker.random.arrayElement(categories),
         quantity: Faker.random.number({ min: 1, max: 10 }),
         // returns integer between 10 (min) and 1999 (max) as 2 decimals
         price: Faker.finance.amount(10, 4999, 2),
@@ -161,7 +208,7 @@ const seedInitialProducts = () => {
           address: Faker.address.streetAddress(),
           country: Faker.address.country()
         },
-        availability: Faker.date.future(),
+        availability: Faker.date.recent(),
         warrantyUntil: Faker.date.future(),
         condition: Faker.random.arrayElement(conditions),
         isSold: false,

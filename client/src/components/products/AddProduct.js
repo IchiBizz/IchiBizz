@@ -411,37 +411,37 @@ export default class AddProduct extends Component {
           </MuiPickersUtilsProvider>
 
           {/* Condition */}
-         
-            <FormControl
-              required
-              component="fieldset"
-              className={classes.formControl}
+
+          <FormControl
+            required
+            component="fieldset"
+            className={classes.formControl}
+          >
+            <p></p>
+            <br></br>
+            <h3>condition</h3>
+            <RadioGroup
+              aria-label="condition"
+              name="condition"
+              value={this.state.condition}
+              onChange={this.handleChange}
+              style={{ display: "flex", jusifyContent: "center" }}
             >
-              <p></p>
-              <br></br>
-              <h3>condition</h3>
-              <RadioGroup
-                aria-label="condition"
+              <FormControlLabel
+                value="used"
+                control={<Radio />}
+                label="used"
                 name="condition"
-                value={this.state.condition}
-                onChange={this.handleChange}
-                style={{ display: "flex", jusifyContent: "center" }}
-              >
-                <FormControlLabel
-                  value="used"
-                  control={<Radio />}
-                  label="used"
-                  name="condition"
-                />
-                <FormControlLabel
-                  value="new"
-                  control={<Radio />}
-                  label="new"
-                  name="condition"
-                />
-              </RadioGroup>
-            </FormControl>
-  
+              />
+              <FormControlLabel
+                value="new"
+                control={<Radio />}
+                label="new"
+                name="condition"
+              />
+            </RadioGroup>
+          </FormControl>
+
           {/* image Url */}
 
           <div
@@ -487,6 +487,30 @@ export default class AddProduct extends Component {
             <br />
             {/* // FIXME: Decide tagging via Google Vision
           Category: [google vision?] */}
+            <br />
+
+            {/* GoogleMaps for entering location */}
+            <GoogleMapsInput
+              google={this.props.google}
+              center={{
+                lat: 52.52,
+                lng: 13.405
+              }}
+              height="300px"
+              zoom={12}
+              getMapData={this.getMapData}
+              markerPosition={{
+                lat: this.state.markerPosition.lat,
+                lng: this.state.markerPosition.lng
+              }}
+              address={this.state.location.address}
+              country={this.state.location.country}
+              city={this.state.location.city}
+              mapPosition={{
+                lat: this.state.location.latitude,
+                lng: this.state.location.longitude
+              }}
+            />
             <br />
             <FormControl>
               <Button

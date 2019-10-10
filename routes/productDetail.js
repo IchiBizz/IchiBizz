@@ -60,7 +60,7 @@ router.post("/new", (req, res) => {
     seller: seller
   })
     .then(product => {
-      console.log(`PRODUCT:`, product);
+      // console.log(`PRODUCT:`, product);
       res.status(200).json(product);
     })
     .catch(err => {
@@ -72,10 +72,10 @@ router.post("/new", (req, res) => {
 
 // GET /api/products/:id
 router.get("/:id", (req, res) => {
-  console.log(`START GET route...`);
+  // console.log(`START GET route...`);
   Product.findById(req.params.id)
     .then(product => {
-      console.log(`[productDetail.js] GET route: product`, product);
+      // console.log(`[productDetail.js] GET route: product`, product);
       if (!product) {
         res.status(404).json(product);
       } else {
@@ -99,7 +99,6 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-//TODO: this might be an overlap with edit page put request so need to be reviewed for match.
 // EDIT/api/products/sell/:id
 router.put("/sell/:id", (req, res) => {
   const { isSold, buyer } = req.body;
@@ -116,46 +115,12 @@ router.put("/sell/:id", (req, res) => {
     });
 });
 
-// REMOVE /api/products/wish/remove/:id
-router.put("/wish/remove/:id", (req, res) => {
-  let id = req.params.id;
-  Product.findByIdAndUpdate(
-    id,
-    { $pull: { wishlist: req.user._id } },
-    { new: true }
-  )
-    .populate("wishlist")
-    .then(product => {
-      res.json(product);
-    })
-    .catch(err => {
-      res.json(err);
-    });
-});
-
-// ADD /api/products/wish/add/:id
-router.put("/wish/add/:id", (req, res) => {
-  let id = req.params.id;
-
-  Product.findByIdAndUpdate(
-    id,
-    { $push: { wishlist: req.user._id } },
-    { new: true }
-  )
-    .populate("wishlist")
-    .then(product => {
-      console.log(product);
-      res.json(product);
-    })
-    .catch(err => {
-      console.log(err);
-      res.json(err);
-    });
-});
-
-// ADD Request /api/products/request/:id
+// PUT Request /api/products/request/:id
 router.put("/request/:id", (req, res) => {
   let id = req.params.id;
+  console.log("mounted");
+  console.log("id", id);
+  console.log("req user", req.user._id);
   Product.findByIdAndUpdate(
     id,
     { $push: { requested: req.user._id } },
@@ -163,12 +128,12 @@ router.put("/request/:id", (req, res) => {
   )
     .populate("requested")
     .then(product => {
-      console.log(product);
-
+      console.log("request push", product);
       res.json(product);
     })
     .catch(err => {
       console.log(err);
+      res.json(err);
     });
 });
 // ============ CRUD: UPDATE METHOD ============ //
@@ -225,6 +190,43 @@ router.put("/edit/:id", (req, res) => {
       res.json(product);
     })
     .catch(err => {
+      res.json(err);
+    });
+});
+
+// REMOVE /api/products/wish/remove/:id
+router.put("/wish/remove/:id", (req, res) => {
+  let id = req.params.id;
+  Product.findByIdAndUpdate(
+    id,
+    { $pull: { wishlist: req.user._id } },
+    { new: true }
+  )
+    .populate("wishlist")
+    .then(product => {
+      res.json(product);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
+// ADD /api/products/wish/add/:id
+router.put("/wish/add/:id", (req, res) => {
+  let id = req.params.id;
+
+  Product.findByIdAndUpdate(
+    id,
+    { $push: { wishlist: req.user._id } },
+    { new: true }
+  )
+    .populate("wishlist")
+    .then(product => {
+      // console.log(product);
+      res.json(product);
+    })
+    .catch(err => {
+      console.log(err);
       res.json(err);
     });
 });
