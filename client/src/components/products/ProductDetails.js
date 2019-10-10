@@ -93,7 +93,7 @@ export default class ProductDetails extends Component {
           <div>
             {
               // TODO: Provide a unique key
-              imageUrl.map(img => {
+              imageUrl && imageUrl.map(img => {
                 return (
                 <ul>
                   <li>
