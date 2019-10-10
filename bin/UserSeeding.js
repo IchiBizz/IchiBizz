@@ -23,7 +23,7 @@ let users = [];
 
 // Full Faker Data
 const seedInitialUsers = () => {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     users.push({
       username: Faker.internet.userName(),
       email: Faker.internet.email(),
@@ -37,7 +37,6 @@ const seedInitialUsers = () => {
         city: Faker.address.city(),
         country: Faker.address.country()
       },
-      // This ensures 17 chars for phone number
       phoneNumber: Faker.phone.phoneNumber(),
       stars: Faker.random.number({ min: 0, max: 5 }),
       reviews: Faker.lorem.paragraphs()

@@ -23,11 +23,9 @@ mongoose
 let products = [];
 let businessTypes = [
   "Furniture",
-  "Tailoring",
-  "Sales",
+  "Tailor Shop",
   "Hair Shop",
-  "Music",
-  "Office",
+  "Agency",
   "Butchery",
   "Bakery",
   "Kiosk",
@@ -35,20 +33,58 @@ let businessTypes = [
   "Medicine",
   "Telecommunication",
   "Carpentry",
-  "Decorating",
-  "Wedding",
+  "Decoration",
   "Ice Cream Store",
   "Cafeteria",
   "Restaurant",
   "Copy Shop",
   "Brewery",
-  "Film",
-  "Marketing",
   "Pharmacy",
   "Kitchen",
   "Hotel",
-  "Accommodation"
+  "Software Development",
+  "IT",
+  "NGO",
+  "Co-working Space",
+  "Rental Service",
+  "Candy Store",
+  "Pizzeria",
+  "Museum",
+  "Art Gallery",
+  "Grocery Store",
+  "Lawyer",
+  "Repair Store",
+  "Bike Store"
 ];
+
+let categories = [
+  "Film",
+  "Music",
+  "Medicine",
+  "Print",
+  "Sport",
+  "Fitness",
+  "Manufacturing",
+  "Craftsmanship",
+  "Art",
+  "Education",
+  "Science",
+  "Sales",
+  "Marketing",
+  "Social Work",
+  "Pschology",
+  "Beverages & Food",
+  "Shopping",
+  "Clothing",
+  "Carpentry",
+  "Journalism",
+  "Events",
+  "Accommodation",
+  "Technology",
+  "Photography",
+  "Legal Services",
+  "Mechanics"
+]
 
 let brandsList = [
   "Wilkinson",
@@ -76,7 +112,9 @@ let brandsList = [
   "IBM",
   "SAP",
   "Lenovo",
-  "Ubanara"
+  "Ubanara",
+  "Bosch",
+  "Black & Decker"
 ];
 
 // Tags can be used by buyers search for products and sellers to categorize their products
@@ -109,12 +147,17 @@ let tagsList = [
   "printer"
 ];
 
+let loremIpsumLong = [
+  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+  "Lorem ipsum på svenska är en klar förbättring version på den uppskattade Lorem ipsum varianten. Sociala nätverk kan aldrig fånga en fisk. En annan sak är att man ibland går ensam till de olika festerna. Niklas tog tag i datorn och lyfte den mot himmeln. Så nu tar vi en paus och inväntar resultatet av dagens skrivande."
+]
+
 let conditions = ["used", "new"];
 
 const seedInitialProducts = () => {
   User.find().then(users => {
     users.forEach(user => console.log(user._id));
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 100; i++) {
       // randomSeller includes the current user
       let randomSeller = users[Math.floor(Math.random() * users.length)];
       // randomBuyer is incremented (by 1, 2, 3) to ensure the buyer is not the current user buying their own selling product
@@ -129,7 +172,7 @@ const seedInitialProducts = () => {
 
       products.push({
         title: Faker.lorem.sentence(),
-        description: Faker.lorem.sentences(),
+        description: Faker.random.arrayElement(loremIpsumLong),
         imageUrl: [
           // returns e.g. "http://lorempixel.com/640/480/business"
           Faker.image.business(),
@@ -139,7 +182,7 @@ const seedInitialProducts = () => {
           Faker.image.business()
         ],
         brand: Faker.random.arrayElement(brandsList),
-        category: Faker.random.arrayElement(businessTypes),
+        category: Faker.random.arrayElement(categories),
         quantity: Faker.random.number({ min: 1, max: 10 }),
         // returns integer between 10 (min) and 1999 (max) as 2 decimals
         price: Faker.finance.amount(10, 4999, 2),
