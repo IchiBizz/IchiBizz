@@ -156,6 +156,20 @@ const productNames = [
   "Bosch Power Tools Combo Kit CLPK22-120", "Bosch Electric Tankless Water Heater", "Bosch JS260 120-Volt Top-Handle Jigsaw", "Acer SB220Q bi 21.5 Full HD (1920 x 1080)", "Lenovo Flex 14 2-in-1 Convertible Laptop, 14 Inch FHD Touchscreen Display", "Beats Solo3 Wireless On-Ear Headphones - Matte Black", "Ubiquiti UniFi AC Lite AP - Wireless Access Point - 802.11 B/A/G/n/AC Wireless Access Point", "Watch Battery Replacement Tool Kit", "Office Chair | Innovadesk Comfy Chair", "Computer Desk 47 - Office Table", "South Shore 4-Shelf Storage Bookcase, Royal Cherry", "Nathan James 65503 Theo 5-Shelf Wood Ladder Bookcase", "Wood Computer Monitor Stand Raiser Black with 3 Tier Desktop Organizer", "Brother Business Color Laser Printer, HL-L8360CDW, WLAN", "Canon TS9120 Wireless All-In-One Printer with Scanner and Copier", "HP Laserjet Pro M148dw All-in-One Wireless Monochrome Laser Printer (4PA41A)"
 ]
 
+const imagesList = [
+  "https://images.unsplash.com/photo-1487377330423-12f2f3e6d27a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1441984443719-15c73b016ad1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1441986380878-c4248f5b8b5b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1545442152-30e5a613bb78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1532987625322-5949307b5bc4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1567007046005-b0802fefeafa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1549037174-4caa0ccf11b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1468273519810-d3fe4c125cdb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1443884590026-2e4d21aee71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1473949103155-d89f3aa93cf1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60",
+  "https://images.unsplash.com/photo-1506806732259-39c2d0268443?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
+]
+
 let conditions = ["used", "new"];
 
 const seedInitialProducts = () => {
@@ -178,12 +192,7 @@ const seedInitialProducts = () => {
         title: Faker.random.arrayElement(productNames),
         description: Faker.random.arrayElement(loremIpsumLong),
         imageUrl: [
-          // returns e.g. "http://lorempixel.com/640/480/business"
-          Faker.image.business(),
-          Faker.image.business(),
-          Faker.image.business(),
-          Faker.image.business(),
-          Faker.image.business()
+          Faker.random.arrayElement(imagesList)
         ],
         brand: Faker.random.arrayElement(brandsList),
         category: Faker.random.arrayElement(categories),
@@ -208,7 +217,7 @@ const seedInitialProducts = () => {
           address: Faker.address.streetAddress(),
           country: Faker.address.country()
         },
-        availability: Faker.date.recent(),
+        availability: Faker.date.between('2019-10-10', '2015-10-13'),
         warrantyUntil: Faker.date.future(),
         condition: Faker.random.arrayElement(conditions),
         isSold: false,
