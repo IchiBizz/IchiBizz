@@ -73,10 +73,14 @@ const ProductsList = props => {
     }
   };
 
+  // the distinctCategory variable is created to populate the category dropdown
+
+  // render() {
+  //   const { classes } = this.props;
+
   const classes = useStyles();
 
   // the distinctCategory variable is created to populate the category dropdown
-
   const distinctCategory = [
     ...new Set(
       products.map(product => {
@@ -96,7 +100,7 @@ const ProductsList = props => {
   const distinctCity = [
     ...new Set(
       products.map(product => {
-        return product.location.city;
+        return product.location && product.location.city;
       })
     )
   ];

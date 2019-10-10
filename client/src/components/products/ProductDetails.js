@@ -53,9 +53,7 @@ class ProductDetails extends Component {
           availability: response.data.availability,
           warrantyUntil: response.data.warrantyUntil,
           condition: response.data.condition,
-          createdAt: response.data.createdAt,
-          _id: response.data._id,
-          requested: response.data.requested
+          createdAt: response.data.createdAt
         });
         // console.log(`GET this.state.response`, response.data)
       })
@@ -87,6 +85,7 @@ class ProductDetails extends Component {
   render() {
     // TODO 1: Implement Material UI Styles once we agreed on one style
     const {
+      id,
       title,
       description,
       imageUrl,
@@ -106,24 +105,25 @@ class ProductDetails extends Component {
       requested
     } = this.state;
 
+    //  console.log(`imageUrl`, imageUrl);
+
     return (
       <div>
         <h1>Product Details Page</h1>
         <React.Fragment>
-          {/* <div>
-          // FIXME: Images Array upload
-            {
-              imageUrl.map((img, index)=> {
-                // Return all images
+          <div>
+            {// TODO: Provide a unique key
+            imageUrl &&
+              imageUrl.map(img => {
                 return (
-                  // FIXME: unique key w/o index
-                  <div key={index}>
-                    <img src={img} alt="images"/>
-                  </div>
-                )
-              })
-            }
-          </div> */}
+                  <ul>
+                    <li>
+                      <img src={img} alt="business img" />
+                    </li>
+                  </ul>
+                );
+              })}
+          </div>
           <h2>{title}</h2>
           <div>
             {description}

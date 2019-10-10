@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import axios from "axios";
+import React, { Component } from 'react';
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
 } from "@material-ui/pickers";
+import axios from "axios"
 import { makeStyles } from "@material-ui/core/styles";
 import {
   TextField,
@@ -23,7 +23,7 @@ import {
 import GoogleMapsInput from "./GoogleMapsInput";
 import service from "./../../api/service";
 
-export default class AddProduct extends Component {
+export default class EditProduct extends Component {
   state = {
     title: "",
     description: "",
@@ -49,16 +49,52 @@ export default class AddProduct extends Component {
     availability: null,
     warrantyUntil: null,
     condition: "",
+    isSold: false,
     createdAt: null
+  };
+
+  getData = () => {
+    const id = this.props.match.params.id;
+    // console.log(`id`, id)
+
+    axios
+      .get(`/api/products/${id}`)
+      .then(response => {
+        this.setState({
+          title: response.data.title,
+          description: response.data.description,
+          imageUrl: response.data.imageUrl,
+          brand: response.data.brand,
+          category: response.data.category,
+          quantity: response.data.quantity,
+          price: response.data.price,
+          currency: response.data.currency,
+          tags: response.data.currency,
+          company: response.data.company,
+          availability: response.data.availability,
+          warrantyUntil: response.data.warrantyUntil,
+          condition: response.data.condition,
+          createdAt: response.data.createdAt
+        });
+        // console.log(`GET this.state.response`, response.data)
+      })
+      .catch(err => {
+        console.log(`ERR`, err.response);
+        if (err.response.status === 404) {
+          this.setState({ error: "Not found" });
+        }
+      });
   };
 
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log(this.state)
+    const id = this.props.match.params.id;
+    console.log(id)
+
     axios
-      // GET api/products/new to map POST route in the backend`
-      .post("/api/products/new", {
+      //UPDATE /edit/:id route
+      .put(`/api/products/edit/${id}`, {
         title: this.state.title,
         description: this.state.description,
         // FIXME: image Upload
@@ -82,7 +118,7 @@ export default class AddProduct extends Component {
       })
       .then(response => {
         console.log("[AddProduct.js] handleSubmit event starting...");
-        console.log("latitude", this.state.location.latitude);
+        // console.log("latitude", this.state.location.latitude);
         this.setState({
           title: "",
           description: "",
@@ -106,14 +142,14 @@ export default class AddProduct extends Component {
           condition: "",
           createdAt: null
         });
-        console.log(`[AddProduct.js] response.data:`, response.data);
+        console.log(`[EditProduct.js] response.data:`, response.data);
       })
       .catch(err => {
-        console.log(`[AddProduct.js]: response data`, err);
+        console.log(`ERROR editing product`, err);
       });
   };
 
-  //catching the date for availability
+  // catching the date for availability
   handleDateChange = date => {
     this.setState({
       availability: date
@@ -129,7 +165,6 @@ export default class AddProduct extends Component {
     console.log("warrantyUntil:", date);
   };
 
-  // eventhandler
   handleChange = event => {
     const { name, value } = event.target;
     this.setState({
@@ -137,9 +172,9 @@ export default class AddProduct extends Component {
     });
     console.log("handleChange event.target.value", event.target.value);
   };
-
-  // Upload to Cloudinary
-  handleImageUpload = event => {
+  
+   // Upload to Cloudinary
+   handleImageUpload = event => {
     console.log("The Image to be uploaded is: ", event.target.files[0]);
 
     const uploadData = new FormData();
@@ -154,7 +189,7 @@ export default class AddProduct extends Component {
       .catch(err => {
         console.log("Error while uploading the file: ", err);
       });
-  }
+  };
 
   getMapData = (address, country, city, lat, lng) => {
     this.setState({
@@ -170,6 +205,10 @@ export default class AddProduct extends Component {
         lng: lng
       }
     });
+  };
+
+  componentDidMount = () => {
+    this.getData();
   };
 
   render() {
@@ -204,8 +243,12 @@ export default class AddProduct extends Component {
     }));
 
     const classes = styling;
+
+    console.log(`PROPS BEFORE RENDER`, this.state)
+
     return (
-      <>
+      <div>
+        <h1>Edit Product</h1>
         <FormControl onSubmit={this.handleSubmit}>
           {/* Title */}
           <TextField
@@ -249,6 +292,20 @@ export default class AddProduct extends Component {
             value={this.state.brand}
             onChange={this.handleChange}
           />
+          {/* Tags */}
+          {/* <Checkbox
+            id="outlined-tags-input"
+            label="Tags"
+            className={classes.textField}
+            type="checkbox"
+            name="tags"
+            placeholder="Restaurant"
+            autoComplete="tags"
+            margin="normal"
+            variant="outlined"
+            value={this.state.tags}
+            onChange={this.handleChange}
+          /> */}
           {/* {Category} */}
           <FormControl variant="outlined" className={classes.formControl}>
             <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
@@ -332,6 +389,7 @@ export default class AddProduct extends Component {
             margin="normal"
             variant="outlined"
             value={this.state.location.address}
+            onChange={this.getMapData}
           />
           {/* Availability */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -366,7 +424,7 @@ export default class AddProduct extends Component {
                 value={this.state.warrantyUntil}
                 onChange={this.handleDateChangeWarrantyUntil}
                 KeyboardButtonProps={{
-                  "aria-label": "change date"
+                  "aria-label": "Change Date"
                 }}
               />
             </Grid>
@@ -398,58 +456,59 @@ export default class AddProduct extends Component {
               />
             </RadioGroup>
           </FormControl>
-          {/* image Url */}
-          <label htmlFor="imageUrl">Upload Image: </label>
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
-          <input
-            type="file"
-            multiple
-            id="imageUrl"
-            name="imageUrl"
-            onChange={this.handleImageUpload}
-          />
           <br />
           {/* // FIXME: Decide tagging via Google Vision
           Category: [google vision?] */}
+          {/* image Url */}
+          <label htmlFor="imageUrl">Upload Image </label>
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
+          <input
+            type="file"
+            multiple
+            id="imageUrl"
+            name="imageUrl"
+            onChange={this.handleImageUpload}
+          />
           <br />
           <Button
             type="submit"
             variant="outlined"
             className={classes.button}
             onClick={this.handleSubmit}
-            noValidate >
-            Create
+            noValidate
+          >
+           Update
           </Button>
         </FormControl>
-        {/* GoogleMaps for entering location */}
-        <GoogleMapsInput
+          {/* GoogleMaps for entering location */}
+          <GoogleMapsInput
           google={this.props.google}
           center={{
             lat: 52.52,
@@ -470,7 +529,7 @@ export default class AddProduct extends Component {
             lng: this.state.location.longitude
           }}
         />
-      </>
+      </div>
     );
   }
 }

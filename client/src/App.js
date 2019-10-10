@@ -6,6 +6,7 @@ import ProductDetails from "./components/products/ProductDetails";
 import AddProduct from "./components/products/AddProduct";
 import DashboardContainer from "./components/dashboard/DashboardContainer";
 import { Route, Redirect, Switch } from "react-router-dom";
+import EditProduct from "./components/products/EditProduct";
 import "./App.css";
 import UserContextProvider from "./contexts/UserContext";
 import Protected from "./Protected";
@@ -32,20 +33,20 @@ export default class App extends Component {
               updateProductData: this.updateProductData
             }}
           >
-            <Switch>
-              <Route
-                exact
-                path="/signup"
-                user={this.state.user}
-                component={SignUp}
-              />
-              <Route
-                exact
-                path="/login"
-                user={this.state.user}
-                component={Login}
-              />
-              <UserContextProvider>
+            <Route
+              exact
+              path="/signup"
+              user={this.state.user}
+              component={SignUp}
+            />
+            <Route
+              exact
+              path="/login"
+              user={this.state.user}
+              component={Login}
+            />
+            <UserContextProvider>
+              <Switch>
                 <Protected
                   exact
                   path="/dashboard"
@@ -60,20 +61,59 @@ export default class App extends Component {
                 />
                 <Protected
                   exact
+                  path="/products/new"
+                  user={this.state.user}
+                  component={AddProduct}
+                />
+                <Protected
+                  exact
                   path="/products/:id"
                   user={this.state.user}
                   component={ProductDetails}
                 />
                 <Protected
                   exact
-                  path="/products/new"
-                  user={this.state.user}
-                  component={AddProduct}
+                  path="/products/edit/:id"
+                  component={EditProduct}
                 />
-              </UserContextProvider>
-            </Switch>
+              </Switch>
+            </UserContextProvider>
           </ProductProvider>
         </SessionUserProvider>
+
+        {/* <div className="App">
+        <Switch>
+          <Route
+            exact
+            path="/products"
+            component={ProductsList} />
+            <Route
+            exact
+            path="/products/new"
+            component={AddProduct}
+          />
+          <Route
+            exact
+            path="/products/:id"
+            component={ProductDetails}
+          />
+
+          <Route
+            exact
+            path="/products/edit/:id"
+            component={EditProduct}
+          />
+          <Route
+            exact
+            path="/signup"
+            component={SignUp}
+          />
+          <Route
+            exact
+            path="/login"
+            component={Login}
+          />
+        </Switch> */}
       </div>
     );
   }
