@@ -21,8 +21,16 @@ class SearchFilter extends Component {
   render() {
     const classes = useStyles;
     return (
-      <div tyle={{ marginLeft: "100px" }}>
-        <div style={{ display: "flex", flexDirection: "column", width: "94%" }}>
+      <div tyle={{ margin: "auto" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "spaceEvenly",
+            width: "650px",
+            margin: "auto"
+          }}
+        >
           <TextField
             label="search"
             id="outlined-name-input"

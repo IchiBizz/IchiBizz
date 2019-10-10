@@ -154,8 +154,8 @@ const ProductsList = props => {
   });
 
   return (
-    <div className={classes.listPageContainer}>
-      <h1>Product List</h1>
+    <div className={classes.listPageContainer} style={{ textAlign: "center" }}>
+      <h2>search the products</h2>
       <SearchFilter
         searchText={inputValues.searchText}
         searchCategory={inputValues.searchCategory}
@@ -173,85 +173,100 @@ const ProductsList = props => {
         handlePriceChange={handlePriceChange}
       />
 
-      <FormControlLabel
-        control={
-          <Switch name="switch" checked={checked} onChange={handleMapChange} />
-        }
-        label="check the map"
-      />
-      <div className={classes.container}>
-        <Fade in={checked}>
-          <Paper elevation={4} className={classes.paper}>
-            <GoogleMapsProductsList filteredProduct={filteredProduct} />
-          </Paper>
-        </Fade>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <FormControlLabel
+          control={
+            <Switch
+              name="switch"
+              checked={checked}
+              onChange={handleMapChange}
+            />
+          }
+          label="check the map"
+        />
+        <div className={classes.container}>
+          <Fade in={checked}>
+            <Paper elevation={4} className={classes.paper}>
+              <GoogleMapsProductsList filteredProduct={filteredProduct} />
+            </Paper>
+          </Fade>
+        </div>
       </div>
 
-      <div
-        className={classes.mapListContainer}
-        style={{ borderStyle: "solid", borderColor: "red" }}
-      >
-        <div>
-          {filteredProduct.map(product => {
-            return (
-              <>
-                <Card className={classes.card}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      alt={product.title}
-                      height="140"
-                      image={`${product.imageUrl[0]}`}
-                      title={product.title}
-                    />
-                    <CardContent>
-                      <Link to={`/products/${product._id}`}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {product.title}
+      <div style={{ marginTop: "200px", marginLeft: "10px" }}>
+        <div className={classes.mapListContainer}>
+          <div>
+            {filteredProduct.map(product => {
+              return (
+                <>
+                  <Card
+                    className={classes.card}
+                    style={{ width: "350px", color: "white" }}
+                  >
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        alt={product.title}
+                        height="350"
+                        image={`${product.imageUrl[0]}`}
+                        title={product.title}
+                      />
+                      <CardContent>
+                        <Link to={`/products/${product._id}`}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {product.title}
+                          </Typography>
+                        </Link>
+                        <Typography
+                          variant="body2"
+                          color="textSecondary"
+                          component="p"
+                        >
+                          {product.description} <br />
+                          {product.currency} {product.price}
                         </Typography>
-                      </Link>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
-                        {product.description} <br />
-                        {product.currency} {product.price}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          icon={<FavoriteBorder />}
-                          checkedIcon={<Favorite />}
-                          value={product._id}
-                          checked={product.wishlist.some(
-                            wishlist => wishlist._id === user._id
-                          )}
-                          onChange={handleWishChange}
-                        />
-                      }
-                      label="Add to Wishlist"
-                    />
-                  </CardActions>
-                  {console.log(
-                    product.wishlist.some(
-                      wishlist => wishlist._id === user._id
-                    ),
-                    product.wishlist,
-                    user._id
-                  )}
-                  {/* <CardActions>
+                      </CardContent>
+                    </CardActionArea>
+                    <CardActions>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            icon={<FavoriteBorder />}
+                            checkedIcon={<Favorite />}
+                            value={product._id}
+                            checked={product.wishlist.some(
+                              wishlist => wishlist._id === user._id
+                            )}
+                            onChange={handleWishChange}
+                          />
+                        }
+                        label="Add to Wishlist"
+                      />
+                    </CardActions>
+                    {console.log(
+                      product.wishlist.some(
+                        wishlist => wishlist._id === user._id
+                      ),
+                      product.wishlist,
+                      user._id
+                    )}
+                    {/* <CardActions>
                       <Button size="small" color="primary">
                         Add to wishlist
                       </Button>
                     </CardActions> */}
-                </Card>
-              </>
-            );
-          })}
+                  </Card>
+                </>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
