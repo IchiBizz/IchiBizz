@@ -90,7 +90,7 @@ router.post("/login", (req, res) => {
           .json({ message: "Error while attempting to login" });
       }
       console.log("login?", user);
-      return res.json(user, { message: "you have logged in successfully" });
+      return res.json(user);
     });
   })(req, res);
 });

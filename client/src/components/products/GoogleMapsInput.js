@@ -136,9 +136,13 @@ class GoogleMapsInput extends Component {
           <div>
             <AsyncMap
               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEEpqstn15A1q4yFwIv81jnDVG7X0hm9Q&libraries=places"
-              loadingElement={<div style={{ height: `100%` }} />}
-              containerElement={<div style={{ height: this.props.height }} />}
-              mapElement={<div style={{ height: `100%` }} />}
+              loadingElement={
+                <div style={{ height: `100%`, width: "1000px" }} />
+              }
+              containerElement={
+                <div style={{ height: this.props.height, width: "1000px" }} />
+              }
+              mapElement={<div style={{ height: `100%`, width: "1000px" }} />}
             />
             <p>{this.props.address}</p>
           </div>

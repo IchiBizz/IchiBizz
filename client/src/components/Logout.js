@@ -2,36 +2,22 @@ import React, { Component } from "react";
 import { logout } from "../services/api";
 import axios from "axios";
 import { Button } from "@material-ui/core";
-export default class Logout extends Component {
-  state = {
-    user: ""
-  };
+import { SessionUserContext } from "../contexts/SessionUserContext";
+import { withRouter } from "react-router";
 
-  getLoggedin = () => {
-    axios.get("/api/auth/loggedin").then(response => {
-      const user = response.data;
-      this.setState({
-        user: user
-      });
-    });
-  };
+class Logout extends Component {
+  static contextType = SessionUserContext;
 
   handleLogout = event => {
     event.preventDefault();
-    logout()
-      .then(() => {
-        this.setState({
-          user: null
-        });
-      })
-      .then(() => {
-        this.props.history.push("/products");
-      });
+    logout().then(() => {
+      this.context.setUser(null);
+      console.log(this.props);
+      this.props.history.push("/");
+    });
   };
 
-  componentDidMount() {
-    this.getLoggedin();
-  }
+
 
   render() {
     return (
@@ -43,3 +29,5 @@ export default class Logout extends Component {
     );
   }
 }
+
+export default withRouter(Logout);

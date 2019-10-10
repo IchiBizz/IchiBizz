@@ -109,7 +109,7 @@ class ProductDetails extends Component {
 
     return (
       <div>
-        <h1>Product Details Page</h1>
+        {/* <h1>Product Details Page</h1> */}
         <React.Fragment>
           <div>
             {// TODO: Provide a unique key
