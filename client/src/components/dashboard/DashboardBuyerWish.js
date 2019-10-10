@@ -76,8 +76,8 @@ const DashboardBuyerWish = props => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Your Wishlist</h1>
-      <Paper>
+      <h2 style={{ textAlign: "center" }}>Your Wishlist</h2>
+      <Paper className="soldProductContainer">
         <Table>
           <TableHead>
             <TableRow>
@@ -98,13 +98,14 @@ const DashboardBuyerWish = props => {
                   <TableRow key={data._id}>
                     <TableCell>
                       <img
-                        style={{ height: "15%" }}
+                        style={{ height: "100px" }}
                         src={`${data.imageUrl[0]}`}
                         alt="product-image"
                       />
                     </TableCell>
-
-                    <TableCell>{data.title}</TableCell>
+                    <TableCell>
+                      <Link to={`/products/${data._id}`}>{data.title}</Link>
+                    </TableCell>
                     <TableCell>{data.quantity}</TableCell>
                     <TableCell>{data.price}</TableCell>
                     <TableCell>{data.isSold ? "Sold" : "Available"}</TableCell>

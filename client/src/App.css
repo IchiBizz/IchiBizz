@@ -123,9 +123,12 @@ body {
   margin: 5%;
 }
 
+
 .addProductBtn > * {
+
   text-align: center;
   text-decoration: none;
+  display: inline-block
 }
 #bgVideo {
   width: 100%;
@@ -200,3 +203,4 @@ h1 {
 .googlemap {
   width: 10px;
 }
+

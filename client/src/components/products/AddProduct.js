@@ -108,6 +108,7 @@ export default class AddProduct extends Component {
           createdAt: null
         });
         console.log(`[AddProduct.js] response.data:`, response.data);
+        this.props.history.push("/dashboard");
       })
       .catch(err => {
         console.log(`[AddProduct.js]: response data`, err);

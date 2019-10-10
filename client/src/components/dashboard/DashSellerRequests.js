@@ -52,91 +52,106 @@ const DashSellerRequests = props => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Requests to buy</h1>
-      <div className="requestContainer">
+      <h2 style={{ textAlign: "center" }}>Requests to buy</h2>
+      <div
+        className="requestContainer"
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap"
+        }}
+      >
         {filteredProduct.map(product => {
           console.log("buyer", product.buyer);
           return (
             <>
-              <Paper>
+              <Paper style={{ width: "500px", height: "300px" }}>
                 <img
-                  style={{ height: "100px" }}
+                  style={{
+                    height: "100px",
+                    textAlign: "center",
+                    margin: "6% 30% 0 30%"
+                  }}
                   src={`${product.imageUrl[0]}`}
                   alt="product-image"
                 />
-                <Typography variant="h5" component="h3">
-                  {product.title}
-                </Typography>
-                <Typography variant="h6" component="h3">
-                  Price: EUR {product.price}, Quantity: {product.quantity}
-                </Typography>
-                <Typography component="p">
-                  <Table>
-                    <TableBody>
-                      {product.requested.map(reqUser => {
-                        return (
-                          <>
-                            {!product.buyer ? (
-                              <TableRow>
-                                <TableCell>
-                                  {reqUser.firstName} {reqUser.lastName}
-                                </TableCell>
-                                <TableCell>{reqUser.email}</TableCell>
-                                <TableCell>
-                                  Sell
-                                  <Checkbox
-                                    checked={product.isSold}
-                                    onChange={handleCheckChange}
-                                    value={`${product._id}#${reqUser._id}`}
-                                    inputProps={{
-                                      "aria-label": "sales checkbox"
-                                    }}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            ) : product.buyer._id === reqUser._id ? (
-                              <TableRow>
-                                <TableCell>
-                                  {product.buyer.firstName}{" "}
-                                  {product.buyer.lastName}
-                                </TableCell>
-                                <TableCell> {product.buyer.email}</TableCell>
-                                <TableCell>
-                                  Sold
-                                  <Checkbox
-                                    disabled
-                                    checked
-                                    value={product._id}
-                                    inputProps={{
-                                      "aria-label": "sales checkbox"
-                                    }}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <TableRow>
-                                <TableCell>
-                                  {reqUser.firstName} {reqUser.lastName}
-                                </TableCell>
-                                <TableCell>{reqUser.email}</TableCell>
-                                <TableCell>
-                                  Sold
-                                  <Checkbox
-                                    disabled
-                                    value={product._id}
-                                    inputProps={{
-                                      "aria-label": "sales checkbox"
-                                    }}
-                                  />
-                                </TableCell>
-                              </TableRow>
-                            )}
-                          </>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </Typography>
+                <div style={{ padding: "8%" }}>
+                  <Typography variant="h5" component="h3">
+                    {product.title}
+                  </Typography>
+                  <Typography variant="h6" component="h3">
+                    Price: EUR {product.price}, Quantity: {product.quantity}
+                  </Typography>
+                  <Typography component="p">
+                    <Table>
+                      <TableBody>
+                        {product.requested.map(reqUser => {
+                          return (
+                            <>
+                              {!product.buyer ? (
+                                <TableRow>
+                                  <TableCell>
+                                    {reqUser.firstName} {reqUser.lastName}
+                                  </TableCell>
+                                  <TableCell>{reqUser.email}</TableCell>
+                                  <TableCell>
+                                    Sell
+                                    <Checkbox
+                                      checked={product.isSold}
+                                      onChange={handleCheckChange}
+                                      value={`${product._id}#${reqUser._id}`}
+                                      inputProps={{
+                                        "aria-label": "sales checkbox"
+                                      }}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              ) : product.buyer._id === reqUser._id ? (
+                                <TableRow>
+                                  <TableCell>
+                                    {product.buyer.firstName}{" "}
+                                    {product.buyer.lastName}
+                                  </TableCell>
+                                  <TableCell> {product.buyer.email}</TableCell>
+                                  <TableCell>
+                                    Sold
+                                    <Checkbox
+                                      disabled
+                                      checked
+                                      value={product._id}
+                                      inputProps={{
+                                        "aria-label": "sales checkbox"
+                                      }}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
+                                <TableRow>
+                                  <TableCell>
+                                    {reqUser.firstName} {reqUser.lastName}
+                                  </TableCell>
+                                  <TableCell>{reqUser.email}</TableCell>
+                                  <TableCell>
+                                    Sold
+                                    <Checkbox
+                                      disabled
+                                      value={product._id}
+                                      inputProps={{
+                                        "aria-label": "sales checkbox"
+                                      }}
+                                    />
+                                  </TableCell>
+                                </TableRow>
+                              )}
+                            </>
+                          );
+                        })}
+                      </TableBody>
+                    </Table>
+                  </Typography>
+                </div>
               </Paper>
             </>
           );

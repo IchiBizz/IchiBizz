@@ -35,9 +35,11 @@ export default function DashboardContainer() {
             />
           </Tabs>
         </AppBar>
-        <DashboardSeller value={selectedTab} index={0} />
+        <div>
+          <DashboardSeller value={selectedTab} index={0} />
 
-        <DashboardBuyer value={selectedTab} index={1} />
+          <DashboardBuyer value={selectedTab} index={1} />
+        </div>
       </div>
     </div>
   );
