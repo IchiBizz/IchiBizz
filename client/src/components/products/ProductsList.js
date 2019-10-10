@@ -1,6 +1,9 @@
 import React, { Component, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import SearchFilter from "./SearchFilter";
+import Switch from "@material-ui/core/Switch";
+import Paper from "@material-ui/core/Paper";
+import Fade from "@material-ui/core/Fade";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SessionUserContext } from "../../contexts/SessionUserContext";
 import GoogleMapsProductsList from "./GoogleMapsProductsList";
@@ -36,6 +39,8 @@ const ProductsList = props => {
     new Date("December 31, 2019")
   );
   const [wishValue, setWishValue] = useState(false);
+
+  const [checked, setChecked] = useState(false);
 
   let handleChange = event => {
     const { name, value } = event.target;
@@ -88,6 +93,12 @@ const ProductsList = props => {
       })
     )
   ];
+
+  const handleMapChange = event => {
+    setChecked(event.target.checked);
+  };
+
+  // the distinctCategory variable is created to populate the category dropdown
 
   const distinctBrand = [
     ...new Set(
@@ -161,9 +172,25 @@ const ProductsList = props => {
         handleDateChange={handleDateChange}
         handlePriceChange={handlePriceChange}
       />
-      <GoogleMapsProductsList filteredProduct={filteredProduct} />
 
-      <div className={classes.mapListContainer}>
+      <FormControlLabel
+        control={
+          <Switch name="switch" checked={checked} onChange={handleMapChange} />
+        }
+        label="check the map"
+      />
+      <div className={classes.container}>
+        <Fade in={checked}>
+          <Paper elevation={4} className={classes.paper}>
+            <GoogleMapsProductsList filteredProduct={filteredProduct} />
+          </Paper>
+        </Fade>
+      </div>
+
+      <div
+        className={classes.mapListContainer}
+        style={{ borderStyle: "solid", borderColor: "red" }}
+      >
         <div>
           {filteredProduct.map(product => {
             return (

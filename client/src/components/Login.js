@@ -2,8 +2,10 @@ import React, { Component } from "react";
 // import Styles from "./Styles";
 import { login } from "../services/api";
 import { TextField, FormControl, Button } from "@material-ui/core";
+import { SessionUserContext } from "../contexts/SessionUserContext";
+import { withRouter } from "react-router";
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     password: "",
     email: ""
@@ -26,25 +28,24 @@ export default class Login extends Component {
     console.log(this.state.password);
     login(email, password).then(data => {
       console.log("login?react?", data);
-      window.confirm(data.message);
+      /*  window.confirm(data.message); */
       if (data.message) {
         this.setState({
-          message: data.message,
           password: "",
           email: ""
         });
       } else {
-        // this.props.setUser(data);
-        console.log(this.props.history);
-        this.props.history.push("/");
+        console.log("haha", this.context);
+        this.props.setUser(data);
+
+        this.props.history.push("/dashboard");
       }
     });
   };
 
   render() {
     return (
-      <>
-        <h2>Log in</h2>
+      <div id="login">
         <FormControl variant="outlined">
           <TextField
             label="email"
@@ -73,10 +74,12 @@ export default class Login extends Component {
           />
 
           <Button variant="outlined" onClick={this.handleSubmit}>
-            submit
+            LOG IN
           </Button>
         </FormControl>
-      </>
+      </div>
     );
   }
 }
+
+export default Login;

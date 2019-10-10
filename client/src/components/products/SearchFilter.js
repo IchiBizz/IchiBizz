@@ -21,7 +21,7 @@ class SearchFilter extends Component {
   render() {
     const classes = useStyles;
     return (
-      <>
+      <div style={{ display: "flex", flexDirection: "column", width: "500px" }}>
         <TextField
           label="search"
           id="outlined-name-input"
@@ -34,62 +34,73 @@ class SearchFilter extends Component {
           value={this.props.searchText}
           onChange={this.props.handleChange}
         />
-
-        <InputLabel htmlFor="outlined-location-simple">Location</InputLabel>
-        <Select
-          value={this.props.searchCity}
-          onChange={this.props.handleChange}
-          inputProps={{
-            name: "searchCity",
-            id: "searchCity"
+        <div
+          style={{
+            display: "flex",
+            paddingTop: "20px",
+            justifyContent: "space-around"
           }}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.props.distinctCity.map(city => {
-            return <MenuItem value={city}>{city}</MenuItem>;
-          })}
-        </Select>
+          <InputLabel htmlFor="outlined-location-simple">Location</InputLabel>
+          <Select
+            value={this.props.searchCity}
+            onChange={this.props.handleChange}
+            inputProps={{
+              name: "searchCity",
+              id: "searchCity"
+            }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {this.props.distinctCity.map(city => {
+              return <MenuItem value={city}>{city}</MenuItem>;
+            })}
+          </Select>
 
-        <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
-        <Select
-          value={this.props.searchCategory}
-          onChange={this.props.handleChange}
-          inputProps={{
-            name: "searchCategory",
-            id: "searchCategory"
-          }}
+          <InputLabel htmlFor="outlined-category-simple">Category</InputLabel>
+          <Select
+            value={this.props.searchCategory}
+            onChange={this.props.handleChange}
+            inputProps={{
+              name: "searchCategory",
+              id: "searchCategory"
+            }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {this.props.distinctCategory.map(category => {
+              return <MenuItem value={category}>{category}</MenuItem>;
+            })}
+          </Select>
+
+          <InputLabel htmlFor="outlined-brand-simple">Brand name</InputLabel>
+          <Select
+            value={this.props.searchBrand}
+            onChange={this.props.handleChange}
+            inputProps={{
+              name: "searchBrand",
+              id: "searchBrand"
+            }}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {this.props.distinctBrand.map(brand => {
+              return <MenuItem value={brand}>{brand}</MenuItem>;
+            })}
+          </Select>
+        </div>
+
+        <div
+          className={classes.root}
+          style={{ display: "flex", paddingTop: "20px" }}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.props.distinctCategory.map(category => {
-            return <MenuItem value={category}>{category}</MenuItem>;
-          })}
-        </Select>
-
-        <InputLabel htmlFor="outlined-brand-simple">Brand name</InputLabel>
-        <Select
-          value={this.props.searchBrand}
-          onChange={this.props.handleChange}
-          inputProps={{
-            name: "searchBrand",
-            id: "searchBrand"
-          }}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.props.distinctBrand.map(brand => {
-            return <MenuItem value={brand}>{brand}</MenuItem>;
-          })}
-        </Select>
-
-        <div className={classes.root}>
           <Typography id="range-slider" gutterBottom>
             Price range
           </Typography>
+          <br></br>
           <Slider
             name="priceValue"
             value={this.props.priceValue}
@@ -100,7 +111,10 @@ class SearchFilter extends Component {
             // getAriaValueText={valuetext}
           />
         </div>
-        <div className={classes.root}>
+        <div
+          className={classes.root}
+          style={{ display: "flex", paddingBottom: "40px" }}
+        >
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
               <KeyboardDatePicker
@@ -120,7 +134,7 @@ class SearchFilter extends Component {
             </Grid>
           </MuiPickersUtilsProvider>
         </div>
-      </>
+      </div>
     );
   }
 }

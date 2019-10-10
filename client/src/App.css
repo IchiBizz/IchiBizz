@@ -1,7 +1,14 @@
+　 * {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Kreon", serif !important;
+  font-size: 16px;
+  color: rgb(68, 68, 68);
+}
 .App {
   text-align: center;
-  height:100vh;
-  width:100vw
 }
 
 /* Product list page styling */
@@ -10,25 +17,90 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%
-}
-.filterContainer >*{
-  width: 50%
+  width: 100%;
 }
 
-/* 
-.App-logo {
-  height: 40vmin;
+#titleimg {
+  width: 100%;
+}
+#titleimg img {
+  width: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
+#logImg {
+  width: 30px;
+}
+#logImg img {
+  width: 100%;
+}
+.filterContainer > * {
+  width: 50%;
+}
+
+.userPage {
+  background-image: url("bgImg.png");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center center;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+/* white paper */
+.wrapper {
+  background-color: rgba(233, 245, 255, 0.83);
+  background-size: cover;
+  width: 90vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+/* component size(width) */
+.content {
+  width: 60%;
+  left: 20%;
+  top: 5%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid pink;
+}
+.contentAfter {
+  width: 60%;
+  left: 20%;
+  top: 15%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid pink;
+}
+.contentGmap {
+  top: 200px;
+  position: relative;
+  border: 1px solid pink;
+  left: 15%;
+}
+.MuiFormControl-root {
+  margin-left: 50%;
+}
+.contentImgfile {
+  width: 60%;
+  left: 20%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid pink;
+}
+.element.style {
+  width: 650px;
+}
+
+.naVbarButton {
+  width: 100vw;
+  position: fixed;
+  top: 1em;
+  right: 10%;
 }
 
 .App-link {
@@ -53,4 +125,77 @@
 .addProductBtn> *{
   text-align: center;
   text-decoration: none;
+}
+#bgVideo {
+  width: 100%;
+  display: block;
+  margin: 0 0 0 auto;
+}
+
+#login,
+#signup {
+  padding: 40px;
+}
+h1 {
+  font-size: 4rem;
+  margin: 0;
+}
+
+.contents_inner {
+  box-sizing: boder-box;
+  margin: 100px;
+  width: 100%;
+  max-width: 800px;
+  padding-top: 100px;
+  margin: 0 auto;
+  color: rgb(0, 27, 81);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.loginbox {
+  position: relative;
+  overflow: hidden;
+  padding: 180px 0;
+  z-index: 2;
+}
+
+.main {
+  position: absolute;
+  border: 1px solid black;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginbox:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 140%;
+  height: 51%;
+  margin: 10% -20% 0;
+  background-image: linear-gradient(to right, rgb(0, 27, 81) 0%, #517fa4 100%);
+  -webkit-transform-origin: left center;
+  -ms-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: rotate(-8deg);
+  -ms-transform: rotate(-8deg);
+  transform: rotate(-8deg);
+  z-index: -1;
+}
+
+.logincontainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgba(233, 245, 255, 0.7);
+}
+
+.googlemap {
+  width: 10px;
 }
