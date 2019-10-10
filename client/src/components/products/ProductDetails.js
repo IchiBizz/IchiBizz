@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Button } from "@material-ui/core";
+import { Button, Card, CardContent, Typography } from "@material-ui/core";
 import useStyles from "./ProductListStyles";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SessionUserContext } from "../../contexts/SessionUserContext";
+const { red } = require("@material-ui/core/colors");
+const { withStyles } = require("@material-ui/core/styles");
 
 class ProductDetails extends Component {
   static contextType = ProductContext;
@@ -116,44 +118,67 @@ class ProductDetails extends Component {
     console.log("requested", requested, "title", title);
 
     return (
-      <div>
+      <>
         {/* <h1>Product Details Page</h1> */}
-        <React.Fragment>
-          <div>
+        <div className="productDetailImg" style={{ margin: "3% 0" }}>
+          <div style={{ margin: "0 25%" }}>
             {// TODO: Provide a unique key
             imageUrl &&
               imageUrl.map(img => {
                 return (
-                  <ul>
-                    <li>
-                      <img src={img} alt="business img" />
-                    </li>
-                  </ul>
+                  <img
+                    src={img}
+                    alt="business img"
+                    style={{ height: "200px", margin: "2%" }}
+                  />
                 );
               })}
           </div>
-          <h2>{title}</h2>
+          <Card style={{ width: "50%", margin: "0 25%" }}>
+            <CardContent>
+              <Typography variant="h5" component="h2">
+                {title}
+              </Typography>
+              <Typography color="textSecondary">{brand}</Typography>
+              <Typography variant="body2" component="p">
+                {description}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Quantity: {quantity}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Price:{price}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Category:{category}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Tags:{tags}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Company: {company}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Availability: {availability}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Warranty until: {warrantyUntil}
+              </Typography>
+              <Typography variant="body2" component="p">
+                Condition: {condition}
+              </Typography>
+            </CardContent>
+          </Card>
+
           <div>
-            {description}
-            {brand}
-            {tags}
-            {category}
-            {quantity}
-            {price}
-            {currency}
-            {company}
-            {/* // TODO @Ninette: Add latitude, longitude */}
-            {availability}
-            {warrantyUntil}
-            {condition}
             {/* // TODO: Only seller should see `isSold` */}
             {isSold}
             {createdAt}
           </div>
-          <p>
+          {/* <p>
             Send request to seller and he or she will be able to view your email
             address to contact you
-          </p>
+          </p> */}
           {
             <SessionUserContext.Consumer>
               {contextUser => {
@@ -162,11 +187,17 @@ class ProductDetails extends Component {
                 console.log("session user id", contextUser);
 
                 return requested.some(user => user === contextUser.user._id) ? (
-                  <Button variant="contained" color="primary" disabled>
+                  <Button
+                    style={{ margin: "0 43%" }}
+                    variant="contained"
+                    color="primary"
+                    disabled
+                  >
                     Request Sent
                   </Button>
                 ) : (
                   <Button
+                    style={{ margin: "0 43%" }}
                     variant="contained"
                     color="primary"
                     onClick={() => this.handleClick(_id)}
@@ -177,8 +208,8 @@ class ProductDetails extends Component {
               }}
             </SessionUserContext.Consumer>
           }
-        </React.Fragment>
-      </div>
+        </div>
+      </>
     );
   }
 }

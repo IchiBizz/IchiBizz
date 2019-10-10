@@ -26,10 +26,10 @@ const DashboardBuyerOrder = props => {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Your Orders</h1>
+      <h2 style={{ textAlign: "center" }}>Your Orders</h2>
       {filteredProduct.map(product => {
         return (
-          <ExpansionPanel>
+          <ExpansionPanel style={{ margin: "1% 5%" }}>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -42,7 +42,7 @@ const DashboardBuyerOrder = props => {
             <ExpansionPanelDetails>
               <Typography>
                 <img
-                  style={{ height: "15%" }}
+                  style={{ height: "200px" }}
                   src={`${product.imageUrl[0]}`}
                   alt="product-image"
                 />
