@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-// import AddProduct from "./AddProduct";
-// import {
-//   Button,
-//   Grid
-// } from "@material-ui/core";
 
 export default class ProductDetails extends Component {
   state = {
@@ -127,6 +122,7 @@ export default class ProductDetails extends Component {
             {isSold}
             {createdAt}
           </div>
+
         </React.Fragment>
       </div>
     )
