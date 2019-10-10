@@ -91,10 +91,6 @@ class GoogleMapsInput extends Component {
       });
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return false;
-  }
-
   render() {
     const AsyncMap = withScriptjs(
       withGoogleMap(props => (
