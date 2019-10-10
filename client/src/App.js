@@ -42,6 +42,9 @@ export default class App extends Component {
               <SignUp />
               <Login />
             </div>
+            <div id="logImg">
+              <img src="../../logo3.png" alt="logo" />
+            </div>
           </section>
         </div>
       </div>

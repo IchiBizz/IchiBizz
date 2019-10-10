@@ -26,6 +26,13 @@ body {
 #titleimg img {
   width: 100%;
 }
+
+#logImg {
+  width: 30px;
+}
+#logImg img {
+  width: 100%;
+}
 .filterContainer > * {
   width: 50%;
 }
@@ -101,7 +108,7 @@ h1 {
 .loginbox {
   position: relative;
   overflow: hidden;
-  padding: 170px 0;
+  padding: 180px 0;
   z-index: 2;
 }
 
