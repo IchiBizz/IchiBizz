@@ -100,7 +100,7 @@ class ProductsList extends Component {
     const distinctCity = [
       ...new Set(
         this.state.products.map(product => {
-          return product.location.city;
+          return product.location && product.location.city;
         })
       )
     ];

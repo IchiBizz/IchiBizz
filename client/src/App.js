@@ -20,6 +20,10 @@ export default class App extends Component {
   //   });
   // };
 
+import EditProduct from "./components/products/EditProduct";
+import SignUp from "./components/SignUp";
+
+
   render() {
     return (
       <div className="App">
@@ -44,6 +48,18 @@ export default class App extends Component {
             </div>
           </section>
         </div>
+
+        <Route
+          exact
+          path="/products/new"
+          component={AddProduct}
+        />
+        <Route
+          exact
+          path="/products/edit/:id"
+          component={EditProduct}
+        />
+    
       </div>
 
       // <div className="userPage">
