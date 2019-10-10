@@ -33,12 +33,14 @@ class ProductDetails extends Component {
 
   getData = () => {
     const id = this.props.match.params.id;
-    // console.log(`id`, id)
+    // console.log(`id`, id);
 
     axios
       .get(`/api/products/${id}`)
       .then(response => {
         // TODO @Ninette: latitude, longitude
+        console.log("resopnse", response);
+
         this.setState({
           title: response.data.title,
           description: response.data.description,
@@ -53,7 +55,9 @@ class ProductDetails extends Component {
           availability: response.data.availability,
           warrantyUntil: response.data.warrantyUntil,
           condition: response.data.condition,
-          createdAt: response.data.createdAt
+          createdAt: response.data.createdAt,
+          requested: response.data.requested,
+          _id: response.data._id
         });
         // console.log(`GET this.state.response`, response.data)
       })
@@ -75,6 +79,7 @@ class ProductDetails extends Component {
   handleClick = id => {
     console.log("handle id", id);
     axios.put(`api/products/request/${id}`).then(response => {
+      console.log("request response", response);
       let updatedProducts = this.context.products.map(product => {
         if (id === response.data._id) return response.data;
         else return product;
@@ -107,6 +112,8 @@ class ProductDetails extends Component {
     } = this.state;
 
     //  console.log(`imageUrl`, imageUrl);
+
+    console.log("requested", requested, "title", title);
 
     return (
       <div>
@@ -151,7 +158,10 @@ class ProductDetails extends Component {
             <SessionUserContext.Consumer>
               {contextUser => {
                 console.log("requested", requested);
-                return requested.some(user => user._id === contextUser._id) ? (
+                console.log("id", _id);
+                console.log("session user id", contextUser);
+
+                return requested.some(user => user === contextUser.user._id) ? (
                   <Button variant="contained" color="primary" disabled>
                     Request Sent
                   </Button>

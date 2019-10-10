@@ -80,13 +80,14 @@ const DashSellerProducts = props => {
           color="secondary"
           variant="extended"
           aria-label="add-product"
-          className={classes.fab}
+          // className={classes.fab}
+          className="addProductBtn"
         >
           <AddIcon className={classes.extendedIcon} />
           Add Product
         </Fab>
       </Link>
-      <Paper>
+      <Paper className="soldProductContainer">
         <Table>
           <TableHead>
             <TableRow>

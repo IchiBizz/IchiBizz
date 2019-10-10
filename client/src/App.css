@@ -34,3 +34,23 @@
 .App-link {
   color: #09d3ac;
 } */
+
+.requestContainer{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap
+}
+
+.requestContainer> *{
+  margin:2%
+}
+
+.soldProductContainer{
+  margin: 5%
+}
+
+.addProductBtn> *{
+  text-align: center;
+  text-decoration: none;
+}

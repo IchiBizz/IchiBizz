@@ -55,7 +55,7 @@ export default class AddProduct extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    console.log(this.state)
+    console.log(this.state);
     axios
       // GET api/products/new to map POST route in the backend`
       .post("/api/products/new", {
@@ -146,15 +146,18 @@ export default class AddProduct extends Component {
     // req.body to .create() method when creating a new Image in '/api/products/new' POST route
     uploadData.append("imageUrl", event.target.files[0]);
 
-    service.handleUpload(uploadData)
-    .then(response => {
-      console.log(response)
-        this.setState({imageUrl:[...this.state.imageUrl,response.secure_url]});
+    service
+      .handleUpload(uploadData)
+      .then(response => {
+        console.log(response);
+        this.setState({
+          imageUrl: [...this.state.imageUrl, response.secure_url]
+        });
       })
       .catch(err => {
         console.log("Error while uploading the file: ", err);
       });
-  }
+  };
 
   getMapData = (address, country, city, lat, lng) => {
     this.setState({
@@ -444,7 +447,8 @@ export default class AddProduct extends Component {
             variant="outlined"
             className={classes.button}
             onClick={this.handleSubmit}
-            noValidate >
+            noValidate
+          >
             Create
           </Button>
         </FormControl>

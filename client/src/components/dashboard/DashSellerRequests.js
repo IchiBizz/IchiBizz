@@ -53,7 +53,7 @@ const DashSellerRequests = props => {
   return (
     <>
       <h1 style={{ textAlign: "center" }}>Requests to buy</h1>
-      <div>
+      <div className="requestContainer">
         {filteredProduct.map(product => {
           console.log("buyer", product.buyer);
           return (
