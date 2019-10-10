@@ -3,6 +3,7 @@ import { Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
 import Button from "@material-ui/core/Button";
+import Logout from "./Logout";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
@@ -19,6 +20,7 @@ import MenuRoundedIcon from "@material-ui/icons/MenuRounded";
 import { blue, red } from "@material-ui/core/colors";
 import "../App.css";
 import ProductsList from "./products/ProductsList";
+import { withRouter } from "react-router";
 // import iconSun from '../../public/iconSun-small.png';
 const useStyles = makeStyles({
   list: {
@@ -29,7 +31,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SwipeableTemporaryDrawer() {
+let SwipeableTemporaryDrawer = props => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     right: false
@@ -55,7 +57,7 @@ export default function SwipeableTemporaryDrawer() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        <ListItem>
+        {/* <ListItem>
           <Link
             to="/contact"
             style={{ color: "#616161", textDecoration: "none" }}
@@ -64,21 +66,25 @@ export default function SwipeableTemporaryDrawer() {
             Profile
             <ListItemText />
           </Link>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
+          <Link
+            to="/dashboard"
+            style={{ color: "#616161", textDecoration: "none" }}
+          >
             <DashboardIcon />
             My Dashboard
             <ListItemText />
           </Link>
         </ListItem>
-        <ListItem>
+        {/* <ListItem>
           <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
             <StarsIcon />
             Wishlist
             <ListItemText />
           </Link>
-        </ListItem>
+        </ListItem> */}
+
         <ListItem>
           <Link
             to="/products"
@@ -93,11 +99,9 @@ export default function SwipeableTemporaryDrawer() {
       <Divider />
       <List>
         <ListItem>
-          <Link to="#" style={{ color: "#616161", textDecoration: "none" }}>
-            <MeetingRoomIcon />
-            Logout
-            <ListItemText />
-          </Link>
+          <MeetingRoomIcon />
+          <Logout />
+          <ListItemText />
         </ListItem>
       </List>
     </div>
@@ -120,9 +124,12 @@ export default function SwipeableTemporaryDrawer() {
         open={state.right}
         onClose={toggleDrawer("right", false)}
         onOpen={toggleDrawer("right", true)}
+        {...props}
       >
         {sideList("right")}
       </SwipeableDrawer>
     </div>
   );
-}
+};
+
+export default withRouter(SwipeableTemporaryDrawer);

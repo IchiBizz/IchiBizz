@@ -24,9 +24,8 @@ export default class Home extends Component {
           </div>
           <section className="loginbox">
             <div className="logincontainer">
-              
-              <SignUp />
-              <Login />
+              <SignUp {...this.props} />
+              <Login {...this.props} />
             </div>
             <div id="logImg">
               <img src="../../logo3.png" alt="logo" />

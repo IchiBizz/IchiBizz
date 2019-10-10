@@ -30,71 +30,87 @@ export default class App extends Component {
     this.setState({ products });
   };
 
+  setUser = user => {
+    this.setState({ user });
+  };
+
   render() {
     return (
       <>
-       <Route exact path="/" component={Home} />
-       <div className="userPage">
-        <Navbar />
-         <div className="wrapper">
-        <SessionUserProvider value={{ user: this.state.user }}>
-          <ProductProvider
-            value={{
-              products: this.state.products,
-              updateProductData: this.updateProductData
-            }}
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <Home {...props} user={this.state.user} setUser={this.setUser} />
+          )}
+        />
+        <div className="userPage">
+          <SessionUserProvider
+            value={{ user: this.state.user, setUser: this.setUser }}
           >
-            <Route
-              exact
-              path="/signup"
-              user={this.state.user}
-              component={SignUp}
-            />
-            <Route
-              exact
-              path="/login"
-              user={this.state.user}
-              component={Login}
-            />
-            <UserContextProvider>
-              <Switch>
-                <Protected
+            <Navbar />
+            <div className="wrapper">
+              <ProductProvider
+                value={{
+                  products: this.state.products,
+                  updateProductData: this.updateProductData
+                }}
+              >
+                <Route
                   exact
-                  path="/dashboard"
+                  path="/signup"
                   user={this.state.user}
-                  component={DashboardContainer}
+                  component={SignUp}
                 />
                 <Route
                   exact
-                  path="/products"
-                  user={this.state.user}
-                  component={ProductsList}
+                  path="/login"
+                  render={props => (
+                    <Login
+                      user={this.state.user}
+                      setUser={this.setUser}
+                      {...props}
+                    />
+                  )}
                 />
-                <Protected
-                  exact
-                  path="/products/new"
-                  user={this.state.user}
-                  component={AddProduct}
-                />
-                <Route
-                  exact
-                  path="/products/:id"
-                  user={this.state.user}
-                  component={ProductDetails}
-                />
-                <Protected
-                  exact
-                  path="/products/edit/:id"
-                  component={EditProduct}
-                />
-              <Route component={Error} />
-              </Switch>
-            </UserContextProvider>
-          </ProductProvider>
-        </SessionUserProvider>
+                <UserContextProvider>
+                  <Switch>
+                    <Protected
+                      exact
+                      path="/dashboard"
+                      user={this.state.user}
+                      component={DashboardContainer}
+                    />
+                    <Route
+                      exact
+                      path="/products"
+                      user={this.state.user}
+                      component={ProductsList}
+                    />
+                    <Protected
+                      exact
+                      path="/products/new"
+                      user={this.state.user}
+                      component={AddProduct}
+                    />
+                    <Route
+                      exact
+                      path="/products/:id"
+                      user={this.state.user}
+                      component={ProductDetails}
+                    />
+                    <Protected
+                      exact
+                      path="/products/edit/:id"
+                      component={EditProduct}
+                    />
+                    <Route component={Error} />
+                  </Switch>
+                </UserContextProvider>
+              </ProductProvider>
+            </div>
+          </SessionUserProvider>
         </div>
-        </div>
-
       </>
     );
   }

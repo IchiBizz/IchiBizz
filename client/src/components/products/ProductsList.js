@@ -94,7 +94,7 @@ const ProductsList = props => {
     )
   ];
 
-  const handleMapChange = name => event => {
+  const handleMapChange = event => {
     setChecked(event.target.checked);
   };
 
