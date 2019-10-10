@@ -4,8 +4,7 @@ import { Button, Card, CardContent, Typography } from "@material-ui/core";
 import useStyles from "./ProductListStyles";
 import { ProductContext } from "../../contexts/ProductContext";
 import { SessionUserContext } from "../../contexts/SessionUserContext";
-const { red } = require("@material-ui/core/colors");
-const { withStyles } = require("@material-ui/core/styles");
+import { Link } from "react-router-dom";
 
 class ProductDetails extends Component {
   static contextType = ProductContext;
@@ -169,7 +168,6 @@ class ProductDetails extends Component {
               </Typography>
             </CardContent>
           </Card>
-
           <div>
             {/* // TODO: Only seller should see `isSold` */}
             {isSold}
@@ -179,35 +177,45 @@ class ProductDetails extends Component {
             Send request to seller and he or she will be able to view your email
             address to contact you
           </p> */}
-          {
-            <SessionUserContext.Consumer>
-              {contextUser => {
-                console.log("requested", requested);
-                console.log("id", _id);
-                console.log("session user id", contextUser);
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              margin: "1% 10%"
+            }}
+          >
+            <Link
+              to={`products/edit/${_id}`}
+              style={{ textDecoration: "none", margin: "0 2%" }}
+            >
+              <Button variant="contained">Edit Details</Button>
+            </Link>
+            {
+              <SessionUserContext.Consumer>
+                {contextUser => {
+                  console.log("requested", requested);
+                  console.log("id", _id);
+                  console.log("session user id", contextUser);
 
-                return requested.some(user => user === contextUser.user._id) ? (
-                  <Button
-                    style={{ margin: "0 43%" }}
-                    variant="contained"
-                    color="primary"
-                    disabled
-                  >
-                    Request Sent
-                  </Button>
-                ) : (
-                  <Button
-                    style={{ margin: "0 43%" }}
-                    variant="contained"
-                    color="primary"
-                    onClick={() => this.handleClick(_id)}
-                  >
-                    Send Request
-                  </Button>
-                );
-              }}
-            </SessionUserContext.Consumer>
-          }
+                  return requested.some(
+                    user => user === contextUser.user._id
+                  ) ? (
+                    <Button variant="contained" color="primary" disabled>
+                      Request Sent
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => this.handleClick(_id)}
+                    >
+                      Send Request
+                    </Button>
+                  );
+                }}
+              </SessionUserContext.Consumer>
+            }
+          </div>
         </div>
       </>
     );
