@@ -120,7 +120,15 @@ class ProductDetails extends Component {
       <>
         {/* <h1>Product Details Page</h1> */}
         <div className="productDetailImg" style={{ margin: "3% 0" }}>
-          <div style={{ margin: "0 25%" }}>
+          <div
+            style={{
+              margin: "0 25%",
+              display: "flex",
+              msFlexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
             {// TODO: Provide a unique key
             imageUrl &&
               imageUrl.map(img => {
@@ -128,7 +136,11 @@ class ProductDetails extends Component {
                   <img
                     src={img}
                     alt="business img"
-                    style={{ height: "200px", margin: "2%" }}
+                    style={{
+                      // height: "50%",
+                      width: "100%",
+                      margin: "2%"
+                    }}
                   />
                 );
               })}
@@ -181,7 +193,8 @@ class ProductDetails extends Component {
             style={{
               display: "flex",
               justifyContent: "center",
-              margin: "1% 10%"
+              margin: "1% 10%",
+              height: "100vh"
             }}
           >
             <Link
@@ -205,6 +218,9 @@ class ProductDetails extends Component {
                     </Button>
                   ) : (
                     <Button
+                      style={{
+                        height: "35px"
+                      }}
                       variant="contained"
                       color="primary"
                       onClick={() => this.handleClick(_id)}

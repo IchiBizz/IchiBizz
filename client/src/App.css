@@ -4,8 +4,26 @@
 }
 body {
   font-family: "Roboto", sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: rgb(68, 68, 68);
+}
+a:link {
+  text-decoration: none;
+  color: rgb(0, 27, 81);
+}
+
+a:visited {
+  text-decoration: none;
+  color: rgb(0, 27, 81);
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgb(0, 244, 247);
+}
+
+a:active {
+  text-decoration: none;
 }
 .App {
   text-align: center;
@@ -123,12 +141,10 @@ body {
   margin: 5%;
 }
 
-
 .addProductBtn > * {
-
   text-align: center;
   text-decoration: none;
-  display: inline-block
+  display: inline-block;
 }
 #bgVideo {
   width: 100%;
@@ -142,6 +158,10 @@ body {
 }
 h1 {
   font-size: 4rem;
+  margin: 0;
+}
+h2 {
+  font-size: 2rem;
   margin: 0;
 }
 
@@ -168,7 +188,6 @@ h1 {
 
 .main {
   position: absolute;
-  border: 1px solid black;
   top: 0;
   right: 0;
   width: 100vw;
@@ -204,3 +223,18 @@ h1 {
   width: 10px;
 }
 
+#error {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+#errorLogo {
+  width: 20%;
+}
+
+#errorLogo img {
+  width: 100%;
+}

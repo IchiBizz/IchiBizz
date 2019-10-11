@@ -3,11 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    height: "100vh"
   },
   requesterRoot: {
     flexGrow: 1,
-    width: "100%",
+    width: "80%",
     marginTop: theme.spacing(3),
     overflowX: "auto",
     maxWidth: 500,
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     padding: "2%"
   },
   table: {
-    minWidth: 700
+    minWidth: 500
   },
   fab: {
     margin: theme.spacing(1)

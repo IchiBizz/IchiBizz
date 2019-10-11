@@ -15,7 +15,17 @@ export default function DashboardContainer() {
 
   return (
     <div>
-      <div className={classes.root}>
+      <div
+        className={classes.root}
+        style={{
+          width: "65%",
+          display: "flex",
+          flexDirection: "column",
+          // justifyContent: "center",
+          // alignItems: "center",
+          margin: "auto"
+        }}
+      >
         <AppBar position="static">
           <Tabs
             value={selectedTab}
