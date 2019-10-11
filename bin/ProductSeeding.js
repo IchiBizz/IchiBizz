@@ -217,7 +217,7 @@ const seedInitialProducts = () => {
           address: Faker.address.streetAddress(),
           country: Faker.address.country()
         },
-        availability: Faker.date.between('2019-10-10', '2015-10-13'),
+        availability: Faker.date.between('2019-10-10', '2019-10-15'),
         warrantyUntil: Faker.date.future(),
         condition: Faker.random.arrayElement(conditions),
         isSold: false,
