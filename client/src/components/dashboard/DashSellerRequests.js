@@ -52,7 +52,7 @@ const DashSellerRequests = props => {
 
   return (
     <>
-      <h2 style={{ textAlign: "left", marginLeft: "10px" }}>Requests to buy</h2>
+      <h2 style={{ textAlign: "left", marginLeft: "20px" }}>Requests to buy</h2>
       <div
         className="requestContainer"
         style={{

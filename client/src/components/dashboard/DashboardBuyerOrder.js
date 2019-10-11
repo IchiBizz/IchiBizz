@@ -26,7 +26,7 @@ const DashboardBuyerOrder = props => {
 
   return (
     <>
-      <h2 style={{ textAlign: "left", marginLeft: "10px"}}>Your Orders</h2>
+      <h2 style={{ textAlign: "left", marginLeft: "20px" }}>Your Orders</h2>
       {filteredProduct.map(product => {
         return (
           <ExpansionPanel style={{ margin: "1% 5%" }}>

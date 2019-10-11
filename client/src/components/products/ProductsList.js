@@ -228,7 +228,7 @@ const ProductsList = props => {
                     className={classes.card}
                     style={{
                       width: "300px",
-                      height: "500px",
+                      height: "450px",
                       color: "white",
                       margin: "20px"
                     }}
@@ -252,7 +252,6 @@ const ProductsList = props => {
                           color="textSecondary"
                           component="p"
                         >
-                          {product.description} <br />
                           {product.currency} {product.price}
                         </Typography>
                       </CardContent>
@@ -271,6 +270,7 @@ const ProductsList = props => {
                           />
                         }
                         label="Add to Wishlist"
+                        style={{ color: "#001b51" }}
                       />
                     </CardActions>
                     {console.log(
