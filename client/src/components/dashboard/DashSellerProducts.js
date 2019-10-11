@@ -74,7 +74,7 @@ const DashSellerProducts = props => {
   return (
     <>
       {console.log(products)}
-      <h2 style={{ textAlign: "left", marginLeft: "10px" }}>Your Products</h2>
+      <h2 style={{ textAlign: "left", marginLeft: "20px", marginTop:"10px" }}>Your Products</h2>
       <Link to={"/products/new"} style={{ textDecoration: "none" }}>
         <Fab
           color="secondary"
