@@ -99,7 +99,6 @@ let SwipeableTemporaryDrawer = props => {
       <Divider />
       <List>
         <ListItem>
-          <MeetingRoomIcon />
           <Logout />
           <ListItemText />
         </ListItem>

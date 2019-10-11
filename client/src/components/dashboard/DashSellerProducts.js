@@ -74,7 +74,7 @@ const DashSellerProducts = props => {
   return (
     <>
       {console.log(products)}
-      <h2 style={{ textAlign: "center" }}>Your Products</h2>
+      <h2 style={{ textAlign: "left", marginLeft: "10px" }}>Your Products</h2>
       <Link to={"/products/new"} style={{ textDecoration: "none" }}>
         <Fab
           color="secondary"
@@ -82,12 +82,11 @@ const DashSellerProducts = props => {
           aria-label="add-product"
           // className={classes.fab}
           className="addProductBtn"
-          style={{ margin: " 0 43%" }}
+          style={{
+            margin: "2%"
+          }}
         >
-          <AddIcon
-            className={classes.extendedIcon}
-            style={{ textAlign: "center" }}
-          />
+          <AddIcon className={classes.extendedIcon} />
           Add Product
         </Fab>
       </Link>

@@ -191,7 +191,15 @@ const ProductsList = props => {
           }
           label="check the map"
         />
-        <div className={classes.container}>
+        <div
+          className={classes.container}
+          style={{
+            display: "flex",
+            marginLeft: "10px",
+            msFlexDirection: "row",
+            alignItems: "center"
+          }}
+        >
           <Fade in={checked}>
             <Paper elevation={4} className={classes.paper}>
               <GoogleMapsProductsList filteredProduct={filteredProduct} />
@@ -200,21 +208,36 @@ const ProductsList = props => {
         </div>
       </div>
 
-      <div style={{ marginTop: "200px", marginLeft: "10px" }}>
+      <div>
         <div className={classes.mapListContainer}>
-          <div>
+          <div
+            style={{
+              display: "flex",
+              msFlexDirection: "row",
+              justifyContent: "spaceEvenly",
+              alignItems: "center",
+              flexWrap: "wrap",
+              marginTop: "120px",
+              marginBottom: "300px"
+            }}
+          >
             {filteredProduct.map(product => {
               return (
                 <>
                   <Card
                     className={classes.card}
-                    style={{ width: "350px", color: "white" }}
+                    style={{
+                      width: "300px",
+                      height: "500px",
+                      color: "white",
+                      margin: "20px"
+                    }}
                   >
                     <CardActionArea>
                       <CardMedia
                         component="img"
                         alt={product.title}
-                        height="350"
+                        height="180"
                         image={`${product.imageUrl[0]}`}
                         title={product.title}
                       />

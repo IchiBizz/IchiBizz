@@ -20,10 +20,11 @@ export default class Home extends Component {
             <div id="titleimg">
               <img src="../../logo1.png" alt="logo" />
             </div>
-            <h2>i need small text here</h2>
+            <h2>to start your own business</h2>
           </div>
           <section className="loginbox">
             <div className="logincontainer">
+             
               <SignUp {...this.props} />
               <Login {...this.props} />
             </div>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Home from "./components/Home";
-import Error from "./components/Error";
+import ErrorPage from "./components/ErrorPage";
 import ProductsList from "./components/products/ProductsList";
 import WebFont from "webfontloader";
 import SignUp from "./components/SignUp";
@@ -104,7 +104,7 @@ export default class App extends Component {
                       path="/products/edit/:id"
                       component={EditProduct}
                     />
-                    <Route component={Error} />
+                    <Route path="/404" component={ErrorPage} />
                   </Switch>
                 </UserContextProvider>
               </ProductProvider>
