@@ -1,10 +1,17 @@
 # IchiBizz
 
+## 1. About the app
 Competing against big companies is hard. Additionally, getting rid of your stuff is cumbersome. Closing your business and/or selling your business inventory requires a lot of patience because existing marketplaces mainly focus on private users for used products.
 
 IchiBizz is a dedicated marketplace for used business inventory. It connects existing or retiring small business owners with new business owners that are lacking big budgets, networks and knowledge to get their business started.
 
-## 1. Tools Set
+## 2. About the project and team
+
+This project is the final [Ironhack](https://ironhack.com) Berlin project built by [Noriko Takizawa](https://github.com/noliko-zwa), [Ninette Adhikari](https://github.com/ninetteadhikari) & [Thuy Le](https://github.com/1000miles).
+
+We are Ironhack Berlin Web Development Aluminis and plan to continue this project as a learning project to fix bugs and to add more features in the future.
+
+## 2. Tools Set
 
 - MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS)
 - Cloudinary (Images Upload)
@@ -15,14 +22,14 @@ IchiBizz is a dedicated marketplace for used business inventory. It connects exi
 - FakerJS (Fake Data)
 - Passport (Signup/Login)
 
-### 1.1 Next Features
+### 2.1 Next Tools & Features
 
 - Nodemailer
 - Passport Social Login via Google, LinkedIn, Facebook
 - GoogleVision (Tagging)
 - Socket.io (Chat)
 
-## 2. Getting Started
+## 3. Getting Started
 
 Project Structure:
 
@@ -42,16 +49,16 @@ Project Structure:
 └── views
 ```
 
-### 2.1 Development
+### 4.1 Development
 
-2.1 Clone the project and navigate to the project.
+4.1 Clone the project and navigate to the project.
 
 ```shell
 # ssh or https
 $ git clone git@github.com:IchiBizz/IchiBizz.git OR git clone https://github.com/IchiBizz/IchiBizz.git
 $ cd IchiBizz
 ```
-2.2 Install all npm packages for the server app and react app.
+4.2 Install all npm packages for the server app and react app.
 
 ```shell
 # server app
@@ -61,9 +68,9 @@ $ npm install
 $ npm install --prefix client/
 ```
 
-2.3 Rename the `.env_SAMPLE` file to `.env` that have prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
+4.3 Rename the `.env_SAMPLE` file to `.env` that have prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
 
-2.4 Seed the fake data for `User` (first) and `Product` (second).
+4.4 Seed the fake data for `User` (first) and `Product` (second).
 
 ```shell
 # In the root directory
@@ -71,7 +78,7 @@ $ node bin/UserSeeding.js
 $ node bin/ProductSeeding.js
 ```
 
-2.5 Start the server app AND the react app.
+4.5 Start the server app AND the react app.
 
 ```shell
 # server
