@@ -1,9 +1,12 @@
 # IchiBizz
 
 ## 1. About the app
+
 Competing against big companies is hard. Additionally, getting rid of your stuff is cumbersome. Closing your business and/or selling your business inventory requires a lot of patience because existing marketplaces mainly focus on private users for used products.
 
-IchiBizz is a dedicated marketplace for used business inventory. It connects existing or retiring small business owners with new business owners that are lacking big budgets, networks and knowledge to get their business started.
+IchiBizz is a dedicated marketplace for used business inventory. It connects existing or retiring business owners with new business owners that are lacking big budgets, networks and knowledge to get their business started.
+
+This app aims to be a helpful solution for small business owners, freelancers, collectives, individuals and more out of a various list of business types such as restaurants, copy shops, rental services, pizzerias, editorials, cafés, clothing stores, co-working spaces, hostels, hair shops, etc.
 
 ## 2. About the project and team
 
@@ -67,7 +70,7 @@ $ npm install
 # client app
 $ npm install --prefix client/
 ```
-3.3 Rename the `.env_SAMPLE` file to `.env` that have prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
+3.3 Rename the `.env_SAMPLE` file to `.env` that has prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
 
 3.4 Seed the fake data for `User` (first) and `Product` (second).
 
