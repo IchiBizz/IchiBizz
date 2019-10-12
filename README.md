@@ -49,16 +49,16 @@ Project Structure:
 └── views
 ```
 
-### 4.1 Development
+### 3.1 Development
 
-4.1 Clone the project and navigate to the project.
+3.1 Clone the project and navigate to the project.
 
 ```shell
 # ssh or https
 $ git clone git@github.com:IchiBizz/IchiBizz.git OR git clone https://github.com/IchiBizz/IchiBizz.git
 $ cd IchiBizz
 ```
-4.2 Install all npm packages for the server app and react app.
+3.2 Install all npm packages for the server app and react app.
 
 ```shell
 # server app
@@ -67,10 +67,9 @@ $ npm install
 # client app
 $ npm install --prefix client/
 ```
+3.3 Rename the `.env_SAMPLE` file to `.env` that have prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
 
-4.3 Rename the `.env_SAMPLE` file to `.env` that have prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
-
-4.4 Seed the fake data for `User` (first) and `Product` (second).
+3.4 Seed the fake data for `User` (first) and `Product` (second).
 
 ```shell
 # In the root directory
@@ -78,7 +77,7 @@ $ node bin/UserSeeding.js
 $ node bin/ProductSeeding.js
 ```
 
-4.5 Start the server app AND the react app.
+3.5 Start the server app AND the react app.
 
 ```shell
 # server
