@@ -66,14 +66,14 @@ Project Structure:
 
 ### 3.1 Development
 
-3.1 [Fork](https://help.github.com/en/articles/fork-a-repo) and clone this repo from your fork.
+3.1.1 [Fork](https://help.github.com/en/articles/fork-a-repo) and clone this repo from your fork.
 
 ```shell
 # Clone via ssh or https after fork
 $ git clone git@github.com:YourUserName/IchiBizz.git OR git clone https://github.com/YourUserName/IchiBizz.git
 $ cd IchiBizz
 ```
-3.2 Navigate to the project and install all npm packages for the server app and react app.
+3.1.2 Navigate to the project and install all npm packages for the server app and react app.
 
 ```shell
 # server app
@@ -82,9 +82,9 @@ $ npm install
 # client app
 $ npm install --prefix client/
 ```
-3.3 Rename the `.env_SAMPLE` file to `.env` that has prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
+3.1.3 Rename the `.env_SAMPLE` file to `.env` that has prefilled environment variables (ENV_VARS) for `PORT` and `NODE_ENV`. Make sure this file is always listed in `.gitignore`.
 
-3.4 Seed the fake data for `User` (first) and `Product` (second).
+3.1.4 Seed the fake data for `User` (first) and `Product` (second).
 
 ```shell
 # In the root directory
@@ -92,7 +92,7 @@ $ node bin/UserSeeding.js
 $ node bin/ProductSeeding.js
 ```
 
-3.5 Start the server app AND the react app.
+3.1.5 Start the server app AND the react app.
 
 ```shell
 # server
