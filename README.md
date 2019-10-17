@@ -2,7 +2,7 @@
 
 ## 1. About the app
 
-Competing against big companies is hard. Additionally, getting rid of your stuff is cumbersome. Closing your business and/or selling your business inventory requires a lot of patience because existing marketplaces mainly focus on private users for used products.
+Getting rid of your business equipment is cumbersome. Closing your business and/or selling your business inventory requires a lot of patience and energy when existing marketplaces mainly focus on private users for used products.
 
 IchiBizz is a dedicated marketplace for used business inventory. It connects existing or retiring business owners with new business owners that are lacking big budgets, networks and knowledge to get their business started.
 
@@ -12,25 +12,37 @@ This app aims to be a helpful solution for small business owners, freelancers, c
 
 This project is the final [Ironhack](https://ironhack.com) Berlin project built by [Noriko Takizawa](https://github.com/noliko-zwa), [Ninette Adhikari](https://github.com/ninetteadhikari) & [Thuy Le](https://github.com/1000miles).
 
-We are Ironhack Berlin Web Development Aluminis and plan to continue this project as a learning project to fix bugs and to add more features in the future.
+We are Ironhack Berlin Web Development Graduates (Oct 2019) and plan to continue as a learning project to fix bugs, refactor code and to add more features in the future.
 
-## 2. Tools Set
+## 2. Stack & Tools Set
 
-- MERN stack (MongoDB, ExpressJS, ReactJS, NodeJS)
+### 2.1 Stack
+
+- MERN stack
+  - MongoDB
+  - ExpressJS
+  - ReactJS
+  - NodeJS
 - Cloudinary (Images Upload)
 - Material UI (Design)
 - Google Maps
-- MongoDB Compass
-- Heroku (Hosting)
 - FakerJS (Fake Data)
 - Passport (Signup/Login)
+- NPM (packages management)
 
-### 2.1 Next Tools & Features
+### 2.2 External Stack & Tools
 
-- Nodemailer
+- Heroku (Hosting)
+- MongoDB Compass
+- Postman (http requests)
+
+### 2.3 Next Tools & Features
+
+- Nodemailer (Notifications for `requested` products and emails)
 - Passport Social Login via Google, LinkedIn, Facebook
 - GoogleVision (Tagging)
 - Socket.io (Chat)
+- Testing
 
 ## 3. Getting Started
 
@@ -54,14 +66,14 @@ Project Structure:
 
 ### 3.1 Development
 
-3.1 Clone the project and navigate to the project.
+3.1 [Fork](https://help.github.com/en/articles/fork-a-repo) and clone this repo.
 
 ```shell
 # ssh or https
 $ git clone git@github.com:IchiBizz/IchiBizz.git OR git clone https://github.com/IchiBizz/IchiBizz.git
 $ cd IchiBizz
 ```
-3.2 Install all npm packages for the server app and react app.
+3.2 Navigate to the project and install all npm packages for the server app and react app.
 
 ```shell
 # server app
