@@ -66,11 +66,11 @@ Project Structure:
 
 ### 3.1 Development
 
-3.1 [Fork](https://help.github.com/en/articles/fork-a-repo) and clone this repo.
+3.1 [Fork](https://help.github.com/en/articles/fork-a-repo) and clone this repo from your fork.
 
 ```shell
-# ssh or https
-$ git clone git@github.com:IchiBizz/IchiBizz.git OR git clone https://github.com/IchiBizz/IchiBizz.git
+# Clone via ssh or https after fork
+$ git clone git@github.com:YourUserName/IchiBizz.git OR git clone https://github.com/YourUserName/IchiBizz.git
 $ cd IchiBizz
 ```
 3.2 Navigate to the project and install all npm packages for the server app and react app.
